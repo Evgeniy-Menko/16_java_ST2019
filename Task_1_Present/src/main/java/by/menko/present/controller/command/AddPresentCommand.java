@@ -20,7 +20,6 @@ public class AddPresentCommand implements Command {
         Validator validator = new Validator();
         System.out.println("Enter name customer.");
         String nameCustomer = scan.nextLine();
-
         Map<String, Presents> storage = DAO.getAllPresents();
         boolean key = storage.containsKey(nameCustomer);
         if (validator.isValidatorPresents(nameCustomer) && !key) {
