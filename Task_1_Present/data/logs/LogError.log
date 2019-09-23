@@ -1,0 +1,1 @@
+2019-09-23 12:55:33,341 INFO command.Command [main] by.menko.present.controller.command.ReadFileCommand.execute(ReadFileCommand.java:51) File is read and objects are added in storage.
