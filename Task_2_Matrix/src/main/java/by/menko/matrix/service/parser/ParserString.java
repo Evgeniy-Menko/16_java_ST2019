@@ -16,7 +16,7 @@ public class ParserString {
         return word.split(" ");
     }
 
-    public List<String> parseString(final String word) {
+    public List<String> parseToList(final String word) {
         List<String> list = Arrays.asList(word.split("\\r?\\n"));
         return list.stream().filter(c -> !c.equals("")).collect(Collectors.toList());
     }
