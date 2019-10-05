@@ -26,21 +26,20 @@ public class Main {
         m1.addMatrix(l);
         int[][] m = m1.getMatrix();
 
-     /* Semaphore sem = new Semaphore(5,true);
-        for (int i = 1; i <= 10; i++) {
-            Thread t = new Thread(new SemaphoreThreads(sem, "Threads " + i, m,i-1));
+     Semaphore sem = new Semaphore(2,true);
+        for (int i = 1; i <= 5; i++) {
+            Thread t = new Thread(new SemaphoreThreads(sem, "Threads " + i, m));
             t.start();
-            if (i == 10) {
+            if (i == 5) {
                 t.join();
             }
 
 
         }
-*/
-        //TimeUnit.SECONDS.sleep(3);
+//TimeUnit.SECONDS.sleep(3);
 
 
-     /*ReentrantLock locker = new ReentrantLock(); // создаем заглушку
+   /*  ReentrantLock locker = new ReentrantLock(); // создаем заглушку
         for (int i = 1; i < 6; i++) {
             Thread t = new Thread(new LockThreads(m, locker));
             t.setName("Thread " + i);
@@ -50,7 +49,7 @@ public class Main {
             }
         }*/
         // TimeUnit.SECONDS.sleep(2);
-        System.out.println(m.length);
+      /*  System.out.println(m.length);
         ExecutorService executor;
         executor = Executors.newFixedThreadPool(5);
         for (int i = 1; i < 6; i++) {
@@ -59,6 +58,7 @@ public class Main {
 
         TimeUnit.SECONDS.sleep(3);
         executor.shutdown();
+        */
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
                 System.out.print(m[i][j] + " ");
