@@ -1,5 +1,6 @@
 import by.menko.matrix.bean.ExecutorThreads;
 import by.menko.matrix.bean.LockThreads;
+import by.menko.matrix.bean.MyThread;
 import by.menko.matrix.bean.SemaphoreThreads;
 import by.menko.matrix.dal.matrix.Matrix;
 import by.menko.matrix.service.file.ServiceFile;
@@ -26,7 +27,7 @@ public class Main {
         m1.addMatrix(l);
         int[][] m = m1.getMatrix();
 
-     Semaphore sem = new Semaphore(2,true);
+    /* Semaphore sem = new Semaphore(2,true);
         for (int i = 1; i <= 5; i++) {
             Thread t = new Thread(new SemaphoreThreads(sem, "Threads " + i, m));
             t.start();
@@ -35,7 +36,7 @@ public class Main {
             }
 
 
-        }
+        }*/
 //TimeUnit.SECONDS.sleep(3);
 
 
@@ -59,6 +60,16 @@ public class Main {
         TimeUnit.SECONDS.sleep(3);
         executor.shutdown();
         */
+        for (int i = 1; i < 6; i++) {
+            Thread t = new Thread(new MyThread(m));
+            t.setName("Thread " + i);
+            t.start();
+            if (i == 5) {
+                t.join();
+            }
+        }
+
+
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
                 System.out.print(m[i][j] + " ");
