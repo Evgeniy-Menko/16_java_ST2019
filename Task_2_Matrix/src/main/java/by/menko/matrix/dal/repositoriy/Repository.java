@@ -2,17 +2,12 @@ package by.menko.matrix.dal.repositoriy;
 
 import by.menko.matrix.dal.MatrixRepository;
 import by.menko.matrix.dal.Specification;
-import by.menko.matrix.dal.matrix.Matrix;
+import by.menko.matrix.dal.storage.Matrix;
 
 import java.util.List;
 
 public class Repository implements MatrixRepository {
     Matrix storage = Matrix.getInstance();
-
-    @Override
-    public void setThreadsCount(int count) {
-        storage.setCountThreads(count);
-    }
 
     @Override
     public int getThreadsCount() {
@@ -31,6 +26,6 @@ public class Repository implements MatrixRepository {
 
     @Override
     public int[][] query(Specification specification) {
-        return specification.specified(storage.getMatrix());
+        return specification.specified(getMatrix(),getThreadsCount());
     }
 }

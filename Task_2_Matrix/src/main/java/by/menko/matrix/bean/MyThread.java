@@ -5,10 +5,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MyThread extends Thread {
-    ReentrantLock locker;
+    int index;
     int[][] matrix;
-    int[] value = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    private static AtomicInteger index = new AtomicInteger(0);
+    int[] value = new int[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    private static AtomicInteger count = new AtomicInteger(0);
 
     public MyThread(int[][] matrix) {
         this.matrix = matrix;
@@ -16,24 +16,31 @@ public class MyThread extends Thread {
 
     @Override
     public void run() {
-        while (index.get() < matrix.length) {
+
+        while (count.get() < matrix.length) {
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+
+                index = count.getAndIncrement();
 
 
-                if (index.get() < matrix.length && matrix[index.get()][index.get()] == 0) {
-                    matrix[index.get()][index.get()] = value[index.get()];
+                if (index < matrix.length && matrix[index][index] == 0) {
+
+                    matrix[index][index] = value[index];
+
                     System.out.printf("%s %s %d %n", Thread
                                     .currentThread().getName(),
-                            "added ", value[index.get()]);
-                    index.incrementAndGet();
+                            "added ", value[index]);
+
+                    TimeUnit.MILLISECONDS.sleep(100);
+
                 }
 
 
-                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
 }
+

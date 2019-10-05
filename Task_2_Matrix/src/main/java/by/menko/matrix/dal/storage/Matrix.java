@@ -1,4 +1,4 @@
-package by.menko.matrix.dal.matrix;
+package by.menko.matrix.dal.storage;
 
 import by.menko.matrix.service.parser.ParserString;
 
@@ -27,13 +27,10 @@ public class Matrix {
         return countThreads;
     }
 
-    public void setCountThreads(int countThreads) {
-        this.countThreads = countThreads;
-    }
-
     public void addMatrix(List<String> matrixValue) {
         matrixArray = new int[matrixValue.size() - 1]
                 [matrixValue.size() - 1];
+        countThreads = Integer.parseInt(matrixValue.get(0));
         ParserString p = new ParserString();
         for (int i = 0; i < matrixArray.length; i++) {
             String[] value = p.parserString(matrixValue.get(i + 1));
