@@ -2,6 +2,7 @@ package by.menko.matrix.dal.storage;
 
 import by.menko.matrix.service.parser.ParserString;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Matrix {
@@ -11,6 +12,7 @@ public class Matrix {
     private int countThreads;
 
     private int[][] matrixArray;
+    private List<Integer> valuesDiagonal;
 
     private Matrix() {
 
@@ -21,6 +23,14 @@ public class Matrix {
             matrix = new Matrix();
         }
         return matrix;
+    }
+
+    public List<Integer> getValuesDiagonal() {
+        return valuesDiagonal;
+    }
+
+    public void setValuesDiagonal(List<Integer> valuesDiagonal) {
+        this.valuesDiagonal = valuesDiagonal;
     }
 
     public int getCountThreads() {
@@ -40,7 +50,13 @@ public class Matrix {
         }
     }
 
+    public void addValuesDiagonal(List<Integer> values) {
+        valuesDiagonal = values;
+    }
+
     public int[][] getMatrix() {
-        return matrixArray.clone();
+        return Arrays.stream(matrixArray)
+                .map(r -> Arrays.copyOf(r, r.length))
+                .toArray(int[][]::new);
     }
 }

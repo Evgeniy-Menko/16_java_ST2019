@@ -10,6 +10,16 @@ public class Repository implements MatrixRepository {
     Matrix storage = Matrix.getInstance();
 
     @Override
+    public void addValuesDiagonal(List<Integer> values) {
+        storage.addValuesDiagonal(values);
+    }
+
+    @Override
+    public List<Integer> getValuesDiagonal() {
+        return storage.getValuesDiagonal();
+    }
+
+    @Override
     public int getThreadsCount() {
         return storage.getCountThreads();
     }
@@ -25,7 +35,7 @@ public class Repository implements MatrixRepository {
     }
 
     @Override
-    public int[][] query(Specification specification) {
-        return specification.specified(getMatrix(),getThreadsCount());
+    public int[][] query(Specification specification) throws InterruptedException {
+        return specification.specified(getMatrix(), getThreadsCount(), getValuesDiagonal());
     }
 }

@@ -1,5 +1,6 @@
 package by.menko.matrix.bean;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,11 +8,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class MyThread extends Thread {
     int index;
     int[][] matrix;
-    int[] value = new int[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    List<Integer> value;
     private static AtomicInteger count = new AtomicInteger(0);
 
-    public MyThread(int[][] matrix) {
+    public MyThread(int[][] matrix, List<Integer> values) {
         this.matrix = matrix;
+        this.value = values;
     }
 
     @Override
@@ -25,11 +27,11 @@ public class MyThread extends Thread {
 
                 if (index < matrix.length && matrix[index][index] == 0) {
 
-                    matrix[index][index] = value[index];
+                    matrix[index][index] = value.get(index);
 
                     System.out.printf("%s %s %d %n", Thread
                                     .currentThread().getName(),
-                            "added ", value[index]);
+                            "added ", value.get(index));
 
                     TimeUnit.MILLISECONDS.sleep(100);
 

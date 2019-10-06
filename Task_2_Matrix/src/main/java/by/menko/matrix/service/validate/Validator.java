@@ -1,5 +1,6 @@
 package by.menko.matrix.service.validate;
 
+import by.menko.matrix.dal.repositoriy.Repository;
 import by.menko.matrix.service.parser.ParserString;
 
 import java.util.List;
@@ -47,6 +48,23 @@ public class Validator {
                 } else {
                     return false;
                 }
+            }
+        }
+        return result;
+    }
+
+    public boolean validateValuesDiagonal(String[] values) {
+        boolean result = false;
+        String regex = "^\\d+$";
+        int lengthMatrix = new Repository().getMatrix().length;
+        if (values.length == lengthMatrix) {
+            for (int i = 0; i < values.length; i++) {
+                if (values[i].matches(regex)) {
+                    result = true;
+                } else {
+                    return false;
+                }
+
             }
         }
         return result;

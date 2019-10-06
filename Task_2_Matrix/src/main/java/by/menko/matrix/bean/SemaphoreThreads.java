@@ -1,5 +1,6 @@
 package by.menko.matrix.bean;
 
+import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,15 +12,16 @@ public class SemaphoreThreads extends Thread {
     int num = 0;
 
     String name;
-    int[] value = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    List<Integer> value;
     private static AtomicInteger index = new AtomicInteger(0);
 
 
-    public SemaphoreThreads(Semaphore sem, String name, int[][] matrix) {
+    public SemaphoreThreads(Semaphore sem, String name, int[][] matrix, List<Integer> values) {
 
         this.sem = sem;
         this.name = name;
         this.matrix = matrix;
+        this.value = values;
 
     }
 
@@ -31,8 +33,8 @@ public class SemaphoreThreads extends Thread {
 
                 System.out.println(name + " выполняет");
                 if (index.get() < matrix.length && matrix[index.get()][index.get()] == 0) {
-                    matrix[index.get()][index.get()] = value[index.get()];
-                    System.out.println(name + " добавил число " + value[index.get()]);
+                    matrix[index.get()][index.get()] = value.get(index.get());
+                    System.out.println(name + " добавил число " + value.get(index.get()));
                     index.incrementAndGet();
                 }
 

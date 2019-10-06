@@ -3,6 +3,9 @@ package by.menko.matrix.dal;
 import java.util.List;
 
 public interface MatrixRepository {
+    void addValuesDiagonal(List<Integer> values);
+
+    List<Integer> getValuesDiagonal();
 
     int getThreadsCount();
 
@@ -10,5 +13,5 @@ public interface MatrixRepository {
 
     int[][] getMatrix();
 
-    int[][] query(Specification specification);
+    int[][] query(Specification specification) throws InterruptedException;
 }
