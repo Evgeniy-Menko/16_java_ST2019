@@ -6,21 +6,47 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockThreads implements Runnable {
-    ReentrantLock locker;
-
-    int[][] matrix;
-    List<Integer> value;
-
-     AtomicInteger index ;
-
-
-    public LockThreads(int[][] matrix, ReentrantLock lock, List<Integer> values,AtomicInteger index) {
-        this.matrix = matrix;
+    /**
+     * Object ReentrantLock.
+     */
+    private ReentrantLock locker;
+    /**
+     * Matrix.
+     */
+    private int[][] matrix;
+    /**
+     * Values diagonal.
+     */
+    private List<Integer> value;
+    /**
+     * Index and count.
+     */
+    private AtomicInteger index;
+    /**
+     * Time sleep.
+     */
+    private static final long TIME = 100;
+    /**
+     * Constructor.
+     *
+     * @param matrixForChange Matrix
+     * @param lock            object ReentrantLock
+     * @param values          diagonal
+     * @param count           counter
+     */
+    public LockThreads(final int[][] matrixForChange,
+                       final ReentrantLock lock,
+                       final List<Integer> values,
+                       final AtomicInteger count) {
+        this.matrix = matrixForChange;
         this.locker = lock;
         this.value = values;
-        this.index = index;
+        this.index = count;
     }
 
+    /**
+     * Changes the diagonal.
+     */
     @Override
     public void run() {
 
@@ -38,7 +64,7 @@ public class LockThreads implements Runnable {
 
 
                 locker.unlock();
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(TIME);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -46,13 +72,6 @@ public class LockThreads implements Runnable {
 
             }
         }
-
-      /*  if (index.get() >= matrix.length) {
-            index.set(0);
-            return;
-        }*/
-
     }
-
 }
 

@@ -6,40 +6,76 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SemaphoreThreads extends Thread {
+    /**
+     * Object semaphore.
+     */
+    private Semaphore sem;
+    /**
+     * Matrix.
+     */
+    private int[][] matrix;
+    /**
+     * Name Thread.
+     */
+    private String name;
+    /**
+     * Value diagonal.
+     */
+    private List<Integer> value;
+    /**
+     * Index and counter.
+     */
+    private AtomicInteger index;
+    /**
+     * Time sleep.
+     */
+    private static final long TIME = 10;
 
-    Semaphore sem;
-    int[][] matrix;
-    int num = 0;
+    /**
+     * Constructor.
+     *
+     * @param semaphore       object semaphore
+     * @param nameThread      name thread
+     * @param matrixForChange matrix
+     * @param values          value diagonal
+     * @param count           counter
+     */
+    public SemaphoreThreads(final Semaphore semaphore,
+                            final String nameThread,
+                            final int[][] matrixForChange,
+                            final List<Integer> values,
+                            final AtomicInteger count) {
 
-    String name;
-    List<Integer> value;
-    private static AtomicInteger index = new AtomicInteger(0);
-
-
-    public SemaphoreThreads(Semaphore sem, String name, int[][] matrix, List<Integer> values) {
-
-        this.sem = sem;
-        this.name = name;
-        this.matrix = matrix;
+        this.sem = semaphore;
+        this.name = nameThread;
+        this.matrix = matrixForChange;
         this.value = values;
+        this.index = count;
 
     }
 
+    /**
+     * Changes the diagonal.
+     */
+    @Override
     public void run() {
         while (index.get() < matrix.length) {
             try {
-                System.out.println(name + " ожидает");
+                System.out.println(name + " awaiting");
                 sem.acquire();
 
-                System.out.println(name + " выполняет");
-                if (index.get() < matrix.length && matrix[index.get()][index.get()] == 0) {
+                System.out.println(name + " performs");
+                if (index.get() < matrix.length
+                        && matrix[index.get()][index.get()] == 0) {
                     matrix[index.get()][index.get()] = value.get(index.get());
-                    System.out.println(name + " добавил число " + value.get(index.get()));
+                    System.out.println(name
+                            + " added " + value.get(index.get()));
                     index.incrementAndGet();
                 }
 
-                TimeUnit.MILLISECONDS.sleep(10);
-                System.out.println(name + " ушёл");
+                TimeUnit.MILLISECONDS.sleep(TIME);
+                System.out.println(name + " \n"
+                        + "released");
                 sem.release();
 
 

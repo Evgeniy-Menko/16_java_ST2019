@@ -3,26 +3,50 @@ package by.menko.matrix.bean;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
+
 
 public class MyThread extends Thread {
-    int index;
-    int[][] matrix;
-    List<Integer> value;
-    private static AtomicInteger count = new AtomicInteger(0);
-
-    public MyThread(int[][] matrix, List<Integer> values) {
-        this.matrix = matrix;
+    /**
+     * Matrix.
+     */
+    private int[][] matrix;
+    /**
+     * Value diagonal.
+     */
+    private List<Integer> value;
+    /**
+     * counter.
+     */
+    private AtomicInteger count;
+    /**
+     * Time sleep.
+     */
+    private static final long TIME = 100;
+    /**
+     * Constructor.
+     *
+     * @param matrixForChange matrix
+     * @param values          diagonal
+     * @param counter         counter
+     */
+    public MyThread(final int[][] matrixForChange,
+                    final List<Integer> values,
+                    final AtomicInteger counter) {
+        this.matrix = matrixForChange;
         this.value = values;
+        this.count = counter;
     }
 
+    /**
+     * Changes the diagonal.
+     */
     @Override
     public void run() {
 
         while (count.get() < matrix.length) {
             try {
 
-                index = count.getAndIncrement();
+                int index = count.getAndIncrement();
 
 
                 if (index < matrix.length && matrix[index][index] == 0) {
@@ -33,7 +57,7 @@ public class MyThread extends Thread {
                                     .currentThread().getName(),
                             "added ", value.get(index));
 
-                    TimeUnit.MILLISECONDS.sleep(100);
+                    TimeUnit.MILLISECONDS.sleep(TIME);
 
                 }
 

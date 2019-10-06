@@ -4,6 +4,8 @@ public interface Command {
 
     /**
      * method for override.
+     *
+     * @param action .
      */
-    void execute(String value);
+    void execute(String action);
 }

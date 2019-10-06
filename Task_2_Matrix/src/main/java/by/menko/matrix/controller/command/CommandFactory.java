@@ -28,7 +28,7 @@ public final class CommandFactory {
      * Map with all command.
      */
     private static Map<String, Command> commandMap =
-            new HashMap<String, Command>();
+            new HashMap<>();
 
     static {
         commandMap.put("1", new ReadFileCommand());

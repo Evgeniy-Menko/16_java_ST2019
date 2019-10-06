@@ -1,7 +1,6 @@
 package by.menko.matrix.service;
 
 import by.menko.matrix.controller.Controller;
-import by.menko.matrix.dal.MatrixRepository;
 import by.menko.matrix.dal.repositoriy.Repository;
 import by.menko.matrix.dal.specification.ExecutorSpecification;
 import by.menko.matrix.dal.specification.LockSpecification;
@@ -16,11 +15,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ChangerDiagonal {
+    /**
+     * Object scanner.
+     */
     private Scanner scan = new Controller().getScan();
+    /**
+     * Object repository.
+     */
     private Repository repository = new Repository();
+    /**
+     * Diagonal values.
+     */
     private List<Integer> valuesDiagonal = new ArrayList<>();
 
-    public void changeDiagonal(final String command)
+    /**
+     * Reads the diagonal values from the
+     * console and calls the desired specification.
+     *
+     * @param action for specification.
+     *
+     * @throws InterruptedException .
+     */
+    public void changeDiagonal(final String action)
             throws InterruptedException {
         System.out.println("Enter values diagonal: ");
         String values = scan.nextLine();
@@ -38,7 +54,7 @@ public class ChangerDiagonal {
             return;
         }
         int[][] matrix;
-        switch (command) {
+        switch (action) {
             case "2":
                 matrix = repository.query(new LockSpecification());
                 break;
@@ -55,6 +71,5 @@ public class ChangerDiagonal {
                 return;
         }
         new Menu().printMatrix(matrix);
-        return;
     }
 }

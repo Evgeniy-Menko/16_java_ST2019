@@ -7,12 +7,23 @@ import by.menko.matrix.view.Menu;
 import java.util.Scanner;
 
 public class Controller {
+    /**
+     * Object Scanner.
+     */
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * Getter for scan.
+     *
+     * @return object Scanner.
+     */
     public Scanner getScan() {
         return scan;
     }
 
+    /**
+     * Start App.Controller command.
+     */
     public void startApp() {
         Menu menu = new Menu();
         menu.printMenu();

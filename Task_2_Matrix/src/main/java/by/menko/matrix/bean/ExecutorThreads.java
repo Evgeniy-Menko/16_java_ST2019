@@ -3,32 +3,61 @@ package by.menko.matrix.bean;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
+
 
 public class ExecutorThreads implements Runnable {
-    int[][] matrix;
-    String name;
-    List<Integer> value;
-    private static AtomicInteger index = new AtomicInteger(0);
+    /**
+     * Matrix.
+     */
+    private int[][] matrix;
+    /**
+     * Name thread.
+     */
+    private String name;
+    /**
+     * value diagonal.
+     */
+    private List<Integer> value;
+    /**
+     * counter object.
+     */
+    private AtomicInteger count;
+    /**
+     * Time sleep thread.
+     */
+    private static final long TIME = 100;
 
-
-    public ExecutorThreads(String name, int[][] matrix, List<Integer> values) {
-        this.matrix = matrix;
-        this.name = name;
+    /**
+     * Constructor.
+     *
+     * @param nameThread      name Thread
+     * @param matrixForChange matrix
+     * @param values          diagonal go change
+     * @param counter         object
+     */
+    public ExecutorThreads(final String nameThread,
+                           final int[][] matrixForChange,
+                           final List<Integer> values,
+                           final AtomicInteger counter) {
+        this.matrix = matrixForChange;
+        this.name = nameThread;
         this.value = values;
-
+        this.count = counter;
     }
 
+    /**
+     * Changes the diagonal.
+     */
     @Override
     public void run() {
-        while (index.get() < matrix.length) {
+        while (count.get() < matrix.length) {
             try {
+                int index = count.getAndIncrement();
+                if (index < matrix.length && matrix[index][index] == 0) {
+                    matrix[index][index] = value.get(index);
+                    System.out.println(name + " added " + value.get(index));
 
-                if (index.get() < matrix.length && matrix[index.get()][index.get()] == 0) {
-                    matrix[index.get()][index.get()] = value.get(index.get());
-                    System.out.println(name + " добавил число " + value.get(index.get()));
-                    index.incrementAndGet();
-                    TimeUnit.MILLISECONDS.sleep(100);
+                    TimeUnit.MILLISECONDS.sleep(TIME);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

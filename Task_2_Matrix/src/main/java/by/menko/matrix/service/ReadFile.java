@@ -7,27 +7,42 @@ import by.menko.matrix.service.parser.ParserString;
 import by.menko.matrix.service.validate.Validator;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ReadFile {
+    /**
+     * Object scanner.
+     */
     private Scanner scan = new Controller().getScan();
+    /**
+     * Object ServiceFile.
+     */
     private ServiceFile serviceFile = new ServiceFile();
+    /**
+     * Object ParseString.
+     */
     private ParserString parserString = new ParserString();
+    /**
+     * Object Repository.
+     */
     private Repository repository = new Repository();
-    private List<String> matrix = new ArrayList<>();
 
+    /**
+     * Read file and added to the storage.
+     *
+     * @throws IOException .
+     */
     public void readFileAndAdd() throws IOException {
-        System.out.println("Enter directory file and file's name(example: data//File.txt): ");
+        System.out.println("Enter directory file and file's name"
+                + "(example: data//File.txt): ");
         String nameFile = scan.nextLine();
 
-        matrix = parserString.parseToList(serviceFile.fileReader(nameFile));
-        if (new Validator().validateMatrix(matrix)) {
-            repository.addMatrix(matrix);
+        List<String> valuesMatrix = parserString
+                .parseToList(serviceFile.fileReader(nameFile));
+        if (new Validator().validateMatrix(valuesMatrix)) {
+            repository.addMatrix(valuesMatrix);
             System.out.println("File read and matrix added in storage.");
-        } else {
-            return;
         }
     }
 }

@@ -6,12 +6,21 @@ import by.menko.matrix.service.parser.ParserString;
 import java.util.List;
 
 public class Validator {
+    /**
+     * Maximum threads.
+     */
     private static final int MAXTHREADS = 6;
+    /**
+     * Minimum threads.
+     */
     private static final int MINTHREADS = 4;
+    /**
+     * Regex.
+     */
+    private static final String REGEX = "^\\d+$";
 
     private boolean validateCountThreads(final String count) {
-        String regex = "^\\d+$";
-        return count.matches(regex)
+        return count.matches(REGEX)
                 && Integer.parseInt(count) <= MAXTHREADS
                 && Integer.parseInt(count) >= MINTHREADS;
     }
@@ -20,11 +29,10 @@ public class Validator {
                                          final int sizeMatrix,
                                          final int indexDiagonal) {
         boolean result = false;
-        String regex = "^\\d+$";
         if (stringMatrix.length == sizeMatrix
                 && "0".equals(stringMatrix[indexDiagonal])) {
             for (int i = 0; i < stringMatrix.length; i++) {
-                if (stringMatrix[i].matches(regex)) {
+                if (stringMatrix[i].matches(REGEX)) {
                     result = true;
                 } else {
                     return false;
@@ -34,14 +42,21 @@ public class Validator {
         return result;
     }
 
-    public boolean validateMatrix(final List<String> matrix) {
+    /**
+     * Value validation.
+     *
+     * @param values .
+     *
+     * @return true or false.
+     */
+    public boolean validateMatrix(final List<String> values) {
         boolean result = false;
         ParserString parser = new ParserString();
-        if (validateCountThreads(matrix.get(0))) {
-            for (int i = 1; i < matrix.size(); i++) {
+        if (validateCountThreads(values.get(0))) {
+            for (int i = 1; i < values.size(); i++) {
                 if (validateStringMatrix(parser
-                                .parserString(matrix.get(i)),
-                        matrix.size() - 1,
+                                .parserString(values.get(i)),
+                        values.size() - 1,
                         i - 1
                 )) {
                     result = true;
@@ -53,13 +68,20 @@ public class Validator {
         return result;
     }
 
-    public boolean validateValuesDiagonal(String[] values) {
+    /**
+     * Diagonal value validation.
+     *
+     * @param values .
+     *
+     * @return true or false.
+     */
+    public boolean validateValuesDiagonal(final String[] values) {
         boolean result = false;
-        String regex = "^\\d+$";
+
         int lengthMatrix = new Repository().getMatrix().length;
         if (values.length == lengthMatrix) {
             for (int i = 0; i < values.length; i++) {
-                if (values[i].matches(regex)) {
+                if (values[i].matches(REGEX)) {
                     result = true;
                 } else {
                     return false;
