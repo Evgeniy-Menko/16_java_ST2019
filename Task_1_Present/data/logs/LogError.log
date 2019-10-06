@@ -1,5 +1,0 @@
-2019-09-23 12:55:33,341 INFO command.Command [main] by.menko.present.controller.command.ReadFileCommand.execute(ReadFileCommand.java:51) File is read and objects are added in storage.
-2019-10-01 20:52:39,266 INFO command.Command [main] by.menko.present.controller.command.ReadFileCommand.execute(ReadFileCommand.java:51) File is read and objects are added in storage.
-2019-10-01 20:54:07,858 INFO command.Command [main] by.menko.present.controller.command.AddPresentCommand.execute(AddPresentCommand.java:28) Present is added.
-2019-10-01 20:56:24,973 INFO command.Command [main] by.menko.present.controller.command.AddSweetsCommand.execute(AddSweetsCommand.java:62) Sweet is added.
-2019-10-01 20:57:12,453 INFO command.Command [main] by.menko.present.controller.command.RemovePresentsCommand.execute(RemovePresentsCommand.java:25) Present is removed.

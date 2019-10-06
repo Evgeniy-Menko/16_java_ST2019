@@ -1,5 +1,0 @@
-12:55:33.341 [main] INFO  by.menko.present.controller.command.Command - File is read and objects are added in storage.
-20:52:39.266 [main] INFO  by.menko.present.controller.command.Command - File is read and objects are added in storage.
-20:54:07.858 [main] INFO  by.menko.present.controller.command.Command - Present is added.
-20:56:24.973 [main] INFO  by.menko.present.controller.command.Command - Sweet is added.
-20:57:12.453 [main] INFO  by.menko.present.controller.command.Command - Present is removed.

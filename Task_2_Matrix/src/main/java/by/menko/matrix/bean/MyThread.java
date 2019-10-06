@@ -1,11 +1,18 @@
 package by.menko.matrix.bean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MyThread extends Thread {
+    /**
+     * log4j2.
+     */
+    private Logger logger = LogManager.getLogger();
     /**
      * Matrix.
      */
@@ -22,6 +29,7 @@ public class MyThread extends Thread {
      * Time sleep.
      */
     private static final long TIME = 100;
+
     /**
      * Constructor.
      *
@@ -53,9 +61,8 @@ public class MyThread extends Thread {
 
                     matrix[index][index] = value.get(index);
 
-                    System.out.printf("%s %s %d %n", Thread
-                                    .currentThread().getName(),
-                            "added ", value.get(index));
+                    logger.info(Thread.currentThread().getName()
+                            + " added " + value.get(index));
 
                     TimeUnit.MILLISECONDS.sleep(TIME);
 
@@ -63,7 +70,8 @@ public class MyThread extends Thread {
 
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(Thread.currentThread().getName()
+                        + "dead");
                 Thread.currentThread().interrupt();
             }
         }

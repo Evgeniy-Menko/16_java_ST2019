@@ -1,10 +1,17 @@
 package by.menko.matrix.controller.command;
 
 import by.menko.matrix.service.ReadFile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class ReadFileCommand implements Command {
+    /**
+     * log4j2.
+     */
+    private Logger logger = LogManager.getLogger();
+
     /**
      * Calls the service read file.
      *
@@ -15,9 +22,10 @@ public class ReadFileCommand implements Command {
     public void execute(final String action) {
         ReadFile readFile = new ReadFile();
         try {
-            readFile.readFileAndAdd();
+            String response = readFile.readFileAndAdd();
+            logger.info(response);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info("File not found.");
         }
     }
 }

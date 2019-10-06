@@ -34,9 +34,11 @@ public class ChangerDiagonal {
      *
      * @param action for specification.
      *
+     * @return response.
+     *
      * @throws InterruptedException .
      */
-    public void changeDiagonal(final String action)
+    public String changeDiagonal(final String action)
             throws InterruptedException {
         System.out.println("Enter values diagonal: ");
         String values = scan.nextLine();
@@ -50,8 +52,7 @@ public class ChangerDiagonal {
             }
             repository.addValuesDiagonal(valuesDiagonal);
         } else {
-            System.out.println("incorrect values");
-            return;
+            return "Incorrect values or storage is empty.";
         }
         int[][] matrix;
         switch (action) {
@@ -68,8 +69,9 @@ public class ChangerDiagonal {
                 matrix = repository.query(new MyThreadSpecification());
                 break;
             default:
-                return;
+                return "Incorrect action.";
         }
         new Menu().printMatrix(matrix);
+        return "Diagonal changed.";
     }
 }

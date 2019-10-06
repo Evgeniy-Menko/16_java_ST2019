@@ -1,11 +1,19 @@
 package by.menko.matrix.bean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 public class SemaphoreThreads extends Thread {
+    /**
+     * log4j2.
+     */
+    private Logger logger = LogManager.getLogger();
     /**
      * Object semaphore.
      */
@@ -15,17 +23,13 @@ public class SemaphoreThreads extends Thread {
      */
     private int[][] matrix;
     /**
-     * Name Thread.
-     */
-    private String name;
-    /**
      * Value diagonal.
      */
     private List<Integer> value;
     /**
      * Index and counter.
      */
-    private AtomicInteger index;
+    private AtomicInteger count;
     /**
      * Time sleep.
      */
@@ -35,22 +39,19 @@ public class SemaphoreThreads extends Thread {
      * Constructor.
      *
      * @param semaphore       object semaphore
-     * @param nameThread      name thread
      * @param matrixForChange matrix
      * @param values          value diagonal
-     * @param count           counter
+     * @param counter         counter
      */
     public SemaphoreThreads(final Semaphore semaphore,
-                            final String nameThread,
                             final int[][] matrixForChange,
                             final List<Integer> values,
-                            final AtomicInteger count) {
+                            final AtomicInteger counter) {
 
         this.sem = semaphore;
-        this.name = nameThread;
         this.matrix = matrixForChange;
         this.value = values;
-        this.index = count;
+        this.count = counter;
 
     }
 
@@ -59,30 +60,33 @@ public class SemaphoreThreads extends Thread {
      */
     @Override
     public void run() {
-        while (index.get() < matrix.length) {
+        while (count.get() < matrix.length) {
             try {
-                System.out.println(name + " awaiting");
+                int index = count.getAndIncrement();
+                logger.info(Thread.currentThread().getName()
+                        + " awaiting");
                 sem.acquire();
+                logger.info(Thread.currentThread().getName()
+                        + " performing");
 
-                System.out.println(name + " performs");
-                if (index.get() < matrix.length
-                        && matrix[index.get()][index.get()] == 0) {
-                    matrix[index.get()][index.get()] = value.get(index.get());
-                    System.out.println(name
-                            + " added " + value.get(index.get()));
-                    index.incrementAndGet();
+                if (index < matrix.length
+                        && matrix[index][index] == 0) {
+                    matrix[index][index] = value.get(index);
+                    logger.info(Thread.currentThread().getName()
+                            + " added " + value.get(index));
                 }
 
                 TimeUnit.MILLISECONDS.sleep(TIME);
-                System.out.println(name + " \n"
-                        + "released");
+                logger.info(Thread.currentThread().getName()
+                        + " finished");
                 sem.release();
 
 
             } catch (InterruptedException e) {
-
+                logger.error(Thread.currentThread().getName()
+                        + "dead");
                 Thread.currentThread().interrupt();
-                System.out.println(name + "dead");
+
             }
         }
     }

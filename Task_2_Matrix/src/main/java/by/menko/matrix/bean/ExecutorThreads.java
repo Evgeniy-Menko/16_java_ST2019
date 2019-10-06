@@ -1,11 +1,18 @@
 package by.menko.matrix.bean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ExecutorThreads implements Runnable {
+    /**
+     * log4j2.
+     */
+    private Logger logger = LogManager.getLogger();
     /**
      * Matrix.
      */
@@ -55,12 +62,14 @@ public class ExecutorThreads implements Runnable {
                 int index = count.getAndIncrement();
                 if (index < matrix.length && matrix[index][index] == 0) {
                     matrix[index][index] = value.get(index);
-                    System.out.println(name + " added " + value.get(index));
+                    String message = name + " added " + value.get(index);
+                    logger.info(message);
 
                     TimeUnit.MILLISECONDS.sleep(TIME);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(name
+                        + "dead");
                 Thread.currentThread().interrupt();
             }
         }

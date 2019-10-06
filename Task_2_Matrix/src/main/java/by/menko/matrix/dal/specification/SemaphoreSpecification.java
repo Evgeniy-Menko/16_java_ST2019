@@ -18,7 +18,7 @@ public class SemaphoreSpecification implements Specification {
      *
      * @return matrix.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException .
      */
 
     @Override
@@ -31,8 +31,9 @@ public class SemaphoreSpecification implements Specification {
         Semaphore sem = new Semaphore(countThreads / 2, true);
         for (int i = 0; i <= countThreads; i++) {
             Thread t =
-                    new SemaphoreThreads(sem, "Threads " + i,
+                    new SemaphoreThreads(sem,
                             result, values, count);
+            t.setName("Threads " + i);
             t.start();
             if (i == countThreads - 1) {
                 t.join();
