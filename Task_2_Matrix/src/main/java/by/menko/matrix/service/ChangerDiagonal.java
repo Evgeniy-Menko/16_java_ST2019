@@ -46,7 +46,7 @@ public class ChangerDiagonal {
         String[] arrayValues = new ParserString()
                 .parserString(values);
         if (new Validator().validateValuesDiagonal(
-                arrayValues)) {
+                arrayValues, repository.getMatrix().length)) {
             for (int i = 0; i < arrayValues.length; i++) {
                 valuesDiagonal.add(Integer.parseInt(arrayValues[i]));
             }
