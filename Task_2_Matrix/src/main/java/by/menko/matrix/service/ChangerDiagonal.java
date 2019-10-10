@@ -40,7 +40,7 @@ public class ChangerDiagonal {
      */
     public String changeDiagonal(final String action)
             throws InterruptedException {
-        System.out.println("Enter values diagonal: ");
+
         String values = scan.nextLine();
 
         String[] arrayValues = new ParserString()

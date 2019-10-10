@@ -31,14 +31,13 @@ public class ReadFile {
 
     /**
      * Read file and added to the storage.
+     *
      * @return string response.
+     *
      * @throws IOException .
      */
     public String readFileAndAdd() throws IOException {
-        System.out.println("Enter directory file and file's name"
-                + "(example: data//File.txt): ");
         String nameFile = scan.nextLine();
-
         List<String> valuesMatrix = parserString
                 .parseToList(serviceFile.fileReader(nameFile));
         if (new Validator().validateMatrix(valuesMatrix)) {

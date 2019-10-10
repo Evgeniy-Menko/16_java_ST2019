@@ -30,4 +30,18 @@ public class Menu {
 
     }
 
+    /**
+     * Print text.
+     */
+    public void printTextForFile() {
+        System.out.println("Enter directory file and file's name"
+                + "(example: data//File.txt): ");
+    }
+
+    /**
+     * Print text.
+     */
+    public void printTextForChangeDiagonal() {
+        System.out.println("Enter values diagonal: ");
+    }
 }

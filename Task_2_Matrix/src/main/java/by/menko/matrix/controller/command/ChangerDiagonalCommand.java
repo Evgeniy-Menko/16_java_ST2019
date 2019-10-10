@@ -1,6 +1,7 @@
 package by.menko.matrix.controller.command;
 
 import by.menko.matrix.service.ChangerDiagonal;
+import by.menko.matrix.view.Menu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +19,9 @@ public class ChangerDiagonalCommand implements Command {
     @Override
     public void execute(final String action) {
         ChangerDiagonal changerDiagonal = new ChangerDiagonal();
+        Menu menu = new Menu();
         try {
+            menu.printTextForChangeDiagonal();
             String response = changerDiagonal.changeDiagonal(action);
             logger.info(response);
         } catch (InterruptedException e) {

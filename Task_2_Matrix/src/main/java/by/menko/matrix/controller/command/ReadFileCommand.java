@@ -1,6 +1,7 @@
 package by.menko.matrix.controller.command;
 
 import by.menko.matrix.service.ReadFile;
+import by.menko.matrix.view.Menu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,9 @@ public class ReadFileCommand implements Command {
     @Override
     public void execute(final String action) {
         ReadFile readFile = new ReadFile();
+        Menu menu = new Menu();
         try {
+            menu.printTextForFile();
             String response = readFile.readFileAndAdd();
             logger.info(response);
         } catch (IOException e) {

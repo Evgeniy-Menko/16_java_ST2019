@@ -166,3 +166,15 @@
 23:01:39.827 [Thread 1] INFO  by.menko.matrix.bean.MyThread - Thread 1 added 9
 23:01:39.827 [Thread 3] INFO  by.menko.matrix.bean.MyThread - Thread 3 added 10
 23:01:39.931 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+15:06:31.931 [main] INFO  by.menko.matrix.controller.command.ReadFileCommand - File is read and matrix is added in storage.
+15:06:43.442 [pool-2-thread-1] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 0 added 1
+15:06:43.443 [pool-2-thread-2] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 1 added 5
+15:06:43.443 [pool-2-thread-4] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 3 added 2
+15:06:43.442 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 4
+15:06:43.443 [pool-2-thread-5] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 4 added 3
+15:06:43.545 [pool-2-thread-4] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 3 added 9
+15:06:43.545 [pool-2-thread-5] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 4 added 7
+15:06:43.545 [pool-2-thread-1] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 0 added 6
+15:06:43.545 [pool-2-thread-2] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 1 added 8
+15:06:43.545 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 10
+15:06:44.448 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
