@@ -22,7 +22,7 @@ public class Controller {
     }
 
     /**
-     * Start App.Controller command.
+     * Controller command.
      */
     public void startApp() {
         Menu menu = new Menu();

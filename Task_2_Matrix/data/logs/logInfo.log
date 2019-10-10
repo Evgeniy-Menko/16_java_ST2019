@@ -178,3 +178,4 @@
 15:06:43.545 [pool-2-thread-2] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 1 added 8
 15:06:43.545 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 10
 15:06:44.448 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+15:36:20.913 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Incorrect values or storage is empty.

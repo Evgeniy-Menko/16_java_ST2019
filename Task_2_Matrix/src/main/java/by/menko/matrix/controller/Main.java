@@ -6,7 +6,7 @@ public final class Main {
     }
 
     /**
-     * Main.
+     * Start App.
      *
      * @param args .
      */
