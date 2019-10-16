@@ -1,13 +1,20 @@
 package by.menko.composite.bean;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Composite implements Component {
+
     private CompositeType type;
+
     private ArrayList<Component> components = new ArrayList<Component>();
 
-    public ArrayList<Component> getComponents() {
+    public CompositeType getType() {
+        return type;
+    }
+
+    public ArrayList<Component> getList() {
         return components;
     }
 
@@ -16,24 +23,33 @@ public class Composite implements Component {
     }
 
     @Override
-    public void operation() {
+    public String operation() {
+        StringBuilder result = new StringBuilder();
+        for (Component c : components) {
+            switch (type) {
 
+                case TEXT:
+                    result.append("   ").append(c.operation()).append("\n");
+                    break;
+                case SENTENCE:
+                    result.append(" ").append(c.operation());
+                    break;
+                case PARAGRAPH:
+                case TOKEN:
+                case WORD:
+                    result.append(c.operation());
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+        return result.toString();
     }
 
     @Override
-    public void add(Component c) {
+    public void add(final Component c) {
         components.add(c);
-
     }
 
-    @Override
-    public void remove(Component c) {
-        components.remove(c);
-    }
-
-    @Override
-    public Component getChild(int index) {
-       return components.get(index);
-    }
 
 }

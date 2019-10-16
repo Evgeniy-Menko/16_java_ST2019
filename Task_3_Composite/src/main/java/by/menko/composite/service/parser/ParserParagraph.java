@@ -7,26 +7,27 @@ import by.menko.composite.bean.CompositeType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParserParagraph implements DispenseChain {
-    private DispenseChain chain;
+public class ParserParagraph implements DoChain {
+    private DoChain chain;
 
 
     @Override
-    public void setNextChain(final DispenseChain nextChain) {
+    public void setNextChain(final DoChain nextChain) {
         this.chain = nextChain;
     }
 
 
     @Override
-    public void dispense(final ResourcesForParser resources) {
+    public Component dispense(final String text) {
+        Component component = new Composite(CompositeType.PARAGRAPH);
         Pattern patternSentence = Pattern
                 .compile("[^\\s][^.|!|?]*[.|!|?]{0,3}");
-        Matcher matcher = patternSentence.matcher(resources.getText());
+        Matcher matcher = patternSentence.matcher(text);
         while (matcher.find()) {
-            Component component = new Composite(CompositeType.SENTENCE);
-            chain.dispense(new ResourcesForParser(matcher.group(), component));
-            resources.getComp().add(component);
-        }
 
+            component.add(chain.dispense(matcher.group()));
+
+        }
+        return component;
     }
 }

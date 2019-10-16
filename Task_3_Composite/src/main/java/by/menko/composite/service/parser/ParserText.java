@@ -7,27 +7,26 @@ import by.menko.composite.bean.CompositeType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParserText implements DispenseChain {
+public class ParserText implements DoChain {
 
-    private DispenseChain chain;
+    private DoChain chain;
 
 
     @Override
-    public void setNextChain(DispenseChain nextChain) {
+    public void setNextChain(DoChain nextChain) {
         this.chain = nextChain;
     }
 
 
     @Override
-    public void dispense(ResourcesForParser resources) {
-
+    public Component dispense(String text) {
+        Component component = new Composite(CompositeType.TEXT);
         Pattern patternParagraph = Pattern
-                .compile("[^\\t\\n]+|(?m)(?=^\\s{2})");
-        Matcher matcher = patternParagraph.matcher(resources.getText());
+                .compile("[A-Z].*?(?=\\s{4}|\\n|^|$)");
+        Matcher matcher = patternParagraph.matcher(text);
         while (matcher.find()) {
-            Component component = new Composite(CompositeType.PARAGRAPH);
-            chain.dispense(new ResourcesForParser(matcher.group(), component));
-            resources.getComp().add(component);
+            component.add(chain.dispense(matcher.group()));
         }
+        return component;
     }
 }

@@ -5,23 +5,24 @@ import by.menko.composite.bean.Composite;
 import by.menko.composite.bean.CompositeType;
 import by.menko.composite.bean.Symbol;
 
-public class ParserWord implements DispenseChain {
-    private DispenseChain chain;
+public class ParserWord implements DoChain {
+    private DoChain chain;
 
 
     @Override
-    public void setNextChain(final DispenseChain nextChain) {
+    public void setNextChain(final DoChain nextChain) {
         this.chain = nextChain;
     }
 
 
     @Override
-    public void dispense(final ResourcesForParser resources) {
-        char[] symbol = resources.getText().toCharArray();
-
-        for (int i = 0; i < symbol.length; i++) {
-            Component component = new Symbol(symbol[i]);
-            resources.getComp().add(component);
+    public Component dispense(final String text) {
+        char[] arraySymbol = text.toCharArray();
+        Component component = new Composite(CompositeType.WORD);
+        for (int i = 0; i < arraySymbol.length; i++) {
+            Component symbol = new Symbol(arraySymbol[i]);
+            component.add(symbol);
         }
+        return component;
     }
 }

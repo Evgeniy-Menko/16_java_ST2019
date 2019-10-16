@@ -10,7 +10,7 @@ public class Storage {
      */
     private static Storage storage;
 
-    private Component component = new Composite(CompositeType.TEXT);
+    private Component component;
 
     /**
      * Private constructor.
@@ -33,6 +33,10 @@ public class Storage {
 
     public Component getComponent() {
         return component;
+    }
+
+    public void add(Component comp) {
+        component = comp;
     }
 }
 

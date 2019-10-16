@@ -5,5 +5,6 @@ public enum CompositeType {
     PARAGRAPH,
     SENTENCE,
     TOKEN,
-    WORD
+    WORD,
+    SYMBOL
 }
