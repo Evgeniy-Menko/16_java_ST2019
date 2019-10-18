@@ -3,6 +3,7 @@ package by.menko.composite.dal.specification;
 import by.menko.composite.bean.Component;
 import by.menko.composite.bean.CompositeType;
 import by.menko.composite.dal.Specification;
+import by.menko.composite.dal.exception.SortException;
 import by.menko.composite.service.comparator.LengthComparator;
 import by.menko.composite.service.search.SearchByType;
 
@@ -13,17 +14,19 @@ public class SortByCountSentence implements Specification {
 
 
     @Override
-    public String specified(Component component) {
+    public String specified(Component component) throws SortException {
 
         List<Component> paragraphList = new SearchByType().search(component, CompositeType.PARAGRAPH);
+        try {
+            List<Component> sortedList = paragraphList.stream().sorted(new LengthComparator()).collect(Collectors.toList());
+            StringBuilder result = new StringBuilder();
+            for (Component c : sortedList) {
+                result.append(c.operation()).append("\n");
 
-        List<Component> sortedList = paragraphList.stream().sorted(new LengthComparator()).collect(Collectors.toList());
-        StringBuilder result = new StringBuilder();
-        for (Component c : sortedList) {
-            result.append(c.operation()).append("\n");
-
+            }
+            return result.toString();
+        } catch (Exception e) {
+            throw new SortException();
         }
-        return result.toString();
-
     }
 }

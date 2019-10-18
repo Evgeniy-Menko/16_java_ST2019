@@ -1,8 +1,10 @@
 package by.menko.composite.service.file;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,7 +13,7 @@ public class ServiceFile {
     /**
      * File reader.
      *
-     * @param nameFile .
+     * @param nameFile file's name.
      *
      * @return string values.
      *
@@ -24,4 +26,20 @@ public class ServiceFile {
         }
         return result;
     }
+
+    /**
+     * Write to the file.
+     *
+     * @param text text.
+     *
+     * @throws IOException .
+     */
+    public void fileWriter(final String text) throws IOException {
+        try (FileOutputStream fileOutputStream =
+                     new FileOutputStream("data//result.txt")) {
+            fileOutputStream.write(text.getBytes());
+
+        }
+    }
+
 }
