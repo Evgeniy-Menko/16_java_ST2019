@@ -1,0 +1,1 @@
+package by.menko.composite.bean;

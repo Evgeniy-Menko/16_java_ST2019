@@ -14,15 +14,16 @@ import java.util.stream.Collectors;
 
 
 public class SortBySymbol implements Specification {
-    char symbol;
+    private char symbol;
 
-    public SortBySymbol(char symbol) {
-        this.symbol = symbol;
+    public SortBySymbol(final String character) {
+        this.symbol = character.charAt(0);
     }
 
     @Override
-    public String specified(Component component) throws SortException {
-        List<Component> tokenList = new SearchByType().search(component, CompositeType.TOKEN);
+    public String specified(final Component component) throws SortException {
+        List<Component> tokenList = new SearchByType()
+                .search(component, CompositeType.TOKEN);
         StringBuilder sb = new StringBuilder();
 
         for (Component c : tokenList) {
@@ -30,7 +31,9 @@ public class SortBySymbol implements Specification {
         }
         try {
             List<String> sorted = Arrays.stream(sb.toString().split("\\s"))
-                    .sorted(new SymbolComparator(symbol).reversed().thenComparing(new AlphabeticalComparator()))
+                    .sorted(new SymbolComparator(symbol)
+                            .reversed()
+                            .thenComparing(new AlphabeticalComparator()))
                     .collect(Collectors.toList());
             StringBuilder result = new StringBuilder();
 
@@ -42,6 +45,4 @@ public class SortBySymbol implements Specification {
             throw new SortException();
         }
     }
-
-
 }

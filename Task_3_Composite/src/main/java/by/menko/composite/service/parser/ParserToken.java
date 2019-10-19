@@ -21,7 +21,7 @@ public class ParserToken implements DoChain {
     public Component dispense(final String text) {
         Component component = new Composite(CompositeType.TOKEN);
         Pattern patternWord = Pattern
-                .compile("[\\w-]+|[^\\s&\\w]+");
+                .compile("[\"]+|[']+|[.]+|[,]+|[!]+|[?]+|[\\w-&()><^~|+*\\/]+");
         Matcher matcher = patternWord.matcher(text);
         while (matcher.find()) {
             component.add(chain.dispense(matcher.group()));

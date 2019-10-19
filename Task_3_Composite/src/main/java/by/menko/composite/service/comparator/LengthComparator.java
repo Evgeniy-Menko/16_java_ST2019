@@ -4,7 +4,7 @@ package by.menko.composite.service.comparator;
 import by.menko.composite.bean.Component;
 
 import java.util.Comparator;
-import java.util.List;
+
 
 public class LengthComparator implements Comparator<Component> {
 
@@ -27,7 +27,7 @@ public class LengthComparator implements Comparator<Component> {
      *                              being compared by this comparator.
      */
     @Override
-    public int compare(Component o1, Component o2) {
+    public int compare(final Component o1, final Component o2) {
         return o1.getList().size() - o2.getList().size();
     }
 

@@ -1,6 +1,5 @@
 package by.menko.composite.bean;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,7 @@ public class Composite implements Component {
                     result.append(c.operation());
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new UnsupportedOperationException();
             }
         }
         return result.toString();

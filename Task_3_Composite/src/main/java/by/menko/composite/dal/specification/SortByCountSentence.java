@@ -14,11 +14,14 @@ public class SortByCountSentence implements Specification {
 
 
     @Override
-    public String specified(Component component) throws SortException {
+    public String specified(final Component component) throws SortException {
 
-        List<Component> paragraphList = new SearchByType().search(component, CompositeType.PARAGRAPH);
+        List<Component> paragraphList = new SearchByType()
+                .search(component, CompositeType.PARAGRAPH);
         try {
-            List<Component> sortedList = paragraphList.stream().sorted(new LengthComparator()).collect(Collectors.toList());
+            List<Component> sortedList = paragraphList.stream()
+                    .sorted(new LengthComparator())
+                    .collect(Collectors.toList());
             StringBuilder result = new StringBuilder();
             for (Component c : sortedList) {
                 result.append(c.operation()).append("\n");

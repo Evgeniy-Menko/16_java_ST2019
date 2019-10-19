@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class SortByCountWord implements Specification {
 
     @Override
-    public String specified(Component component) throws SortException {
+    public String specified(final Component component) throws SortException {
         List<Component> sentenceList = new SearchByType()
                 .search(component, CompositeType.SENTENCE);
 

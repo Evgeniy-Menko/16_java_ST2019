@@ -9,7 +9,8 @@ import java.util.List;
 public class SearchByType {
     private List<Component> components = new ArrayList<>();
 
-    public List<Component> search(Component component, CompositeType type) {
+    public List<Component> search(final Component component,
+                                  final CompositeType type) {
         for (Component entity : component.getList()) {
             if (entity.getType().equals(type)) {
                 components.add(entity);

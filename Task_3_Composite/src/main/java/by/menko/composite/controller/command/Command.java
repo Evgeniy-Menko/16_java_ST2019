@@ -12,7 +12,7 @@ public interface Command {
     /**
      * method for override.
      *
-     * @param action .
+     * @param request .
      */
-    void execute(final String request);
+    void execute(String request);
 }

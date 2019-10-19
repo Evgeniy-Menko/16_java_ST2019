@@ -5,10 +5,11 @@ import by.menko.composite.controller.command.Command;
 import by.menko.composite.controller.command.CommandFactory;
 import by.menko.composite.view.MessageManager;
 
+
 import java.util.Scanner;
 
 public class Controller {
-    private MessageManager bundle = MessageManager.EN;
+    private static MessageManager bundle = MessageManager.EN;
     /**
      * Object Scanner.
      */
@@ -33,6 +34,15 @@ public class Controller {
     }
 
     /**
+     * Setter for bundle.
+     *
+     * @param resourceBundle .
+     */
+    public void setBundle(final MessageManager resourceBundle) {
+        this.bundle = resourceBundle;
+    }
+
+    /**
      * Controller command.
      */
     public void startApp() {
@@ -40,18 +50,25 @@ public class Controller {
         while (!"7".equals(request)) {
             Command.logger.debug(bundle.getMessage("menu"));
             request = scan.nextLine();
-
-            if ("1".equals(request)) {
-                Command command = CommandFactory.getInstance()
-                        .getCommand(request);
-                command.execute(request);
-            } else if ("7".equals(request)) {
-                Command.logger.debug(bundle.getMessage("stopApp"));
-                scan.close();
-            } else {
-                Command.logger.debug(bundle.getMessage("incorrect"));
+            switch (request) {
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                    Command command = CommandFactory.getInstance()
+                            .getCommand(request);
+                    command.execute(request);
+                    break;
+                case "7":
+                    Command.logger.debug(bundle.getMessage("stopApp"));
+                    scan.close();
+                    break;
+                default:
+                    Command.logger.debug(bundle.getMessage("incorrect"));
             }
-
         }
     }
 }
+

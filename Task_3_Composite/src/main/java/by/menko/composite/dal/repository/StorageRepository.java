@@ -12,7 +12,7 @@ public class StorageRepository implements Repository {
     private Storage storage = Storage.getInstance();
 
     @Override
-    public void addComponent(Component component) {
+    public void addComponent(final Component component) {
         storage.add(component);
     }
 
@@ -23,7 +23,8 @@ public class StorageRepository implements Repository {
     }
 
     @Override
-    public String query(Specification specification) throws NotInitializationException, SortException {
+    public String query(final Specification specification)
+            throws NotInitializationException, SortException {
         return specification.specified(getComponent());
     }
 }

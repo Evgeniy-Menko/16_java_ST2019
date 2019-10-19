@@ -9,5 +9,6 @@ public interface Repository {
 
     Component getComponent() throws NotInitializationException;
 
-    String query(Specification specification) throws NotInitializationException, SortException;
+    String query(Specification specification)
+            throws NotInitializationException, SortException;
 }

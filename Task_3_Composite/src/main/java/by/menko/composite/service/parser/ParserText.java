@@ -13,13 +13,13 @@ public class ParserText implements DoChain {
 
 
     @Override
-    public void setNextChain(DoChain nextChain) {
+    public void setNextChain(final DoChain nextChain) {
         this.chain = nextChain;
     }
 
 
     @Override
-    public Component dispense(String text) {
+    public Component dispense(final String text) {
         Component component = new Composite(CompositeType.TEXT);
         Pattern patternParagraph = Pattern
                 .compile("[A-Z].*?(?=\\s{4}|\\n|^|$)");

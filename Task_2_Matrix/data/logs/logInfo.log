@@ -179,3 +179,133 @@
 15:06:43.545 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 10
 15:06:44.448 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
 15:36:20.913 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Incorrect values or storage is empty.
+16:37:40.211 [main] INFO  by.menko.matrix.controller.command.ReadFileCommand - File is read and matrix is added in storage.
+16:38:19.850 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 awaiting
+16:38:19.851 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 awaiting
+16:38:19.850 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 awaiting
+16:38:19.852 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 performing
+16:38:19.852 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 performing
+16:38:19.852 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 added 5
+16:38:19.852 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 added 2
+16:38:19.850 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 awaiting
+16:38:19.850 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 awaiting
+16:38:19.863 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 finished
+16:38:19.863 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 finished
+16:38:19.863 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 awaiting
+16:38:19.863 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 performing
+16:38:19.863 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 performing
+16:38:19.864 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 added 4
+16:38:19.864 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 added 1
+16:38:19.864 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 awaiting
+16:38:19.874 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 finished
+16:38:19.874 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 finished
+16:38:19.874 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 awaiting
+16:38:19.874 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 awaiting
+16:38:19.874 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 performing
+16:38:19.874 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 performing
+16:38:19.874 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 added 3
+16:38:19.874 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 added 6
+16:38:19.884 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 finished
+16:38:19.884 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 finished
+16:38:19.884 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 awaiting
+16:38:19.884 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 performing
+16:38:19.885 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 performing
+16:38:19.885 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 added 7
+16:38:19.885 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 added 8
+16:38:19.896 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 finished
+16:38:19.896 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 finished
+16:38:19.896 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 performing
+16:38:19.896 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 performing
+16:38:19.896 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 added 10
+16:38:19.896 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 added 9
+16:38:19.907 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 finished
+16:38:19.907 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 finished
+16:38:20.899 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+16:39:29.704 [main] INFO  by.menko.matrix.controller.command.ReadFileCommand - File not found.
+16:39:37.373 [Thread 0] INFO  by.menko.matrix.bean.LockThreads - Thread 0 added 1
+16:39:37.373 [Thread 1] INFO  by.menko.matrix.bean.LockThreads - Thread 1 added 2
+16:39:37.374 [Thread 2] INFO  by.menko.matrix.bean.LockThreads - Thread 2 added 3
+16:39:37.374 [Thread 3] INFO  by.menko.matrix.bean.LockThreads - Thread 3 added 4
+16:39:37.374 [Thread 4] INFO  by.menko.matrix.bean.LockThreads - Thread 4 added 5
+16:39:37.473 [Thread 0] INFO  by.menko.matrix.bean.LockThreads - Thread 0 added 6
+16:39:37.474 [Thread 1] INFO  by.menko.matrix.bean.LockThreads - Thread 1 added 7
+16:39:37.474 [Thread 2] INFO  by.menko.matrix.bean.LockThreads - Thread 2 added 8
+16:39:37.475 [Thread 3] INFO  by.menko.matrix.bean.LockThreads - Thread 3 added 9
+16:39:37.476 [Thread 4] INFO  by.menko.matrix.bean.LockThreads - Thread 4 added 10
+16:39:37.578 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+16:42:49.948 [pool-2-thread-2] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 1 added 3
+16:42:49.948 [pool-2-thread-4] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 3 added 4
+16:42:49.948 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 2
+16:42:49.948 [pool-2-thread-1] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 0 added 1
+16:42:49.949 [pool-2-thread-5] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 4 added 5
+16:42:50.049 [pool-2-thread-4] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 3 added 8
+16:42:50.049 [pool-2-thread-1] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 0 added 9
+16:42:50.049 [pool-2-thread-3] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 2 added 7
+16:42:50.049 [pool-2-thread-2] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 1 added 6
+16:42:50.049 [pool-2-thread-5] INFO  by.menko.matrix.bean.ExecutorThreads - Thread 4 added 10
+16:42:50.950 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+16:43:03.147 [Thread 1] INFO  by.menko.matrix.bean.MyThread - Thread 1 added 3
+16:43:03.147 [Thread 2] INFO  by.menko.matrix.bean.MyThread - Thread 2 added 2
+16:43:03.148 [Thread 3] INFO  by.menko.matrix.bean.MyThread - Thread 3 added 4
+16:43:03.147 [Thread 0] INFO  by.menko.matrix.bean.MyThread - Thread 0 added 1
+16:43:03.148 [Thread 4] INFO  by.menko.matrix.bean.MyThread - Thread 4 added 5
+16:43:03.249 [Thread 0] INFO  by.menko.matrix.bean.MyThread - Thread 0 added 7
+16:43:03.249 [Thread 2] INFO  by.menko.matrix.bean.MyThread - Thread 2 added 6
+16:43:03.249 [Thread 3] INFO  by.menko.matrix.bean.MyThread - Thread 3 added 9
+16:43:03.249 [Thread 1] INFO  by.menko.matrix.bean.MyThread - Thread 1 added 8
+16:43:03.249 [Thread 4] INFO  by.menko.matrix.bean.MyThread - Thread 4 added 10
+16:43:03.353 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+17:02:51.832 [main] INFO  by.menko.matrix.controller.command.ReadFileCommand - File is read and matrix is added in storage.
+17:03:18.196 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 awaiting
+17:03:18.196 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 awaiting
+17:03:18.197 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 performing
+17:03:18.197 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 awaiting
+17:03:18.197 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 added 2
+17:03:18.197 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 awaiting
+17:03:18.197 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 performing
+17:03:18.196 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 awaiting
+17:03:18.198 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 added 1
+17:03:18.208 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 finished
+17:03:18.208 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 awaiting
+17:03:18.208 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 performing
+17:03:18.208 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 added 5
+17:03:18.209 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 finished
+17:03:18.209 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 performing
+17:03:18.209 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 awaiting
+17:03:18.209 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 added 4
+17:03:18.219 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 finished
+17:03:18.219 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 awaiting
+17:03:18.219 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 performing
+17:03:18.219 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 added 3
+17:03:18.220 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 finished
+17:03:18.220 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 awaiting
+17:03:18.220 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 performing
+17:03:18.220 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 added 6
+17:03:18.229 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 finished
+17:03:18.229 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 awaiting
+17:03:18.229 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 performing
+17:03:18.229 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 added 7
+17:03:18.230 [Threads 4] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 4 finished
+17:03:18.230 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 performing
+17:03:18.230 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 added 8
+17:03:18.239 [Threads 0] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 0 finished
+17:03:18.239 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 performing
+17:03:18.239 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 added 9
+17:03:18.240 [Threads 3] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 3 finished
+17:03:18.240 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 performing
+17:03:18.240 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 added 10
+17:03:18.249 [Threads 1] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 1 finished
+17:03:18.250 [Threads 2] INFO  by.menko.matrix.bean.SemaphoreThreads - Threads 2 finished
+17:03:19.232 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.
+17:03:59.230 [main] INFO  by.menko.matrix.controller.command.ReadFileCommand - File not found.
+17:04:06.511 [Thread 0] INFO  by.menko.matrix.bean.LockThreads - Thread 0 added 1
+17:04:06.513 [Thread 1] INFO  by.menko.matrix.bean.LockThreads - Thread 1 added 2
+17:04:06.513 [Thread 2] INFO  by.menko.matrix.bean.LockThreads - Thread 2 added 3
+17:04:06.514 [Thread 3] INFO  by.menko.matrix.bean.LockThreads - Thread 3 added 4
+17:04:06.514 [Thread 4] INFO  by.menko.matrix.bean.LockThreads - Thread 4 added 5
+17:04:06.614 [Thread 2] INFO  by.menko.matrix.bean.LockThreads - Thread 2 added 6
+17:04:06.614 [Thread 1] INFO  by.menko.matrix.bean.LockThreads - Thread 1 added 7
+17:04:06.615 [Thread 0] INFO  by.menko.matrix.bean.LockThreads - Thread 0 added 8
+17:04:06.615 [Thread 3] INFO  by.menko.matrix.bean.LockThreads - Thread 3 added 9
+17:04:06.616 [Thread 4] INFO  by.menko.matrix.bean.LockThreads - Thread 4 added 10
+17:04:06.716 [main] INFO  by.menko.matrix.controller.command.ChangerDiagonalCommand - Diagonal changed.

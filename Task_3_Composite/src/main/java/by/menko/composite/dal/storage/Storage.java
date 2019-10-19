@@ -1,11 +1,9 @@
 package by.menko.composite.dal.storage;
 
 import by.menko.composite.bean.Component;
-import by.menko.composite.bean.Composite;
-import by.menko.composite.bean.CompositeType;
 import by.menko.composite.dal.exception.NotInitializationException;
 
-public class Storage {
+public final class Storage {
     /**
      * Object class.
      */
@@ -40,7 +38,7 @@ public class Storage {
         }
     }
 
-    public void add(Component comp) {
+    public void add(final Component comp) {
         component = comp;
     }
 }

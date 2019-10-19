@@ -7,17 +7,17 @@ import java.io.IOException;
 
 public class ReadFileCommand implements Command {
     @Override
-    public void execute(String request) {
-        ReadFileAndAddStorage read = new ReadFileAndAddStorage();
+    public void execute(final String request) {
+        ReadFileAndAddStorage service = new ReadFileAndAddStorage();
         logger.debug(new Controller().getBundle()
                 .getMessage("readFile"));
 
         try {
-            String key = read.readAndAddToStorage();
-            logger.debug(new Controller().getBundle().getMessage(key));
+            String response = service.readAndAddToStorage();
+            logger.debug(new Controller().getBundle().getMessage(response));
         } catch (IOException e) {
             logger.debug(new Controller().getBundle().getMessage("errorRead"));
-            logger.info(new Controller().getBundle().getMessage("errorRead"));
+            logger.info("Error reading file. ");
         }
 
     }

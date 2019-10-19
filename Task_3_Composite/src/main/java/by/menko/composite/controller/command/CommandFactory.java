@@ -32,6 +32,11 @@ public final class CommandFactory {
 
     static {
         commandMap.put("1", new ReadFileCommand());
+        commandMap.put("2", new SortByCountCommand());
+        commandMap.put("3", new SortByCountCommand());
+        commandMap.put("4", new SortBySymbolCommand());
+        commandMap.put("5", new CollectTextCommand());
+        commandMap.put("6", new ChangeLanguageCommand());
 
 
     }

@@ -17,13 +17,23 @@
             </PatternLayout>
         </File>
         <Console name="Console" target="SYSTEM_OUT">
+            <Filters>
+                <!-- Now deny warn, error and fatal messages -->
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!-- This filter accepts info, warn, error, fatal and denies debug/trace -->
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
             <PatternLayout>
                 <Pattern>${patternconsole}</Pattern>
             </PatternLayout>
         </Console>
     </Appenders>
     <Loggers>
-        <root level="debug">
+
+        <root level="Trace">
             <appender-ref ref="Console" level="debug"/>
             <appender-ref ref="FileError" level="error"/>
             <appender-ref ref="FileInfo" level="info"/>
