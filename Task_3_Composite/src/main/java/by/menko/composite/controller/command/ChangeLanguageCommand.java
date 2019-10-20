@@ -13,7 +13,8 @@ public class ChangeLanguageCommand implements Command {
     public void execute(final String request) {
         ChooseLanguage service = new ChooseLanguage();
         logger.debug(new Controller().getBundle().getMessage("chooseLanguage"));
-        String response = service.changeLanguage();
+        String language = new Controller().getScan().nextLine();
+        String response = service.changeLanguage(language);
         logger.debug(new Controller().getBundle().getMessage(response));
     }
 }

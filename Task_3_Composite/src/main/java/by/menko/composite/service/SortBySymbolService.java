@@ -1,6 +1,6 @@
 package by.menko.composite.service;
 
-import by.menko.composite.controller.Controller;
+
 import by.menko.composite.dal.Repository;
 import by.menko.composite.dal.exception.NotInitializationException;
 import by.menko.composite.dal.exception.SortException;
@@ -12,17 +12,19 @@ public class SortBySymbolService {
     /**
      * Sort by symbol.
      *
+     * @param letter .
+     *
      * @return string result.
      *
      * @throws SortException              .
      * @throws NotInitializationException .
      */
-    public String sortBySymbol() throws SortException,
+    public String sortBySymbol(final String letter) throws SortException,
             NotInitializationException {
         Repository repository = new StorageRepository();
-        String character = new Controller().getScan().nextLine();
-        if (new Validator().validateCharI(character)) {
-            return repository.query(new SortBySymbol(character));
+
+        if (new Validator().validateCharI(letter)) {
+            return repository.query(new SortBySymbol(letter));
         } else {
             return "incorrectValue";
         }

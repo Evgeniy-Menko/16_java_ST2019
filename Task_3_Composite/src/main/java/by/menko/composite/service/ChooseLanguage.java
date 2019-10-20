@@ -8,11 +8,13 @@ public class ChooseLanguage {
     /**
      * Change Language.
      *
+     * @param language for choose language.
+     *
      * @return result.
      */
-    public String changeLanguage() {
-        String param = new Controller().getScan().nextLine();
-        switch (param) {
+    public String changeLanguage(final String language) {
+
+        switch (language) {
             case "1":
                 new Controller().setBundle(MessageManager.EN);
                 return "changeLanguage";

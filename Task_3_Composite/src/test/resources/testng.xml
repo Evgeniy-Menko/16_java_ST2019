@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Composite suite" parallel="false">
+    <test name="Test app negative">
+        <classes>
+            <class name="by.menko.composite.AppTestNegative"/>
+        </classes>
+    </test>
+    <test name="Test app positive">
+        <classes>
+            <class name="by.menko.composite.AppTestPositive"/>
+        </classes>
+    </test>
+    <test name="Test file service and validator">
+        <classes>
+            <class name="by.menko.composite.service.validator.ValidatorTest"/>
+            <class name="by.menko.composite.service.file.ServiceFileTest"/>
+        </classes>
+    </test>
+</suite>

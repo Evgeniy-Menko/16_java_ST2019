@@ -15,8 +15,9 @@ public class SortBySymbolCommand implements Command {
     public void execute(final String request) {
         SortBySymbolService service = new SortBySymbolService();
         logger.debug(new Controller().getBundle().getMessage("character"));
+        String letter = new Controller().getScan().nextLine();
         try {
-            String response = service.sortBySymbol();
+            String response = service.sortBySymbol(letter);
             if (!"incorrectValue".equals(response)) {
                 logger.debug(response);
             } else if ("".equals(response)) {

@@ -8,6 +8,7 @@ import java.io.IOException;
 public class ReadFileCommand implements Command {
     /**
      * Read file and added to the storage.
+     *
      * @param request .
      */
     @Override
@@ -15,9 +16,9 @@ public class ReadFileCommand implements Command {
         ReadFileAndAddStorage service = new ReadFileAndAddStorage();
         logger.debug(new Controller().getBundle()
                 .getMessage("readFile"));
-
+        String nameFile = new Controller().getScan().nextLine();
         try {
-            String response = service.readAndAddToStorage();
+            String response = service.readAndAddToStorage(nameFile);
             logger.debug(new Controller().getBundle().getMessage(response));
         } catch (IOException e) {
             logger.debug(new Controller().getBundle().getMessage("errorRead"));
