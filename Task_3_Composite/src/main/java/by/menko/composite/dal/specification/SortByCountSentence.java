@@ -12,7 +12,15 @@ import java.util.stream.Collectors;
 
 public class SortByCountSentence implements Specification {
 
-
+    /**
+     * Sort text by count sentence.
+     *
+     * @param component .
+     *
+     * @return String.
+     *
+     * @throws SortException .
+     */
     @Override
     public String specified(final Component component) throws SortException {
 
@@ -24,7 +32,7 @@ public class SortByCountSentence implements Specification {
                     .collect(Collectors.toList());
             StringBuilder result = new StringBuilder();
             for (Component c : sortedList) {
-                result.append(c.operation()).append("\n");
+                result.append(c.collect()).append("\n");
 
             }
             return result.toString();

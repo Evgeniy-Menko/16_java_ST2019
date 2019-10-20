@@ -28,7 +28,7 @@ public class LengthComparator implements Comparator<Component> {
      */
     @Override
     public int compare(final Component o1, final Component o2) {
-        return o1.getList().size() - o2.getList().size();
+        return o1.getAllChild().size() - o2.getAllChild().size();
     }
 
 }

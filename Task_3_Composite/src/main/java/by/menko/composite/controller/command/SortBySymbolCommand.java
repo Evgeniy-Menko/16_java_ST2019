@@ -6,6 +6,11 @@ import by.menko.composite.dal.exception.SortException;
 import by.menko.composite.service.SortBySymbolService;
 
 public class SortBySymbolCommand implements Command {
+    /**
+     * Sort by symbol.
+     *
+     * @param request .
+     */
     @Override
     public void execute(final String request) {
         SortBySymbolService service = new SortBySymbolService();

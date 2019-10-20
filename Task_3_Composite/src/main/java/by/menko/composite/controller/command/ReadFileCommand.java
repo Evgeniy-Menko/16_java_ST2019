@@ -6,6 +6,10 @@ import by.menko.composite.service.ReadFileAndAddStorage;
 import java.io.IOException;
 
 public class ReadFileCommand implements Command {
+    /**
+     * Read file and added to the storage.
+     * @param request .
+     */
     @Override
     public void execute(final String request) {
         ReadFileAndAddStorage service = new ReadFileAndAddStorage();

@@ -5,7 +5,11 @@ import by.menko.composite.view.MessageManager;
 
 
 public class ChooseLanguage {
-
+    /**
+     * Change Language.
+     *
+     * @return result.
+     */
     public String changeLanguage() {
         String param = new Controller().getScan().nextLine();
         switch (param) {

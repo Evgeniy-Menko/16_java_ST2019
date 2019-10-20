@@ -8,7 +8,9 @@ public final class Storage {
      * Object class.
      */
     private static Storage storage;
-
+    /**
+     * Object component.
+     */
     private Component component;
 
     /**
@@ -30,6 +32,13 @@ public final class Storage {
         return storage;
     }
 
+    /**
+     * getter for component.
+     *
+     * @return component.
+     *
+     * @throws NotInitializationException .
+     */
     public Component getComponent() throws NotInitializationException {
         if (component != null) {
             return component;
@@ -38,6 +47,11 @@ public final class Storage {
         }
     }
 
+    /**
+     * Add component.
+     *
+     * @param comp object.
+     */
     public void add(final Component comp) {
         component = comp;
     }

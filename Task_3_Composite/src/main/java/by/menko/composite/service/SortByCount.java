@@ -8,6 +8,16 @@ import by.menko.composite.dal.specification.SortByCountSentence;
 import by.menko.composite.dal.specification.SortByCountWord;
 
 public class SortByCount {
+    /**
+     * Sort by count word or sentence.
+     *
+     * @param request param for type sorting.
+     *
+     * @return String result.
+     *
+     * @throws SortException              .
+     * @throws NotInitializationException .
+     */
     public String sortByCountWordAndSentence(final String request)
             throws SortException, NotInitializationException {
         Repository repository = new StorageRepository();

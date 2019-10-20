@@ -7,6 +7,10 @@ import by.menko.composite.service.CollectText;
 import java.io.IOException;
 
 public class CollectTextCommand implements Command {
+    /**
+     * Collect text and save to the file.
+     * @param request .
+     */
     @Override
     public void execute(final String request) {
         CollectText service = new CollectText();

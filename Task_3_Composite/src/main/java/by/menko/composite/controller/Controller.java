@@ -9,6 +9,9 @@ import by.menko.composite.view.MessageManager;
 import java.util.Scanner;
 
 public class Controller {
+    /**
+     * Object MessageManager.
+     */
     private static MessageManager bundle = MessageManager.EN;
     /**
      * Object Scanner.

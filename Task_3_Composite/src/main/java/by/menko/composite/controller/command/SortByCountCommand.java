@@ -6,10 +6,14 @@ import by.menko.composite.dal.exception.SortException;
 import by.menko.composite.service.SortByCount;
 
 public class SortByCountCommand implements Command {
+    /**
+     * Sort by count word or sentence.
+     *
+     * @param request .
+     */
     @Override
     public void execute(final String request) {
         SortByCount service = new SortByCount();
-
         try {
             String response = service.sortByCountWordAndSentence(request);
             if (!"".equals(response)) {

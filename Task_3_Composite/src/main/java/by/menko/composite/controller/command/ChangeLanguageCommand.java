@@ -4,6 +4,11 @@ import by.menko.composite.controller.Controller;
 import by.menko.composite.service.ChooseLanguage;
 
 public class ChangeLanguageCommand implements Command {
+    /**
+     * Change language command.
+     *
+     * @param request .
+     */
     @Override
     public void execute(final String request) {
         ChooseLanguage service = new ChooseLanguage();

@@ -1,8 +1,14 @@
 package by.menko.composite.service.parser;
 
 public class ManagerChain {
+    /**
+     * First parser.
+     */
     private DoChain parser;
 
+    /**
+     * constructor with chain.
+     */
     public ManagerChain() {
         // initialize the chain
         this.parser = new ParserText();
@@ -18,6 +24,11 @@ public class ManagerChain {
         c4.setNextChain(c5);
     }
 
+    /**
+     * Get first parser.
+     *
+     * @return first parser.
+     */
     public DoChain getParser() {
         return parser;
     }

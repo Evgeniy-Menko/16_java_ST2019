@@ -9,7 +9,14 @@ import by.menko.composite.dal.specification.SortBySymbol;
 import by.menko.composite.service.validator.Validator;
 
 public class SortBySymbolService {
-
+    /**
+     * Sort by symbol.
+     *
+     * @return string result.
+     *
+     * @throws SortException              .
+     * @throws NotInitializationException .
+     */
     public String sortBySymbol() throws SortException,
             NotInitializationException {
         Repository repository = new StorageRepository();

@@ -9,7 +9,13 @@ import by.menko.composite.service.parser.ManagerChain;
 import java.io.IOException;
 
 public class ReadFileAndAddStorage {
-
+    /**
+     * Read file and parse text on components.Add components to the storage.
+     *
+     * @return String.
+     *
+     * @throws IOException .
+     */
     public String readAndAddToStorage() throws IOException {
 
         ServiceFile serviceFile = new ServiceFile();

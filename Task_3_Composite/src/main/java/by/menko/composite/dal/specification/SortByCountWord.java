@@ -12,7 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SortByCountWord implements Specification {
-
+    /**
+     * Sort text by count word.
+     *
+     * @param component text.
+     *
+     * @return string.
+     *
+     * @throws SortException .
+     */
     @Override
     public String specified(final Component component) throws SortException {
         List<Component> sentenceList = new SearchByType()
@@ -22,13 +30,13 @@ public class SortByCountWord implements Specification {
         StringBuilder sb = new StringBuilder();
         try {
             for (Component comp : sentenceList) {
-                sortedList = comp.getList().stream()
-                        .flatMap(c -> c.getList().stream())
+                sortedList = comp.getAllChild().stream()
+                        .flatMap(c -> c.getAllChild().stream())
                         .sorted(new LengthComparator())
                         .collect(Collectors.toList());
 
                 for (Component b : sortedList) {
-                    sb.append(" ").append(b.operation());
+                    sb.append(" ").append(b.collect());
                 }
                 sb.append("\n");
             }

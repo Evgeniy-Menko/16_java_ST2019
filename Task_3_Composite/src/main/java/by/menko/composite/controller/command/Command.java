@@ -6,7 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 
 public interface Command {
-
+    /**
+     * Object log4j2.
+     */
     Logger logger = LogManager.getLogger();
 
     /**
