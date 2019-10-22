@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.candies.org"
+         xsi:schemaLocation="http://www.candies.org candies.xsd">
+
+    <candy id="1">
+        <name>Джек</name>
+        <energy ci="cs">49</energy>
+        <type filling="true" xsi:type="chocolate">
+            <ingredients>
+                <water ci="sd">5</water>
+                <sugar ci="we">5</sugar>
+                <fructose ci="as">6</fructose>
+                <vanillin ci="as">6</vanillin>
+                <chocolateType>пористый шоколад
+                </chocolateType>
+            </ingredients>
+            <value>
+                <proteins ci="as">6</proteins>
+                <fats ci="ds">7</fats>
+                <carbohydrates ci="sd">7</carbohydrates>
+            </value>
+        </type>
+        <production>КОНТИ</production>
+    </candy>
+
+    <candy id="3">
+        <name>asd</name>
+        <energy ci="sd">49</energy>
+        <type filling="false" xsi:type="caramel">
+            <ingredients>
+                <water ci="sd">7</water>
+                <sugar ci="sd">2</sugar>
+                <fructose ci="ll">3</fructose>
+                <vanillin ci="sd">5</vanillin>
+            </ingredients>
+            <value>
+                <proteins ci="sd">23</proteins>
+                <fats ci="sd">23</fats>
+                <carbohydrates ci="sd">23</carbohydrates>
+            </value>
+        </type>
+        <production>asd</production>
+    </candy>
+
+</candies>
