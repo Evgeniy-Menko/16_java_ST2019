@@ -4,7 +4,7 @@ import by.menko.composite.controller.Controller;
 import by.menko.composite.view.MessageManager;
 
 
-public class ChooseLanguage {
+public class ChooseLanguage implements Service {
     /**
      * Change Language.
      *
@@ -12,7 +12,7 @@ public class ChooseLanguage {
      *
      * @return result.
      */
-    public String changeLanguage(final String language) {
+    public String execute(final String language) {
 
         switch (language) {
             case "1":

@@ -11,26 +11,26 @@ public class AppTestNegative {
     @BeforeTest
     public void writeFileAndAddStorage() {
         ReadFileAndAddStorage service = new ReadFileAndAddStorage();
-        assertThrows(Exception.class, () -> service.readAndAddToStorage("src//test//resource//data//file1.txt"));
+        assertThrows(Exception.class, () -> service.execute("src//test//resource//data//file1.txt"));
     }
 
     @Test
     public void sortBySymbol() {
         SortBySymbolService service = new SortBySymbolService();
-        assertThrows(Exception.class, () -> service.sortBySymbol("a"));
+        assertThrows(Exception.class, () -> service.execute("a"));
     }
 
     @Test
     public void sortByCountSentenceAndWord() {
         SortByCount service = new SortByCount();
-        assertThrows(Exception.class, () -> service.sortByCountWordAndSentence("2"));
-        assertThrows(Exception.class, () -> service.sortByCountWordAndSentence("3"));
+        assertThrows(Exception.class, () -> service.execute("2"));
+        assertThrows(Exception.class, () -> service.execute("3"));
     }
 
     @Test
     public void collectText()  {
         CollectText service = new CollectText();
-        assertThrows(Exception.class, service::collect);
+        assertThrows(Exception.class, service::execute);
     }
 
 }

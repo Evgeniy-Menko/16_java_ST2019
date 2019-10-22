@@ -7,7 +7,7 @@ import by.menko.composite.dal.repository.StorageRepository;
 import by.menko.composite.dal.specification.SortByCountSentence;
 import by.menko.composite.dal.specification.SortByCountWord;
 
-public class SortByCount {
+public class SortByCount implements Service {
     /**
      * Sort by count word or sentence.
      *
@@ -18,7 +18,7 @@ public class SortByCount {
      * @throws SortException              .
      * @throws NotInitializationException .
      */
-    public String sortByCountWordAndSentence(final String request)
+    public String execute(final String request)
             throws SortException, NotInitializationException {
         Repository repository = new StorageRepository();
         String response;

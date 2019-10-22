@@ -7,16 +7,16 @@ import by.menko.composite.service.file.ServiceFile;
 
 import java.io.IOException;
 
-public class CollectText {
+public class CollectText implements Service {
     /**
      * Collect text and save to the file.
      *
      * @return String.
      *
      * @throws NotInitializationException .
-     * @throws IOException                .
+     * @throws IOException                 .
      */
-    public String collect() throws NotInitializationException, IOException {
+    public String execute() throws NotInitializationException, IOException {
         ServiceFile service = new ServiceFile();
         Repository repository = new StorageRepository();
         String response = repository.getComponent().collect();
