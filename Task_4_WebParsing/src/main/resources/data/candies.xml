@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.candies.org"
+         xsi:schemaLocation="http://www.candies.org candies.xsd">
+
+    <candy id="1">
+        <name>Alenka</name>
+        <energy ci="kcal">49</energy>
+        <type filling="true" xsi:type="chocolate">
+            <ingredients>
+                <water ci="mg">5</water>
+                <sugar ci="mg">5</sugar>
+                <fructose ci="mg">6</fructose>
+                <vanillin ci="mg">6</vanillin>
+                <chocolateType>milk chocolate</chocolateType>
+            </ingredients>
+            <value>
+                <proteins ci="gm">6</proteins>
+                <fats ci="gm">7</fats>
+                <carbohydrates ci="gm">7</carbohydrates>
+            </value>
+        </type>
+        <production>Baranovichi</production>
+    </candy>
+
+  <candy id="2">
+         <name>Ledenec</name>
+         <energy>243</energy>
+         <type filling="false" xsi:type="caramel">
+             <ingredients>
+                 <water>0.2</water>
+                 <sugar>15</sugar>
+                 <fructose>10</fructose>
+                 <vanillin>3.2</vanillin>
+                 <taste>orange</taste>
+             </ingredients>
+             <value>
+                 <proteins>0.3</proteins>
+                 <fats>0.5</fats>
+                 <carbohydrates>11</carbohydrates>
+             </value>
+         </type>
+         <production>Minsk,Belarus</production>
+     </candy>
+
+     <candy id="3">
+         <name>GoldKey</name>
+         <energy>45</energy>
+         <type filling="false" xsi:type="iris">
+             <ingredients>
+                 <water>10</water>
+                 <sugar>16</sugar>
+                 <fructose>12</fructose>
+                 <vanillin>6</vanillin>
+             </ingredients>
+             <value>
+                 <proteins>4</proteins>
+                 <fats>14</fats>
+                 <carbohydrates>9</carbohydrates>
+             </value>
+         </type>
+         <production/>
+     </candy>
+
+     <candy id="4">
+         <name>Stolichnay</name>
+         <energy>368</energy>
+         <type filling="true" xsi:type="chocolate">
+             <ingredients>
+                 <water>0.1</water>
+                 <sugar>15</sugar>
+                 <fructose>10</fructose>
+                 <vanillin>5</vanillin>
+                 <chocolateType>dark chocolate</chocolateType>
+             </ingredients>
+             <value>
+                 <proteins>0.6</proteins>
+                 <fats>1.3</fats>
+                 <carbohydrates>92.3</carbohydrates>
+             </value>
+         </type>
+         <production>Kommunarka</production>
+     </candy>
+
+     <candy id="5">
+         <name>MIND-BLOWING LOLLIPOP</name>
+         <energy>369</energy>
+         <type filling="false" xsi:type="caramel">
+             <ingredients>
+                 <water>0.1</water>
+                 <sugar>15</sugar>
+                 <fructose>10</fructose>
+                 <vanillin>5</vanillin>
+                <taste>lemon</taste>
+             </ingredients>
+             <value>
+                 <proteins>0.6</proteins>
+                 <fats>1.3</fats>
+                 <carbohydrates>96.3</carbohydrates>
+             </value>
+         </type>
+         <production>Kommunarka</production>
+     </candy>
+
+     <candy id="6">
+         <name>Apple</name>
+         <energy>357</energy>
+         <type filling="false" xsi:type="caramel">
+             <ingredients>
+                 <water>0.1</water>
+                 <sugar>15</sugar>
+                 <fructose>10</fructose>
+                 <vanillin>5</vanillin>
+                 <taste>apple</taste>
+             </ingredients>
+             <value>
+                 <proteins>0.1</proteins>
+                 <fats>0.1</fats>
+                 <carbohydrates>92.7</carbohydrates>
+             </value>
+         </type>
+         <production>Spartak</production>
+     </candy>
+
+</candies>
