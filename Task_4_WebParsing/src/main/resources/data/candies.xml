@@ -4,7 +4,7 @@
 
     <candy id="1">
         <name>Alenka</name>
-        <energy ci="kcal">49</energy>
+        <energy ci="kcal">493</energy>
         <type filling="true" xsi:type="chocolate">
             <ingredients>
                 <water ci="mg">5</water>
@@ -22,27 +22,27 @@
         <production>Baranovichi</production>
     </candy>
 
-  <candy id="2">
-         <name>Ledenec</name>
-         <energy>243</energy>
-         <type filling="false" xsi:type="caramel">
-             <ingredients>
-                 <water>0.2</water>
-                 <sugar>15</sugar>
-                 <fructose>10</fructose>
-                 <vanillin>3.2</vanillin>
-                 <taste>orange</taste>
-             </ingredients>
-             <value>
-                 <proteins>0.3</proteins>
-                 <fats>0.5</fats>
-                 <carbohydrates>11</carbohydrates>
-             </value>
-         </type>
-         <production>Minsk,Belarus</production>
-     </candy>
+    <candy id="2">
+        <name>Ledenec</name>
+        <energy ci="kcal">243</energy>
+        <type filling="false" xsi:type="caramel">
+            <ingredients>
+                <water ci="mg">0.2</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">3.2</vanillin>
+                <taste>orange</taste>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.3</proteins>
+                <fats ci="gm">0.5</fats>
+                <carbohydrates ci="gm">11</carbohydrates>
+            </value>
+        </type>
+        <production>Minsk,Belarus</production>
+    </candy>
 
-     <candy id="3">
+    <!-- <candy id="3">
          <name>GoldKey</name>
          <energy>45</energy>
          <type filling="false" xsi:type="iris">
@@ -90,7 +90,7 @@
                  <sugar>15</sugar>
                  <fructose>10</fructose>
                  <vanillin>5</vanillin>
-                <taste>lemon</taste>
+                 <taste>lemon</taste>
              </ingredients>
              <value>
                  <proteins>0.6</proteins>
@@ -120,5 +120,5 @@
          </type>
          <production>Spartak</production>
      </candy>
-
+ -->
 </candies>

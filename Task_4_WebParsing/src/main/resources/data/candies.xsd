@@ -113,7 +113,13 @@
     <xsd:complexType name="Energy">
         <xsd:simpleContent>
             <xsd:extension base="tns:unsDecimal">
-                <xsd:attribute name="ci" type="xsd:string" fixed="kcal"/>
+                <xsd:attribute name="ci" type="xsd:string" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="kcal"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
@@ -121,7 +127,13 @@
     <xsd:complexType name="Ingredient">
         <xsd:simpleContent>
             <xsd:extension base="tns:unsDecimal">
-                <xsd:attribute name="ci" type="xsd:string" fixed="mg"/>
+                <xsd:attribute name="ci" type="xsd:string" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="mg"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
@@ -130,7 +142,13 @@
     <xsd:complexType name="typeValue">
         <xsd:simpleContent>
             <xsd:extension base="tns:unsDecimal">
-                <xsd:attribute name="ci" type="xsd:string" fixed="gm"/>
+                <xsd:attribute name="ci" type="xsd:string" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="gm"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>

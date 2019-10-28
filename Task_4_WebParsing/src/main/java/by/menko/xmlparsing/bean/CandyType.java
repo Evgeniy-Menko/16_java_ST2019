@@ -10,6 +10,7 @@ public enum CandyType {
      */
     private boolean filling;
 
+
     /**
      * Get name to lower case.
      *

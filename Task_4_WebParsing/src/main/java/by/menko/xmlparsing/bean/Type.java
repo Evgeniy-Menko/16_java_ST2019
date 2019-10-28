@@ -7,7 +7,7 @@ public class Type {
     /**
      * Candy type.
      */
-    private CandyType candyType;
+    private CandyType candyTypes;
     /**
      * Ingredients.
      */
@@ -20,6 +20,25 @@ public class Type {
      * Type chocolate.
      */
     private String typeChocolate;
+
+    private String tasteCaramel;
+
+    public String getTasteCaramel() {
+        if (candyTypes.getName().equals("caramel")) {
+            return tasteCaramel;
+        } else {
+            return "---";
+        }
+    }
+
+    public Type setTasteCaramel(String tasteCaramel) {
+        this.tasteCaramel = tasteCaramel;
+        return this;
+    }
+
+    public Type(CandyType candyType) {
+        this.candyTypes = candyType;
+    }
 
     /**
      * Get Ingredients.
@@ -45,4 +64,24 @@ public class Type {
         return values;
     }
 
+    public String getTypeChocolate() {
+        if (candyTypes.getName().equals("chocolate")) {
+            return typeChocolate;
+        } else {
+            return "---";
+        }
+    }
+
+    public void setTypeChocolate(String typeChocolate) {
+        this.typeChocolate = typeChocolate;
+    }
+
+    public CandyType getCandyTypes() {
+        return candyTypes;
+    }
+
+    public Type setCandyTypes(CandyType candyTypes) {
+        this.candyTypes = candyTypes;
+        return this;
+    }
 }

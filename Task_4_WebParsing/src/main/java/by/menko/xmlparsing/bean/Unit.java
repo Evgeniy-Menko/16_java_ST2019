@@ -59,4 +59,7 @@ public class Unit {
         return count;
     }
 
+    public final void setCount(double count) {
+        this.count = count;
+    }
 }
