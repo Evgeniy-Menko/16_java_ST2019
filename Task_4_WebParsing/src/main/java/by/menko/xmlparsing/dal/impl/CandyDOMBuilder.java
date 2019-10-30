@@ -1,4 +1,4 @@
-package by.menko.xmlparsing.service.parser;
+package by.menko.xmlparsing.dal.impl;
 
 import by.menko.xmlparsing.bean.Candy;
 
