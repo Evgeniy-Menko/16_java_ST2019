@@ -12,17 +12,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class ValidatorXML {
-    private final String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 
-    private final String schemaName = "src/main/resources/data/candies.xsd";
-    private final SchemaFactory factory = SchemaFactory.newInstance(language);
-    private final File schemaLocation = new File(schemaName);
+    private final static String LANGUAGE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+    private final static String SCHEMA_NAME = "WEB-INF/classes/data/candies.xsd";
+    private final SchemaFactory factory = SchemaFactory.newInstance(LANGUAGE);
 
-    public boolean isValid(String fileName) {
+
+    public boolean isValid(String fileName, String uri) {
         boolean result = false;
-        try {       // создание схемы
-            Schema schema = factory.newSchema(schemaLocation);       // создание валидатора на основе схемы
-            Validator validator = schema.newValidator();       // проверка документа
+        try {
+            File schemaLocation = new File(uri + SCHEMA_NAME);
+            Schema schema = factory.newSchema(schemaLocation);
+            Validator validator = schema.newValidator();
             Source source = new StreamSource(fileName);
             validator.validate(source);
             result = true;

@@ -2,6 +2,7 @@ package by.menko.xmlparsing.dal.impl;
 
 import by.menko.xmlparsing.bean.Candy;
 import by.menko.xmlparsing.dal.CandyHandler;
+import by.menko.xmlparsing.dal.Spetification;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -9,7 +10,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import java.io.IOException;
 import java.util.List;
 
-public class CandySaxBuilder {
+public class CandySaxBuilder implements Spetification {
 
     private List<Candy> candies;
     private CandyHandler sh;
@@ -30,7 +31,7 @@ public class CandySaxBuilder {
         return candies;
     }
 
-    public void buildSetCandy(String fileName) {
+    public List<Candy> buildSetCandies(String fileName) {
         try {
             reader.parse(fileName);
         } catch (SAXException e) {
@@ -39,6 +40,7 @@ public class CandySaxBuilder {
             System.err.print("ошибка I/О потока: " + e);
         }
         candies = sh.getCandies();
+        return null;
     }
 }
 

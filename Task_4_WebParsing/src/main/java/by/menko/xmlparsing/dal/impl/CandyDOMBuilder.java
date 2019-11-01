@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import by.menko.xmlparsing.bean.CandyType;
 import by.menko.xmlparsing.bean.Type;
 import by.menko.xmlparsing.bean.Unit;
+import by.menko.xmlparsing.dal.Spetification;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandyDOMBuilder {
+public class CandyDOMBuilder implements Spetification {
     private List<Candy> candies;
     private DocumentBuilder docBuilder;
 
@@ -38,7 +39,7 @@ public class CandyDOMBuilder {
         return candies;
     }
 
-    public void buildSetCandies(String fileName) {
+    public List<Candy> buildSetCandies(String fileName) {
         Document doc = null;
         try {
             doc = docBuilder.parse(fileName);
@@ -54,6 +55,7 @@ public class CandyDOMBuilder {
         } catch (SAXException e) {
             System.err.println("Parsing failure: " + e);
         }
+        return null;
     }
 
     private Candy buildCandy(Element candyElement) {
@@ -85,10 +87,10 @@ public class CandyDOMBuilder {
     private static Unit getUnitContext(Element element, String elementName) {
         NodeList nList = element.getElementsByTagName(elementName);
         Node node = nList.item(0);
+        Element elementUnit = (Element) nList.item(0);
         Unit unit = new Unit();
         unit.setName(elementName);
-        node.getAttributes();
-        unit.setCi(node.getAttributes().item(0).getTextContent());
+        unit.setCi(elementUnit.getAttribute("ci"));
         unit.setCount(Double.parseDouble(node.getTextContent()));
         return unit;
     }
@@ -97,9 +99,9 @@ public class CandyDOMBuilder {
     private static Type getType(Element candyElement) {
         Type type;
         NodeList nList = candyElement.getElementsByTagName("type");
-        Node node = nList.item(0);
-        String typeCandy = node.getAttributes().item(1).getTextContent();
-        String filling = node.getAttributes().item(0).getTextContent();
+        Element elementType = (Element) nList.item(0);
+        String typeCandy = elementType.getAttribute("xsi:type");
+        String filling = elementType.getAttribute("filling");
         if (CandyType.CARAMEL.toString().toLowerCase().equals(typeCandy)) {
             type = new Type(CandyType.CARAMEL);
             type.setTasteCaramel(getElementTextContent(candyElement, "taste"));
