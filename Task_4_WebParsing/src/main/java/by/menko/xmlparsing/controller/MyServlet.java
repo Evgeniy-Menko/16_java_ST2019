@@ -5,6 +5,7 @@ import by.menko.xmlparsing.controller.command.CommandFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +32,7 @@ public class MyServlet extends HttpServlet {
         process(req, resp);
     }
 
-    private void process(HttpServletRequest req, HttpServletResponse resp) {
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String action = req.getParameter("action");
             if (action == null) {
@@ -41,7 +42,10 @@ public class MyServlet extends HttpServlet {
             Command command = factory.getCommand(action);
             command.execute(req, resp);
         } catch (ServletException | IOException e) {
-            System.out.println(e);
+            String error = "Error reading file or servlet, please go to the home page!";
+            req.setAttribute("result", error);
+            RequestDispatcher errorPage = req.getRequestDispatcher("/Error.jsp");
+            errorPage.forward(req, resp);
         }
     }
 }

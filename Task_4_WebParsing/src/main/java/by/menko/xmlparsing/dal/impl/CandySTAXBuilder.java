@@ -33,7 +33,7 @@ public class CandySTAXBuilder implements Spetification {
         return candies;
     }
 
-    public List<Candy> buildSetCandies(String fileName) {
+    public void buildSetCandies(String fileName) throws XMLStreamException {
 
         Candy candy = null;
         Type type = null;
@@ -62,7 +62,7 @@ public class CandySTAXBuilder implements Spetification {
                         flagQuality = true;
                         continue;
                     } else if (XmlEnum.CANDIES.value().equals(currentElement)) {
-                        candies = new ArrayList<Candy>();
+                        candies = new ArrayList<>();
                         continue;
                     } else if (XmlEnum.TYPE.value().equals(currentElement)) {
                         type = getType(startElement);
@@ -102,6 +102,9 @@ public class CandySTAXBuilder implements Spetification {
                     } else if (XmlEnum.PRODUCTION.value().equals(currentElement)) {
                         candy.setProduction(characters.getData());
                         continue;
+                    } else if (XmlEnum.PRODUCTION_DATE.value().equals(currentElement)) {
+                        candy.setProductionDate(characters.getData());
+                        continue;
                     }
                 }
 
@@ -135,19 +138,13 @@ public class CandySTAXBuilder implements Spetification {
                     }
                 }
             }
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
         } finally {
             if (reader != null) {
-                try {
-                    reader.close();
-                } catch (XMLStreamException ex) {
-                    System.err.println(ex.getMessage());
-                }
+                reader.close();
             }
         }
 
-        return null;
+
     }
 
     private Unit getQuality(final StartElement element) {

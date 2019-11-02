@@ -17,7 +17,7 @@ public enum XmlEnum {
      * Elements names.
      */
     CARBOHYDRATES("carbohydrates"), PRODUCTION("production"), INGREDIENTS("ingredients"), VALUE("value"),
-
+    PRODUCTION_DATE("productionDate"),
     /**
      * Attribute name.
      */

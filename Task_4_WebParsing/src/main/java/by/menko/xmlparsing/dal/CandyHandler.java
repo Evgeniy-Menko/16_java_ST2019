@@ -66,6 +66,8 @@ public class CandyHandler extends DefaultHandler {
             type.setTypeChocolate(elementText);
         } else if (XmlEnum.PRODUCTION.value().equals(currentElement)) {
             candy.setProduction(elementText);
+        } else if (XmlEnum.PRODUCTION_DATE.value().equals(currentElement)) {
+            candy.setProductionDate(elementText);
         } else if (XmlEnum.TASTE.value().equals(currentElement)) {
             type.setTasteCaramel(elementText);
         }
@@ -108,7 +110,7 @@ public class CandyHandler extends DefaultHandler {
     private Type getType(Attributes attributes) {
         Type type;
         String typeCandy = attributes.getValue("http://www.w3.org/2001/XMLSchema-instance", XmlEnum.TYPE.value());
-        String filling = attributes.getValue( XmlEnum.FILLING.value());
+        String filling = attributes.getValue(XmlEnum.FILLING.value());
         if (CandyType.CARAMEL.toString().toLowerCase().equals(typeCandy)) {
             type = new Type(CandyType.CARAMEL);
         } else if (CandyType.CHOCOLATE.toString().toLowerCase().equals(typeCandy)) {

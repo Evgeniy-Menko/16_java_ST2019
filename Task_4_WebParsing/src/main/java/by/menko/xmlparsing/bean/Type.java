@@ -36,6 +36,10 @@ public class Type {
         return this;
     }
 
+    public CandyType getCandyType() {
+        return candyTypes;
+    }
+
     public Type(CandyType candyType) {
         this.candyTypes = candyType;
     }

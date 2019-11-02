@@ -25,23 +25,19 @@ public class CandyDOMBuilder implements Spetification {
     private DocumentBuilder docBuilder;
 
 
-    public CandyDOMBuilder() {
-        this.candies = new ArrayList<Candy>();
+    public CandyDOMBuilder() throws ParserConfigurationException {
+        this.candies = new ArrayList<>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            docBuilder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            System.err.println("Ошибка конфигурации парсера: " + e);
-        }
+        docBuilder = factory.newDocumentBuilder();
     }
 
     public List<Candy> getCandies() {
         return candies;
     }
 
-    public List<Candy> buildSetCandies(String fileName) {
+    public void buildSetCandies(String fileName) throws IOException, SAXException {
         Document doc = null;
-        try {
+
             doc = docBuilder.parse(fileName);
             Element root = doc.getDocumentElement();
             NodeList candiesList = root.getElementsByTagName("candy");
@@ -50,12 +46,8 @@ public class CandyDOMBuilder implements Spetification {
                 Candy candy = buildCandy(candyElement);
                 candies.add(candy);
             }
-        } catch (IOException e) {
-            System.err.println("File error or I/O error: " + e);
-        } catch (SAXException e) {
-            System.err.println("Parsing failure: " + e);
-        }
-        return null;
+
+
     }
 
     private Candy buildCandy(Element candyElement) {
@@ -74,6 +66,7 @@ public class CandyDOMBuilder implements Spetification {
         type.getValues().add(getUnitContext(candyElement, "carbohydrates"));
         candy.setType(type);
         candy.setProduction(getElementTextContent(candyElement, "production"));
+        candy.setProductionDate(getElementTextContent(candyElement, "productionDate"));
 
         return candy;
     }

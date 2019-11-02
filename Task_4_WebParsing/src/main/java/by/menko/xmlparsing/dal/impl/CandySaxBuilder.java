@@ -16,31 +16,21 @@ public class CandySaxBuilder implements Spetification {
     private CandyHandler sh;
     private XMLReader reader;
 
-    public CandySaxBuilder() {
+    public CandySaxBuilder() throws SAXException {
         sh = new CandyHandler();
-        try {
-            reader = XMLReaderFactory.createXMLReader();
-            reader.setContentHandler(sh);
-        } catch (org.xml.sax.SAXException e) {
-            e.printStackTrace();
-        }
 
+        reader = XMLReaderFactory.createXMLReader();
+        reader.setContentHandler(sh);
     }
 
     public List<Candy> getCandies() {
         return candies;
     }
 
-    public List<Candy> buildSetCandies(String fileName) {
-        try {
-            reader.parse(fileName);
-        } catch (SAXException e) {
-            System.err.print("ошибка SAX парсера: " + e);
-        } catch (IOException e) {
-            System.err.print("ошибка I/О потока: " + e);
-        }
+    public void buildSetCandies(String fileName) throws IOException, SAXException {
+        reader.parse(fileName);
         candies = sh.getCandies();
-        return null;
+
     }
 }
 

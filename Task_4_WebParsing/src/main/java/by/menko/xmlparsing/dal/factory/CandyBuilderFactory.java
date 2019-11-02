@@ -4,12 +4,15 @@ import by.menko.xmlparsing.dal.Spetification;
 import by.menko.xmlparsing.dal.impl.CandyDOMBuilder;
 import by.menko.xmlparsing.dal.impl.CandySTAXBuilder;
 import by.menko.xmlparsing.dal.impl.CandySaxBuilder;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class CandyBuilderFactory {
 
     private enum TypeParser {SAX, STAX, DOM}
 
-    public Spetification createStudentBuilder(String typeParser) {
+    public Spetification createStudentBuilder(String typeParser) throws ParserConfigurationException, SAXException {
         TypeParser type = TypeParser.valueOf(typeParser.toUpperCase());
         switch (type) {
             case DOM:

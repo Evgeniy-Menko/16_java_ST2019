@@ -25,8 +25,12 @@ public enum CandyType {
      *
      * @return the filling.
      */
-    public boolean isFilling() {
-        return filling;
+    public String getFilling() {
+        if (filling) {
+            return "YES";
+        } else {
+            return "NO";
+        }
     }
 
     /**

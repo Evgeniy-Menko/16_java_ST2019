@@ -16,10 +16,10 @@ public class DoFilter implements Filter {
         String home = req.getContextPath() + "/home";
         String url = req.getRequestURI();
         String result = req.getContextPath() + "/home?action=result";
-        if (!home.equals(url) && !result.equals(url)) {
-            resp.sendRedirect(home);
-        } else {
+        if (home.equals(url) || result.equals(url)) {
             filterChain.doFilter(req, resp);
+        } else {
+            resp.sendRedirect(home);
         }
     }
 }

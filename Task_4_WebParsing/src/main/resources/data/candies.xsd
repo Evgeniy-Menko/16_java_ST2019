@@ -10,13 +10,14 @@
 
 
                 <xsd:element name="candy" maxOccurs="unbounded"
-                             minOccurs="0">
+                             minOccurs="1">
                     <xsd:complexType>
                         <xsd:sequence>
                             <xsd:element name="name" type="tns:String"/>
                             <xsd:element name="energy" type="tns:Energy"/>
                             <xsd:element name="type" type="tns:type"/>
-                            <xsd:element name="production" type="tns:String" default="Unknown"/>
+                            <xsd:element name="production" type="tns:String"/>
+                            <xsd:element name="productionDate" type="xsd:date"/>
                         </xsd:sequence>
                         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
                     </xsd:complexType>
@@ -142,7 +143,7 @@
     <xsd:simpleType name="String">
         <xsd:restriction base="xsd:string">
             <xsd:minLength value="2"/>
-            <xsd:pattern value=".*"/>
+            <xsd:pattern value="[A-Za-z\W]*[^\d]"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -150,7 +151,7 @@
     <xsd:simpleType name="unsDecimal">
         <xsd:restriction base="xsd:decimal">
             <xsd:minInclusive value="0.0"/>
-            <xsd:maxExclusive value="500"/>
+            <xsd:maxExclusive value="600"/>
         </xsd:restriction>
     </xsd:simpleType>
 
