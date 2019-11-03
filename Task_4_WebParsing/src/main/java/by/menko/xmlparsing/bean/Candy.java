@@ -27,41 +27,39 @@ public class Candy {
     private String productionDate;
 
     /**
-     * @return
+     * @return production date.
      */
     public String getProductionDate() {
         return productionDate;
     }
 
     /**
-     * @param productionDate .
-     *
-     * @return
+     * @param productionDateCandy .
      */
-    public void setProductionDate(String productionDate) {
-        this.productionDate = productionDate;
+    public void setProductionDate(final String productionDateCandy) {
+        this.productionDate = productionDateCandy;
     }
 
     /**
      * @return the energy.
      *
-     * @Getter {@link Candy#energy}.
+     * @Getter energy.
      */
     public final Unit getEnergy() {
         return energy;
     }
 
     /**
-     * Setter {@link Candy#energy}.
+     * Setter energy.
      *
-     * @param energy the energy to set.
+     * @param energyCandy the energy to set.
      */
-    public final void setEnergy(Unit energy) {
-        this.energy = energy;
+    public final void setEnergy(final Unit energyCandy) {
+        this.energy = energyCandy;
     }
 
     /**
-     * Getter {@link Candy#name}.
+     * Getter name.
      *
      * @return the name.
      */
@@ -70,16 +68,16 @@ public class Candy {
     }
 
     /**
-     * Setter {@link Candy#name}.
+     * Setter name.
      *
-     * @param name the name to set.
+     * @param nameCandy the name to set.
      */
-    public final void setName(String name) {
-        this.name = name;
+    public final void setName(final String nameCandy) {
+        this.name = nameCandy;
     }
 
     /**
-     * Getter {@link Candy#production}.
+     * Getter production.
      *
      * @return the production.
      */
@@ -88,16 +86,16 @@ public class Candy {
     }
 
     /**
-     * Setter {@link Candy#production}.
+     * Setter production.
      *
-     * @param production the production to set.
+     * @param productionCandy the production to set.
      */
-    public final void setProduction(String production) {
-        this.production = production;
+    public final void setProduction(final String productionCandy) {
+        this.production = productionCandy;
     }
 
     /**
-     * Setter {@link Candy#id}.
+     * Setter id.
      *
      * @return the id.
      */
@@ -106,12 +104,12 @@ public class Candy {
     }
 
     /**
-     * Setter {@link Candy#id}.
+     * Setter id}.
      *
-     * @param id the id to set.
+     * @param idCandy the id to set.
      */
-    public final void setId(int id) {
-        this.id = id;
+    public final void setId(final int idCandy) {
+        this.id = idCandy;
     }
 
     /**
@@ -124,12 +122,12 @@ public class Candy {
     }
 
     /**
-     * Setter {@link Candy#type}.
+     * Setter type.
      *
-     * @param type the type to set.
+     * @param typeCandy the type to set.
      */
-    public final void setType(Type type) {
-        this.type = type;
+    public final void setType(final Type typeCandy) {
+        this.type = typeCandy;
     }
 
 }

@@ -3,12 +3,24 @@ package by.menko.xmlparsing.service.file;
 import org.apache.logging.log4j.core.util.IOUtils;
 
 import javax.servlet.http.Part;
+
+
 import java.io.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class FileService {
-    public void createDirAndWriteToFile(String pathTemp, Part filePart) throws IOException {
+    /**
+     * Create directory and write to the file.
+     *
+     * @param pathTemp .
+     * @param filePart .
+     *
+     * @throws IOException .
+     */
+    public void createDirAndWriteToFile(final String pathTemp,
+                                        final Part filePart)
+            throws IOException {
 
         File uploadDir = new File(pathTemp);
         if (!uploadDir.exists()) {
@@ -21,7 +33,8 @@ public class FileService {
         String result = IOUtils.toString(new InputStreamReader(
                 fileContent, UTF_8));
 
-        try (FileOutputStream fos = new FileOutputStream(new File(pathTemp, fileName))) {
+        try (FileOutputStream fos = new FileOutputStream(
+                new File(pathTemp, fileName))) {
             // перевод строки в байты
             byte[] buffer = result.getBytes();
             fos.write(buffer, 0, buffer.length);

@@ -18,21 +18,51 @@ import java.io.IOException;
 @MultipartConfig
 @WebServlet("/home")
 public class MyServlet extends HttpServlet {
-
+    /**
+     * SerialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * Object log4j2.
+     */
     private static Logger log = LogManager.getLogger();
 
+    /**
+     * doPost.
+     *
+     * @param req  request.
+     * @param resp response.
+     *
+     * @throws ServletException .
+     * @throws IOException      .
+     */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest req,
+                          final HttpServletResponse resp)
+            throws ServletException, IOException {
         process(req, resp);
     }
 
+
+    /**
+     * doGet.
+     *
+     * @param req  request.
+     * @param resp response.
+     *
+     * @throws ServletException .
+     * @throws IOException      .
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(final HttpServletRequest req,
+                         final HttpServletResponse resp)
+            throws ServletException, IOException {
         process(req, resp);
     }
 
-    private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void process(final HttpServletRequest req,
+                         final HttpServletResponse resp)
+            throws ServletException, IOException {
         try {
             String action = req.getParameter("action");
             if (action == null) {
@@ -41,10 +71,12 @@ public class MyServlet extends HttpServlet {
             CommandFactory factory = CommandFactory.getInstance();
             Command command = factory.getCommand(action);
             command.execute(req, resp);
-        } catch (ServletException | IOException e) {
-            String error = "Error reading file or servlet, please go to the home page!";
+        } catch (IOException e) {
+            log.error("Error reading file: ", e);
+            String error = "Error reading file, please go to the home page!";
             req.setAttribute("result", error);
-            RequestDispatcher errorPage = req.getRequestDispatcher("/Error.jsp");
+            RequestDispatcher errorPage = req
+                    .getRequestDispatcher("/Error.jsp");
             errorPage.forward(req, resp);
         }
     }

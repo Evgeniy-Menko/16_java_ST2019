@@ -4,7 +4,7 @@ import by.menko.xmlparsing.bean.Candy;
 import by.menko.xmlparsing.bean.CandyType;
 import by.menko.xmlparsing.bean.Type;
 import by.menko.xmlparsing.bean.Unit;
-import by.menko.xmlparsing.dal.Spetification;
+import by.menko.xmlparsing.dal.Specification;
 import by.menko.xmlparsing.dal.XmlEnum;
 
 
@@ -20,20 +20,42 @@ import javax.xml.transform.stream.StreamSource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandySTAXBuilder implements Spetification {
+public class CandySTAXBuilder implements Specification {
+    /**
+     * list with candies.
+     */
     private List<Candy> candies;
+    /**
+     * object XMLInputFactory.
+     */
     private XMLInputFactory factory;
 
+    /**
+     * Constructor.
+     */
     public CandySTAXBuilder() {
         factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
     }
 
+    /**
+     * Getter candies.
+     *
+     * @return list candy.
+     */
     public List<Candy> getCandies() {
         return candies;
     }
 
-    public void buildSetCandies(String fileName) throws XMLStreamException {
+    /**
+     * parse  file.
+     *
+     * @param fileName file for parsing.
+     *
+     * @throws XMLStreamException .
+     */
+    public void buildSetCandies(final String fileName)
+            throws XMLStreamException {
 
         Candy candy = null;
         Type type = null;
@@ -48,7 +70,8 @@ public class CandySTAXBuilder implements Spetification {
             while (reader.hasNext()) {
                 XMLEvent event = reader.nextEvent();
                 // skip any empty content
-                if (event.isCharacters() && event.asCharacters().isWhiteSpace()) {
+                if (event.isCharacters() && event.asCharacters()
+                        .isWhiteSpace()) {
                     continue;
                 }
 
@@ -70,12 +93,16 @@ public class CandySTAXBuilder implements Spetification {
                     } else if (XmlEnum.CANDY.value().equals(currentElement)) {
                         candy = new Candy();
                         candy.setId(Integer.parseInt(startElement
-                                .getAttributeByName(new QName(XmlEnum.ID.value())).getValue()));
+                                .getAttributeByName(new QName(XmlEnum.ID
+                                        .value())).getValue()));
                         continue;
-                    } else if ((flagQuality || XmlEnum.ENERGY.value().equals(currentElement))
-                            && !XmlEnum.CHOCOLATE_TYPE.value().equals(currentElement)
-                            && !XmlEnum.TASTE.value().equals(currentElement)) {
-                        unit = getQuality(startElement);
+                    } else if ((flagQuality || XmlEnum.ENERGY.value().
+                            equals(currentElement))
+                            && !XmlEnum.CHOCOLATE_TYPE.value()
+                            .equals(currentElement)
+                            && !XmlEnum.TASTE.value()
+                            .equals(currentElement)) {
+                        unit = getUnit(startElement);
                         continue;
                     }
 
@@ -88,21 +115,29 @@ public class CandySTAXBuilder implements Spetification {
                     if (XmlEnum.NAME.value().equals(currentElement)) {
                         candy.setName(characters.getData());
                         continue;
-                    } else if ((flagQuality || XmlEnum.ENERGY.value().equals(currentElement))
-                            && !XmlEnum.CHOCOLATE_TYPE.value().equals(currentElement)
-                            && !XmlEnum.TASTE.value().equals(currentElement)) {
-                        unit.setCount(Double.parseDouble(characters.getData()));
+                    } else if ((flagQuality
+                            || XmlEnum.ENERGY.value().equals(currentElement))
+                            && !XmlEnum.CHOCOLATE_TYPE.value()
+                            .equals(currentElement)
+                            && !XmlEnum.TASTE.value()
+                            .equals(currentElement)) {
+                        unit.setCount(Double.parseDouble(
+                                characters.getData()));
                         continue;
-                    } else if (XmlEnum.CHOCOLATE_TYPE.value().equals(currentElement)) {
+                    } else if (XmlEnum.CHOCOLATE_TYPE.value()
+                            .equals(currentElement)) {
                         type.setTypeChocolate(characters.getData());
                         continue;
-                    } else if (XmlEnum.TASTE.value().equals(currentElement)) {
+                    } else if (XmlEnum.TASTE.value()
+                            .equals(currentElement)) {
                         type.setTasteCaramel(characters.getData());
                         continue;
-                    } else if (XmlEnum.PRODUCTION.value().equals(currentElement)) {
+                    } else if (XmlEnum.PRODUCTION.value()
+                            .equals(currentElement)) {
                         candy.setProduction(characters.getData());
                         continue;
-                    } else if (XmlEnum.PRODUCTION_DATE.value().equals(currentElement)) {
+                    } else if (XmlEnum.PRODUCTION_DATE.value()
+                            .equals(currentElement)) {
                         candy.setProductionDate(characters.getData());
                         continue;
                     }
@@ -119,13 +154,16 @@ public class CandySTAXBuilder implements Spetification {
                     } else if (XmlEnum.ENERGY.value().equals(localName)) {
                         candy.setEnergy(unit);
 
-                    } else if (XmlEnum.WATER.value().equals(localName) || XmlEnum.SUGAR.value().equals(localName)
+                    } else if (XmlEnum.WATER.value().equals(localName)
+                            || XmlEnum.SUGAR.value().equals(localName)
                             || XmlEnum.FRUCTOSE.value().equals(localName)
                             || XmlEnum.VANILIN.value().equals(localName)) {
                         type.getIngredients().add(unit);
 
-                    } else if (XmlEnum.PROTEINS.value().equals(localName) || XmlEnum.FATS.value().equals(localName)
-                            || XmlEnum.CARBOHYDRATES.value().equals(localName)) {
+                    } else if (XmlEnum.PROTEINS.value().equals(localName)
+                            || XmlEnum.FATS.value().equals(localName)
+                            || XmlEnum.CARBOHYDRATES.value()
+                            .equals(localName)) {
                         type.getValues().add(unit);
 
                     } else if (XmlEnum.TYPE.value().equals(localName)) {
@@ -147,7 +185,14 @@ public class CandySTAXBuilder implements Spetification {
 
     }
 
-    private Unit getQuality(final StartElement element) {
+    /**
+     * get unit.
+     *
+     * @param element .
+     *
+     * @return unit.
+     */
+    private Unit getUnit(final StartElement element) {
         Unit temp = new Unit();
         temp.setName(element.getName().getLocalPart());
         temp.setCi(element
@@ -156,15 +201,24 @@ public class CandySTAXBuilder implements Spetification {
         return temp;
     }
 
-    private Type getType(StartElement startElement) {
+    /**
+     * get type.
+     *
+     * @param startElement .
+     *
+     * @return type candy.
+     */
+    private Type getType(final StartElement startElement) {
         Type type;
         String typeCandy = startElement.getAttributeByName(
                 new QName("http://www.w3.org/2001/XMLSchema-instance",
                         XmlEnum.TYPE.value())).getValue();
-        String filling = startElement.getAttributeByName(new QName(XmlEnum.FILLING.value())).getValue();
+        String filling = startElement.getAttributeByName(
+                new QName(XmlEnum.FILLING.value())).getValue();
         if (CandyType.CARAMEL.toString().toLowerCase().equals(typeCandy)) {
             type = new Type(CandyType.CARAMEL);
-        } else if (CandyType.CHOCOLATE.toString().toLowerCase().equals(typeCandy)) {
+        } else if (CandyType.CHOCOLATE.toString().toLowerCase()
+                .equals(typeCandy)) {
             type = new Type(CandyType.CHOCOLATE);
         } else {
             type = new Type(CandyType.IRIS);

@@ -9,8 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class HomeCommand implements Command {
+    /**
+     * Go to homepage.
+     *
+     * @param req  request.
+     * @param resp response.
+     *
+     * @throws ServletException .
+     * @throws IOException      .
+     */
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void execute(final HttpServletRequest req,
+                        final HttpServletResponse resp)
+            throws ServletException, IOException {
         RequestDispatcher home = req.getRequestDispatcher("/index.jsp");
         home.forward(req, resp);
     }

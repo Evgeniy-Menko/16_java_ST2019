@@ -4,7 +4,11 @@ public enum XmlEnum {
     /**
      * Elements names.
      */
-    CANDIES("candies"), CANDY("candy"), NAME("name"), ENERGY("energy"), TYPE("type"),
+    CANDIES("candies"), CANDY("candy"), NAME("name"),
+    /**
+     * Elements names.
+     */
+    ENERGY("energy"), TYPE("type"),
     /**
      * Elements names.
      */
@@ -12,11 +16,23 @@ public enum XmlEnum {
     /**
      * Elements names.
      */
-    CHOCOLATE_TYPE("chocolateType"), VANILIN("vanillin"), PROTEINS("proteins"), FATS("fats"),
+    CHOCOLATE_TYPE("chocolateType"), VANILIN("vanillin"),
     /**
      * Elements names.
      */
-    CARBOHYDRATES("carbohydrates"), PRODUCTION("production"), INGREDIENTS("ingredients"), VALUE("value"),
+
+    PROTEINS("proteins"), FATS("fats"),
+    /**
+     * Elements names.
+     */
+    CARBOHYDRATES("carbohydrates"), PRODUCTION("production"),
+    /**
+     * Elements names.
+     */
+    INGREDIENTS("ingredients"), VALUE("value"),
+    /**
+     * Elements names.
+     */
     PRODUCTION_DATE("productionDate"),
     /**
      * Attribute name.
@@ -31,10 +47,10 @@ public enum XmlEnum {
     /**
      * Constructor with parameters.
      *
-     * @param value - the constant value.
+     * @param values - the constant value.
      */
-    XmlEnum(final String value) {
-        this.value = value;
+    XmlEnum(final String values) {
+        this.value = values;
     }
 
 

@@ -20,9 +20,25 @@ public class Type {
      * Type chocolate.
      */
     private String typeChocolate;
-
+    /**
+     * Taste caramel.
+     */
     private String tasteCaramel;
 
+    /**
+     * Constructor class type.
+     *
+     * @param candyType .
+     */
+    public Type(final CandyType candyType) {
+        this.candyTypes = candyType;
+    }
+
+    /**
+     * Getter for taste caramel.
+     *
+     * @return taste if candy type equals caramel.
+     */
     public String getTasteCaramel() {
         if (candyTypes.getName().equals("caramel")) {
             return tasteCaramel;
@@ -31,18 +47,24 @@ public class Type {
         }
     }
 
-    public Type setTasteCaramel(String tasteCaramel) {
-        this.tasteCaramel = tasteCaramel;
-        return this;
+    /**
+     * Setter taste caramel.
+     *
+     * @param tasteCaramels .
+     */
+    public void setTasteCaramel(final String tasteCaramels) {
+        this.tasteCaramel = tasteCaramels;
     }
 
+    /**
+     * Getter for Candy type.
+     *
+     * @return candy type.
+     */
     public CandyType getCandyType() {
         return candyTypes;
     }
 
-    public Type(CandyType candyType) {
-        this.candyTypes = candyType;
-    }
 
     /**
      * Get Ingredients.
@@ -51,7 +73,7 @@ public class Type {
      */
     public List<Unit> getIngredients() {
         if (ingredients == null) {
-            ingredients = new ArrayList<Unit>();
+            ingredients = new ArrayList<>();
         }
         return ingredients;
     }
@@ -63,11 +85,16 @@ public class Type {
      */
     public List<Unit> getValues() {
         if (values == null) {
-            values = new ArrayList<Unit>();
+            values = new ArrayList<>();
         }
         return values;
     }
 
+    /**
+     * Getter type chocolate.
+     *
+     * @return return type chocolate if type equals chocolate.
+     */
     public String getTypeChocolate() {
         if (candyTypes.getName().equals("chocolate")) {
             return typeChocolate;
@@ -76,16 +103,31 @@ public class Type {
         }
     }
 
-    public void setTypeChocolate(String typeChocolate) {
-        this.typeChocolate = typeChocolate;
+    /**
+     * Setter type chocolate.
+     *
+     * @param typesChocolate .
+     */
+    public void setTypeChocolate(final String typesChocolate) {
+        this.typeChocolate = typesChocolate;
     }
 
+    /**
+     * Setter candy type.
+     *
+     * @param candyType .
+     */
+    public void setCandyTypes(final CandyType candyType) {
+        this.candyTypes = candyType;
+
+    }
+
+    /**
+     * Getter for candy type.
+     *
+     * @return candy type.
+     */
     public CandyType getCandyTypes() {
         return candyTypes;
-    }
-
-    public Type setCandyTypes(CandyType candyTypes) {
-        this.candyTypes = candyTypes;
-        return this;
     }
 }

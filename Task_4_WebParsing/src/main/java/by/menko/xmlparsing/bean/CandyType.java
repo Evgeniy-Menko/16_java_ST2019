@@ -34,12 +34,12 @@ public enum CandyType {
     }
 
     /**
-     * Settre {@link CandyType#filling}.
+     * Setter filling.
      *
-     * @param filling the filling to set.
+     * @param fillingCandy the filling to set.
      */
-    public void setFilling(final boolean filling) {
-        this.filling = filling;
+    public void setFilling(final boolean fillingCandy) {
+        this.filling = fillingCandy;
     }
 
 }

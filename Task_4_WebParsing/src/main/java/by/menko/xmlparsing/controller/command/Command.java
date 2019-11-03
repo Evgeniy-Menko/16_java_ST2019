@@ -12,8 +12,17 @@ public interface Command {
     /**
      * Object log4j2.
      */
-    Logger logger = LogManager.getLogger();
+    Logger log = LogManager.getLogger();
 
-
-    void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
+    /**
+     * Method for Override.
+     *
+     * @param req  request.
+     * @param resp response.
+     *
+     * @throws ServletException .
+     * @throws IOException      .
+     */
+    void execute(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException;
 }

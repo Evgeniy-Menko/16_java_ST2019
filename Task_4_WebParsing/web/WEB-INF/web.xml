@@ -7,4 +7,16 @@
         <param-name>tempfile.dir</param-name>
         <param-value>tmpfiles</param-value>
     </context-param>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/ErrorServlet.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/ErrorServlet.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/ErrorServlet.jsp</location>
+    </error-page>
 </web-app>

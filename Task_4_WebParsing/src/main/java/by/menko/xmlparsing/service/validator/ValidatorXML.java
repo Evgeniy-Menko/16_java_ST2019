@@ -12,13 +12,29 @@ import java.io.File;
 import java.io.IOException;
 
 public class ValidatorXML {
-
+    /**
+     * Language.
+     */
     private final static String LANGUAGE = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-    private final static String SCHEMA_NAME = "WEB-INF/classes/data/candies.xsd";
+    /**
+     * Schema url.
+     */
+    private final static String SCHEMA_NAME = "WEB-INF/classes"
+            + "/data/candies.xsd";
+    /**
+     * Factory.
+     */
     private final SchemaFactory factory = SchemaFactory.newInstance(LANGUAGE);
 
-
-    public boolean isValid(String fileName, String uri) {
+    /**
+     * Validate xml file.
+     *
+     * @param fileName .
+     * @param uri      .
+     *
+     * @return true or false.
+     */
+    public boolean isValid(final String fileName, final String uri) {
         boolean result = false;
         try {
             File schemaLocation = new File(uri + SCHEMA_NAME);
@@ -29,10 +45,12 @@ public class ValidatorXML {
             result = true;
         } catch (
                 SAXException e) {
-            System.err.print("validation " + fileName + " is not valid because " + e.getMessage());
+            System.err.print("validation " + fileName
+                    + " is not valid because " + e.getMessage());
         } catch (
                 IOException e) {
-            System.err.print(fileName + " is not valid because " + e.getMessage());
+            System.err.print(fileName
+                    + " is not valid because " + e.getMessage());
         }
         return result;
     }

@@ -15,7 +15,7 @@ public class Unit {
     private String ci;
 
     /**
-     * Getter {@link Unit#ci}.
+     * Getter ci.
      *
      * @return the ci.
      */
@@ -24,16 +24,16 @@ public class Unit {
     }
 
     /**
-     * Setter {@link Unit#ci}.
+     * Setter ci.
      *
-     * @param ci the ci to set.
+     * @param ciUnit the ci to set.
      */
-    public final void setCi(final String ci) {
-        this.ci = ci;
+    public final void setCi(final String ciUnit) {
+        this.ci = ciUnit;
     }
 
     /**
-     * Getter {@link Unit#name}.
+     * Getter name.
      *
      * @return the name.
      */
@@ -42,16 +42,16 @@ public class Unit {
     }
 
     /**
-     * Setter {@link Unit#name}.
+     * Setter name.
      *
-     * @param name the nameIngredient to set.
+     * @param nameUnit the nameIngredient to set.
      */
-    public final void setName(final String name) {
-        this.name = name;
+    public final void setName(final String nameUnit) {
+        this.name = nameUnit;
     }
 
     /**
-     * Getter {@link Unit#count}.
+     * Getter count.
      *
      * @return the count.
      */
@@ -59,7 +59,12 @@ public class Unit {
         return count;
     }
 
-    public final void setCount(double count) {
-        this.count = count;
+    /**
+     * Setter count.
+     *
+     * @param countUnit .
+     */
+    public final void setCount(final double countUnit) {
+        this.count = countUnit;
     }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="patternshort">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="patternconsole">%d{HH:mm:ss} - %msg%n</Property>
+        <Property name="patternfull">%d %p %c{2} [%t] %l %m%n</Property>
+    </Properties>
+    <Appenders>
+        <File name="FileError" fileName="data\logs\LogError.log">
+            <PatternLayout>
+                <Pattern>${patternfull}</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="FileInfo" fileName="data\logs\logInfo.log">
+            <PatternLayout>
+                <Pattern>${patternshort}</Pattern>
+            </PatternLayout>
+        </File>
+        <!-- <Console name="Console" target="SYSTEM_OUT">
+             <Filters>
+                 Now deny warn, error and fatal messages
+                 <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                 <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                 <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+                 <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                 This filter accepts info, warn, error, fatal and denies debug/trace
+                 <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+             </Filters>
+             <PatternLayout>
+                 <Pattern>${patternconsole}</Pattern>
+             </PatternLayout>
+         </Console> -->
+    </Appenders>
+    <Loggers>
+
+        <root level="Trace">
+            <!--<appender-ref ref="Console" level="debug"/>-->
+            <appender-ref ref="FileError" level="error"/>
+            <appender-ref ref="FileInfo" level="info"/>
+        </root>
+    </Loggers>
+</Configuration>
