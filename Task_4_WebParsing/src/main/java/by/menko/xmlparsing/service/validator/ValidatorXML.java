@@ -1,5 +1,8 @@
 package by.menko.xmlparsing.service.validator;
 
+import by.menko.xmlparsing.service.validator.exception.ValidException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -12,6 +15,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class ValidatorXML {
+    /**
+     * Object log4j2.
+     */
+    private Logger log = LogManager.getLogger();
     /**
      * Language.
      */
@@ -43,14 +50,8 @@ public class ValidatorXML {
             Source source = new StreamSource(fileName);
             validator.validate(source);
             result = true;
-        } catch (
-                SAXException e) {
-            System.err.print("validation " + fileName
-                    + " is not valid because " + e.getMessage());
-        } catch (
-                IOException e) {
-            System.err.print(fileName
-                    + " is not valid because " + e.getMessage());
+        } catch (SAXException | IOException e) {
+            log.info("File successfully parsed: " + fileName + ".");
         }
         return result;
     }

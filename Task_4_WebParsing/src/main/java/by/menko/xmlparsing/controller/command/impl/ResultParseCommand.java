@@ -60,7 +60,6 @@ public class ResultParseCommand implements Command {
                 RequestDispatcher result = req
                         .getRequestDispatcher("/Result.jsp");
                 result.forward(req, resp);
-                log.info("File successfully parsed: " + fileName + ".");
             } else {
                 String error = "File failed validation,"
                         + " please go to the home page!";

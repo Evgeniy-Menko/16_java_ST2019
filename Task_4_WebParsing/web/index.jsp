@@ -137,7 +137,7 @@
         }
 
         .custom-dropdown::before {
-            background-color: rgb(51, 51, 51);
+            background-color: rgb(0, 0, 0);
         }
 
         .custom-dropdown::after {

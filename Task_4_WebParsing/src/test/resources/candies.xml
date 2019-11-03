@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<candies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.candies.org"
+         xsi:schemaLocation="http://www.candies.org candies.xsd">
+
+    <candy id="1">
+        <name>Alenka</name>
+        <energy ci="kcal">493</energy>
+        <type filling="true" xsi:type="chocolate">
+            <ingredients>
+                <water ci="mg">5</water>
+                <sugar ci="mg">5</sugar>
+                <fructose ci="mg">6</fructose>
+                <vanillin ci="mg">6</vanillin>
+                <chocolateType>milk chocolate</chocolateType>
+            </ingredients>
+            <value>
+                <proteins ci="gm">6</proteins>
+                <fats ci="gm">7</fats>
+                <carbohydrates ci="gm">7</carbohydrates>
+            </value>
+        </type>
+        <production>Baranovichi</production>
+        <productionDate>2019-12-23</productionDate>
+    </candy>
+
+    <candy id="2">
+        <name>Ledenec</name>
+        <energy ci="kcal">243</energy>
+        <type filling="false" xsi:type="caramel">
+            <ingredients>
+                <water ci="mg">0.2</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">3.2</vanillin>
+                <taste>orange</taste>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.3</proteins>
+                <fats ci="gm">0.5</fats>
+                <carbohydrates ci="gm">11</carbohydrates>
+            </value>
+        </type>
+        <production>Minsk,Belarus</production>
+        <productionDate>2018-01-29</productionDate>
+    </candy>
+
+    <candy id="3">
+        <name>Gold key</name>
+        <energy ci="kcal">45</energy>
+        <type filling="false" xsi:type="iris">
+            <ingredients>
+                <water ci="mg">10</water>
+                <sugar ci="mg">16</sugar>
+                <fructose ci="mg">12</fructose>
+                <vanillin ci="mg">6</vanillin>
+            </ingredients>
+            <value>
+                <proteins ci="gm">4</proteins>
+                <fats ci="gm">14</fats>
+                <carbohydrates ci="gm">9</carbohydrates>
+            </value>
+        </type>
+        <production>Ivacevichi</production>
+        <productionDate>2018-03-29</productionDate>
+    </candy>
+
+    <candy id="4">
+        <name>Stolichnay</name>
+        <energy ci="kcal">368</energy>
+        <type filling="true" xsi:type="chocolate">
+            <ingredients>
+                <water ci="mg">0.1</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">5</vanillin>
+                <chocolateType>dark chocolate</chocolateType>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.6</proteins>
+                <fats ci="gm">1.3</fats>
+                <carbohydrates ci="gm">92.3</carbohydrates>
+            </value>
+        </type>
+        <production>Kommunarka</production>
+        <productionDate>2018-12-29</productionDate>
+    </candy>
+
+    <candy id="5">
+        <name>MIND-BLOWING LOLLIPOP</name>
+        <energy ci="kcal">369</energy>
+        <type filling="false" xsi:type="caramel">
+            <ingredients>
+                <water ci="mg">0.1</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">5</vanillin>
+                <taste>lemon</taste>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.6</proteins>
+                <fats ci="gm">1.3</fats>
+                <carbohydrates ci="gm">96.3</carbohydrates>
+            </value>
+        </type>
+        <production>Kommunarka</production>
+        <productionDate>2019-09-23</productionDate>
+    </candy>
+
+    <candy id="6">
+        <name>Apple</name>
+        <energy ci="kcal">357</energy>
+        <type filling="false" xsi:type="caramel">
+            <ingredients>
+                <water ci="mg">0.1</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">5</vanillin>
+                <taste>apple</taste>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.1</proteins>
+                <fats ci="gm">0.1</fats>
+                <carbohydrates ci="gm">92.7</carbohydrates>
+            </value>
+        </type>
+        <production>Spartak</production>
+        <productionDate>2019-01-01</productionDate>
+    </candy>
+    <candy id="7">
+        <name>Alpen Gold Max Fun</name>
+        <energy ci="kcal">495</energy>
+        <type filling="true" xsi:type="chocolate">
+            <ingredients>
+                <water ci="mg">03</water>
+                <sugar ci="mg">20</sugar>
+                <fructose ci="mg">12</fructose>
+                <vanillin ci="mg">2</vanillin>
+                <chocolateType>porous chocolate</chocolateType>
+            </ingredients>
+            <value>
+                <proteins ci="gm">0.3</proteins>
+                <fats ci="gm">1.3</fats>
+                <carbohydrates ci="gm">82.9</carbohydrates>
+            </value>
+        </type>
+        <production>Russia</production>
+        <productionDate>2019-06-30</productionDate>
+    </candy>
+    <candy id="8">
+        <name>Iris</name>
+        <energy ci="kcal">345</energy>
+        <type filling="false" xsi:type="iris">
+            <ingredients>
+                <water ci="mg">0.3</water>
+                <sugar ci="mg">15</sugar>
+                <fructose ci="mg">10</fructose>
+                <vanillin ci="mg">0.1</vanillin>
+            </ingredients>
+            <value>
+                <proteins ci="gm">12</proteins>
+                <fats ci="gm">1</fats>
+                <carbohydrates ci="gm">14.2</carbohydrates>
+            </value>
+        </type>
+        <production>Belarus </production>
+        <productionDate>2018-07-23</productionDate>
+    </candy>
+      <candy id="9">
+          <name>Dessert</name>
+          <energy ci="kcal">440</energy>
+          <type filling="true" xsi:type="chocolate">
+              <ingredients>
+                  <water ci="mg">0.2</water>
+                  <sugar ci="mg">13</sugar>
+                  <fructose ci="mg">12</fructose>
+                  <vanillin ci="mg">0.2</vanillin>
+                  <chocolateType>milk chocolate</chocolateType>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">3</proteins>
+                  <fats ci="gm">20</fats>
+                  <carbohydrates ci="gm">65</carbohydrates>
+              </value>
+          </type>
+          <production>Spartak</production>
+          <productionDate>2019-03-23</productionDate>
+      </candy>
+      <candy id="10">
+          <name>Children's chocolate</name>
+          <energy ci="kcal">540</energy>
+          <type filling="false" xsi:type="chocolate">
+              <ingredients>
+                  <water ci="mg">0.2</water>
+                  <sugar ci="mg">16.2</sugar>
+                  <fructose ci="mg">9.2</fructose>
+                  <vanillin ci="mg">0.5</vanillin>
+                  <chocolateType>milk chocolate</chocolateType>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">3</proteins>
+                  <fats ci="gm">34</fats>
+                  <carbohydrates ci="gm">59</carbohydrates>
+              </value>
+          </type>
+          <production>Spartak</production>
+          <productionDate>2019-05-12</productionDate>
+      </candy>
+      <candy id="11">
+          <name>Barkleys Cinnamon Apple</name>
+          <energy ci="kcal">384</energy>
+          <type filling="false" xsi:type="caramel">
+          <ingredients>
+              <water ci="mg">0.1</water>
+              <sugar ci="mg">85</sugar>
+              <fructose ci="mg">12</fructose>
+              <vanillin ci="mg">0.2</vanillin>
+              <taste>apple</taste>
+          </ingredients>
+              <value>
+                  <proteins ci="gm">0.6</proteins>
+                  <fats ci="gm">1.8</fats>
+                  <carbohydrates ci="gm">97</carbohydrates>
+              </value>
+          </type>
+          <production>Veip Vign</production>
+          <productionDate>2018-09-08</productionDate>
+      </candy>
+      <candy id="12">
+          <name>Milka Oreo</name>
+          <energy ci="kcal">560</energy>
+          <type filling="true" xsi:type="chocolate">
+              <ingredients>
+                  <water ci="mg">0.1</water>
+                  <sugar ci="mg">25</sugar>
+                  <fructose ci="mg">9</fructose>
+                  <vanillin ci="mg">0.2</vanillin>
+                  <chocolateType>milk chocolate</chocolateType>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">5</proteins>
+                  <fats ci="gm">35</fats>
+                  <carbohydrates ci="gm">55</carbohydrates>
+              </value>
+          </type>
+          <production>Milka</production>
+          <productionDate>2019-11-23</productionDate>
+      </candy>
+      <candy id="13">
+          <name>Bumble</name>
+          <energy ci="kcal">456</energy>
+          <type filling="false" xsi:type="iris">
+              <ingredients>
+                  <water ci="mg">0.2</water>
+                  <sugar ci="mg">32</sugar>
+                  <fructose ci="mg">12</fructose>
+                  <vanillin ci="mg">0.3</vanillin>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">21</proteins>
+                  <fats ci="gm">12</fats>
+                  <carbohydrates ci="gm">45</carbohydrates>
+              </value>
+          </type>
+          <production>Belarus</production>
+          <productionDate>2018-12-23</productionDate>
+      </candy>
+      <candy id="14">
+          <name>Pomp</name>
+          <energy ci="kcal">361</energy>
+          <type filling="false" xsi:type="caramel">
+              <ingredients>
+                  <water ci="mg">0.1</water>
+                  <sugar ci="mg">23</sugar>
+                  <fructose ci="mg">8</fructose>
+                  <vanillin ci="mg">2</vanillin>
+                  <taste>pineapple</taste>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">12</proteins>
+                  <fats ci="gm">12</fats>
+                  <carbohydrates ci="gm">27</carbohydrates>
+              </value>
+          </type>
+          <production>Belarus,Kommunarka</production>
+          <productionDate>2019-04-15</productionDate>
+      </candy>
+      <candy id="15">
+          <name>Tromb</name>
+          <energy ci="kcal">387</energy>
+          <type filling="true" xsi:type="chocolate">
+              <ingredients>
+                  <water ci="mg">0.4</water>
+                  <sugar ci="mg">34</sugar>
+                  <fructose ci="mg">7</fructose>
+                  <vanillin ci="mg">0.1</vanillin>
+                  <chocolateType>dark chocolate</chocolateType>
+              </ingredients>
+              <value>
+                  <proteins ci="gm">1.2</proteins>
+                  <fats ci="gm">8</fats>
+                  <carbohydrates ci="gm">37</carbohydrates>
+              </value>
+          </type>
+          <production>Russia</production>
+          <productionDate>2019-06-23</productionDate>
+      </candy>
+      <candy id="16">
+          <name>Caramel Lemon</name>
+          <energy ci="kcal">375</energy>
+          <type filling="true" xsi:type="caramel">
+          <ingredients>
+              <water ci="mg">0.1</water>
+              <sugar ci="mg">21</sugar>
+              <fructose ci="mg">7</fructose>
+              <vanillin ci="mg">5</vanillin>
+              <taste>lemon</taste>
+          </ingredients>
+              <value>
+                  <proteins ci="gm">12</proteins>
+                  <fats ci="gm">0.5</fats>
+                  <carbohydrates ci="gm">32</carbohydrates>
+              </value>
+          </type>
+          <production>Spartak</production>
+          <productionDate>2019-08-21</productionDate>
+      </candy>
+
+</candies>
