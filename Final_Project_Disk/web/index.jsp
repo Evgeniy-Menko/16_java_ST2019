@@ -279,6 +279,7 @@
                 </ul>
 
                 <!-- The slideshow -->
+
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="images/music1.jpg" alt="Los Angeles" width="350" height="500">
@@ -302,6 +303,7 @@
                         <img src="images/music7.jpg" alt="New York" width="350" height="500">
                     </div>
                 </div>
+
 
                 <!-- Left and right controls -->
                 <a class="carousel-control-prev" href="#myCarousel1" data-slide="prev">

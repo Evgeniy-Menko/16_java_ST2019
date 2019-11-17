@@ -2,25 +2,28 @@ USE `panda_disk`;
 
 CREATE TABLE `users`
 (
-    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
-    `mail`     VARCHAR(255) NOT NULL UNIQUE,
-    `password` CHAR(32)     NOT NULL,
+    `id`           INTEGER      NOT NULL AUTO_INCREMENT,
+    `mail`         VARCHAR(255) NOT NULL UNIQUE,
+    `password`     CHAR(20)     NOT NULL,
     /*
      * 1 - администратор (Role.ADMINISTRATOR)
      * 0 - пользователь (Role.USER)
      */
-    `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
+    `role`         TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
+
+    `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE `user_info`
 (
-    `id_user`    INTEGER     NOT NULL,
-    `first_name` VARCHAR(255),
-    `last_name`  VARCHAR(255),
-    `nickname`   VARCHAR(20) NOT NULL UNIQUE,
-    `phone`      VARCHAR(15),
+    `id_user`           INTEGER     NOT NULL,
+    `first_name`        VARCHAR(255),
+    `last_name`         VARCHAR(255),
+    `nickname`          VARCHAR(45) NOT NULL UNIQUE,
+    `phone`             VARCHAR(15),
+    `time_registration` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FOREIGN KEY (`id_user`)
         REFERENCES `users` (`id`)
         ON UPDATE CASCADE
@@ -31,23 +34,37 @@ CREATE TABLE `user_info`
 
 CREATE TABLE `disk`
 (
-    `id_disk`     INTEGER      NOT NULL AUTO_INCREMENT,
-    `user_id`     INTEGER      NOT NULL,
-    `name`        varchar(255) NOT NULL,
-    `genre`       varchar(25)  NOT NULL,
-    `price`       DOUBLE       NOT NULL,
+    `id_disk`      INTEGER      NOT NULL AUTO_INCREMENT,
+    `user_id`      INTEGER      NOT NULL,
+    `name`         varchar(255) NOT NULL,
+    `genre`        varchar(25)  NOT NULL,
+    `price`        DOUBLE       NOT NULL,
     /*
      *0-film,
      *1-game,
      *2-music,
      */
-    `type`        TINYINT      NOT NULL CHECK (`type` IN (0, 1, 2)),
-    `image`       MEDIUMBLOB,
-    `description` TEXT,
-    `year`        DATETIME,
+    `type`         TINYINT      NOT NULL CHECK (`type` IN (0, 1, 2)),
+    `image`        MEDIUMBLOB,
+    `description`  TEXT,
+    `year`         DATE,
+    `time_added`   TIMESTAMP    NOT NULL,
+    `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     PRIMARY KEY (`id_disk`),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `user_info` (`id_user`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE `image`
+(
+    `id_image`   INTEGER NOT NULL,
+    `image`      MEDIUMBLOB,
+    `name_image` VARCHAR(255),
+    CONSTRAINT FOREIGN KEY (`id_image`)
+        REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB
@@ -97,8 +114,9 @@ CREATE TABLE `disk_info_music`
 
 CREATE TABLE `shopping_cart`
 (
-    `user_id` INTEGER NOT NULL,
-    `disk_id` INTEGER NOT NULL,
+    `user_id`    INTEGER   NOT NULL,
+    `disk_id`    INTEGER   NOT NULL,
+    `time_added` TIMESTAMP NOT NULL,
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `user_info` (`id_user`)
         ON UPDATE CASCADE
@@ -112,9 +130,12 @@ CREATE TABLE `shopping_cart`
 
 CREATE TABLE `comments`
 (
-    `user_id_commented` INTEGER NOT NULL,
-    `disk_id`           INTEGER NOT NULL,
-    `comment_text`      TEXT    NOT NULL,
+    `id_comment`        INTEGER   NOT NULL AUTO_INCREMENT,
+    `user_id_commented` INTEGER   NOT NULL,
+    `disk_id`           INTEGER   NOT NULL,
+    `comment_text`      TEXT      NOT NULL,
+    `time_added`        TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id_comment`),
     CONSTRAINT FOREIGN KEY (`user_id_commented`)
         REFERENCES `user_info` (`id_user`)
         ON UPDATE CASCADE
@@ -128,10 +149,13 @@ CREATE TABLE `comments`
 
 CREATE TABLE `complaints`
 (
-    `user_id_complained`  INTEGER NOT NULL,
-    `disk_id`             INTEGER NOT NULL,
-    `user_was_complained` INTEGER NOT NULL,
-    `complaint_text`      TEXT    NOT NULL,
+    `id_complaint`        INTEGER   NOT NULL AUTO_INCREMENT,
+    `user_id_complained`  INTEGER   NOT NULL,
+    `disk_id`             INTEGER   NOT NULL,
+    `user_was_complained` INTEGER   NOT NULL,
+    `complaint_text`      TEXT      NOT NULL,
+    `time_added`          TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id_complaint`),
     CONSTRAINT FOREIGN KEY (`user_id_complained`)
         REFERENCES `user_info` (`id_user`)
         ON UPDATE CASCADE
