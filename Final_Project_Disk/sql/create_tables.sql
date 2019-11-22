@@ -48,7 +48,7 @@ CREATE TABLE `disk`
     `image`        MEDIUMBLOB,
     `description`  TEXT,
     `year`         DATE,
-    `time_added`   TIMESTAMP    NOT NULL,
+    `time_added`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     PRIMARY KEY (`id_disk`),
     CONSTRAINT FOREIGN KEY (`user_id`)
@@ -74,7 +74,7 @@ CREATE TABLE `disk_info_films`
 (
     `disk_id`      INTEGER NOT NULL,
     `country`      varchar(50),
-    `running_time` TIME,
+    `running_time` TIME ,
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE
@@ -116,7 +116,7 @@ CREATE TABLE `shopping_cart`
 (
     `user_id`    INTEGER   NOT NULL,
     `disk_id`    INTEGER   NOT NULL,
-    `time_added` TIMESTAMP NOT NULL,
+    `time_added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `user_info` (`id_user`)
         ON UPDATE CASCADE
@@ -134,7 +134,7 @@ CREATE TABLE `comments`
     `user_id_commented` INTEGER   NOT NULL,
     `disk_id`           INTEGER   NOT NULL,
     `comment_text`      TEXT      NOT NULL,
-    `time_added`        TIMESTAMP NOT NULL,
+    `time_added`        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id_comment`),
     CONSTRAINT FOREIGN KEY (`user_id_commented`)
         REFERENCES `user_info` (`id_user`)
@@ -154,7 +154,7 @@ CREATE TABLE `complaints`
     `disk_id`             INTEGER   NOT NULL,
     `user_was_complained` INTEGER   NOT NULL,
     `complaint_text`      TEXT      NOT NULL,
-    `time_added`          TIMESTAMP NOT NULL,
+    `time_added`          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id_complaint`),
     CONSTRAINT FOREIGN KEY (`user_id_complained`)
         REFERENCES `user_info` (`id_user`)

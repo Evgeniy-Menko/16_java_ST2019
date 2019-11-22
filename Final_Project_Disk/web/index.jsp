@@ -124,7 +124,38 @@
 
             <button class="btn btn-light my-1 mr-sm-1" type="button">Search</button>
         </form>
+<c:choose>
 
+    <c:when test="${authorizedUser.role == 'USER'}">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+            </li>
+            <p class="text-white my-2">|</p>
+
+            <li class="nav-item">
+                <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+            </li>
+        </ul>
+    </c:when>
+    <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+            </li>
+            <p class="text-white my-2">|</p>
+
+            <li class="nav-item">
+                <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+            </li>
+        </ul>
+
+    </c:when>
+    <c:otherwise>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
@@ -138,6 +169,9 @@
 " href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
             </li>
         </ul>
+    </c:otherwise>
+</c:choose>
+
     </div>
 
 </nav>
@@ -334,7 +368,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/index.jsp" method="post">
+                <form action="${pageContext.request.contextPath}/login.html" method="post">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
@@ -342,7 +376,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password"
                                required>
                     </div>
                     <div class="custom-control custom-checkbox mb-3">

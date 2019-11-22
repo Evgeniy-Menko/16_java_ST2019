@@ -1,14 +1,26 @@
 package by.menko.finalproject.dao;
 
 import by.menko.finalproject.entity.Entity;
+import by.menko.finalproject.exception.PersonalException;
+
+import java.util.Optional;
+
 
 public interface Dao<T extends Entity> {
 
-    Integer create(T entity);
+    default Integer create(T entity) throws PersonalException {
+        throw new PersonalException();
+    }
 
-    T read(Integer identity);
+    default Optional<T> read(Integer identity) throws PersonalException {
+        throw new PersonalException();
+    }
 
-    void update(T entity);
+    default void update(T entity) throws PersonalException {
+        throw new PersonalException();
+    }
 
-    void delete(Integer identity);
+    default void delete(Integer identity) throws PersonalException {
+        throw new PersonalException();
+    }
 }

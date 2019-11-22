@@ -1,5 +1,6 @@
 package by.menko.finalproject.dao.pool;
 
+import by.menko.finalproject.exception.PersonalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,20 +23,25 @@ final public class ConnectionPool {
     private static ReentrantLock lock = new ReentrantLock();
     private static AtomicBoolean create = new AtomicBoolean(false);
 
-    private ConnectionPool() {
+    private ConnectionPool() throws PersonalException {
         resources = new MySqlResources();
+        try {
+            Class.forName(resources.getDriverClass());
+        } catch (ClassNotFoundException e) {
+          throw  new PersonalException(e);
+        }
         init();
     }
 
-    private void init() {
+    public void init() {
         try {
-            Class.forName(resources.getDriverClass());
+
             availableConnections = new LinkedBlockingDeque<>(resources.getMaxSize());
             usedConnections = new LinkedBlockingDeque<>();
             for (int counter = 0; counter < resources.getStartSize(); counter++) {
                 availableConnections.put(createConnection());
             }
-        } catch (ClassNotFoundException | InterruptedException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -45,7 +51,7 @@ final public class ConnectionPool {
         return new ProxyConnection(DriverManager.getConnection(resources.getUrl(), resources.getUser(), resources.getPassword()));
     }
 
-    public static ConnectionPool getInstance() {
+    public static ConnectionPool getInstance() throws PersonalException {
         if (!create.get()) {
             try {
                 lock.lock();
@@ -101,6 +107,7 @@ final public class ConnectionPool {
                 connection.setAutoCommit(true);
                 usedConnections.remove(connection);
                 availableConnections.offer(connection);
+
                 logger.debug(String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), availableConnections.size()));
             }
         } catch (SQLException e1) {

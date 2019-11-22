@@ -3,12 +3,13 @@ package by.menko.finalproject.entity;
 abstract public class Entity {
     private Integer idEntity;
 
-    public Integer getIdentity() {
+    public Integer getIdEntity() {
         return idEntity;
     }
 
-    public void setIdentity(Integer identity) {
-        this.idEntity = identity;
+    public Entity setIdEntity(Integer idEntity) {
+        this.idEntity = idEntity;
+        return this;
     }
 
     @Override

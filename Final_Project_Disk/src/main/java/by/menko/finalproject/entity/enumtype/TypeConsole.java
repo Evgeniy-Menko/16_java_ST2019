@@ -7,7 +7,7 @@ public enum TypeConsole {
 
     private String name;
 
-    private TypeConsole(String name) {
+     TypeConsole(String name) {
         this.name = name;
     }
 
