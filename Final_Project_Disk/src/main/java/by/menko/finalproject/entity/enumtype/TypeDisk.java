@@ -14,4 +14,11 @@ public enum TypeDisk {
     public String getName() {
         return name;
     }
+    public Integer getIdTypeDisk() {
+        return ordinal();
+    }
+
+    public static Role getByIdTypeDisk(Integer id) {
+        return Role.values()[id];
+    }
 }

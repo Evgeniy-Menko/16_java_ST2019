@@ -2,12 +2,13 @@ package by.menko.finalproject.entity;
 
 import java.util.Date;
 
-public class Complaint  extends Entity{
+public class Complaint extends Entity {
 
-   private Integer userIdComplained;
-   private Integer userWasComplained;
-   private String textComplaint;
-   private Date timeAdded;
+    private Integer userIdComplained;
+    private Integer userWasComplained;
+    private Integer idDisk;
+    private String textComplaint;
+    private Date timeAdded;
 
     public Integer getUserIdComplained() {
         return userIdComplained;
@@ -18,6 +19,13 @@ public class Complaint  extends Entity{
         return this;
     }
 
+    public Integer getIdDisk() {
+        return idDisk;
+    }
+
+    public void setIdDisk(Integer idDisk) {
+        this.idDisk = idDisk;
+    }
 
     public Integer getUserWasComplained() {
         return userWasComplained;

@@ -6,8 +6,17 @@ import java.util.Date;
 public class Comment extends Entity {
     private Integer idUserCommented;
     private String commentText;
+    private Integer idDisk;
     private Date timeAdded;
 
+    public Integer getIdDisk() {
+        return idDisk;
+    }
+
+    public void setIdDisk(Integer idDisk) {
+        this.idDisk = idDisk;
+
+    }
 
     public Integer getIdUserCommented() {
         return idUserCommented;

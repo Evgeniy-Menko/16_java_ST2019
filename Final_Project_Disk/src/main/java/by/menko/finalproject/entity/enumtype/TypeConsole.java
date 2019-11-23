@@ -14,4 +14,12 @@ public enum TypeConsole {
     public String getName() {
         return name;
     }
+
+    public Integer getIdTypeConsole() {
+        return ordinal();
+    }
+
+    public static Role getByIdTypeConsole(Integer id) {
+        return Role.values()[id];
+    }
 }
