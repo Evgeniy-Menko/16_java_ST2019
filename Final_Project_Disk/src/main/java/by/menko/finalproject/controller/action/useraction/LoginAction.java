@@ -2,6 +2,7 @@ package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Action;
 import by.menko.finalproject.entity.User;
+import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.UserService;
 
@@ -14,7 +15,7 @@ public class LoginAction extends Action {
         String login = request.getParameter("email");
         String password = request.getParameter("password");
         if (login != null && password != null) {
-            UserService service = factory.createService("user");
+            UserService service = factory.createService(TypeServiceAndDao.USER);
             User user = service.finUserByEmail(login, password);
             request.getSession().setAttribute("authorizedUser", user);
             return new Forward("/index.jsp");

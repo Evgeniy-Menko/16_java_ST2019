@@ -55,7 +55,7 @@
                         url: url,
                         data: $(this).serialize(),
                         success: function (data) {
-                       location.href="http://localhost:8080/Panda-Disk/";
+                            location.href = "http://localhost:8080/Panda-Disk/";
                         }
                     });
                     return false;
@@ -217,64 +217,119 @@
 
 <div class="container" style="margin-top:30px">
 
-    <form id="contact-form" method="post" action="${pageContext.request.contextPath}/index.jsp">
+    <form id="contact-form" method="post" action="/Panda-Disk/index.jsp" novalidate="true">
 
         <div class="messages"></div>
 
-        <div class="controls">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="form_name">Firstname *</label>
-                        <input id="form_name" type="text" name="name" class="form-control"
-                               placeholder="Please enter your firstname *" required="required"
-                               data-error="Firstname is required.">
-                        <div class="help-block with-errors"></div>
+        <div class="row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-5">
+                <div class="form-group">
+                    <div class="card cl-md-6" style="width:350px; height:203px">
+
+                        <img id="blah" class="card-img-top"
+                             src="https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png"
+                             alt="your image" style="width:100%;height:100%">
+
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="form_lastname">Lastname *</label>
-                        <input id="form_lastname" type="text" name="surname" class="form-control"
-                               placeholder="Please enter your lastname *" required="required"
-                               data-error="Lastname is required.">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="form_email">Email *</label>
-                        <input id="form_email" type="email" name="email" class="form-control"
-                               placeholder="Please enter your email *" required="required"
-                               data-error="Valid email is required.">
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="form_phone">Phone</label>
-                        <input id="form_phone" type="tel" name="phone" class="form-control"
-                               placeholder="Please enter your phone">
-                        <div class="help-block with-errors"></div>
+                    <div class="custom-file cl-md-6" style="width:350px;">
+                        <label class="custom-file-label" for="customFile" style="margin: auto">Choose file</label>
+                        <input type="file" class="custom-file-input" id="customFile" name="filename">
                     </div>
                 </div>
             </div>
 
 
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="form_name">Firstname *</label>
+                    <input id="form_name" type="text" name="name" class="form-control"
+                           placeholder="Please enter your firstname *" required="required"
+                           data-error="Firstname is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <label for="form_lastname">Lastname *</label>
+                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                           placeholder="Please enter your lastname *" required="required"
+                           data-error="Lastname is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <label for="form_phone">Phone</label>
+                    <input id="form_phone" type="tel" name="phone" class="form-control"
+                           placeholder="Please enter your phone">
+                    <div class="help-block with-errors"></div>
+                </div>
             </div>
 
         </div>
 
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
 
+                <div class="form-group">
+                    <label for="form_email">Email *</label>
+                    <input id="form_email" type="email" name="email" class="form-control"
+                           placeholder="Please enter your email *" required="required"
+                           data-error="Valid email is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="form-group">
+                    <label for="form_nickname">Nickname *</label>
+                    <input id="form_nickname" type="text" name="nickname" class="form-control"
+                           placeholder="Please enter your nickname *" required="required"
+                           data-error="Valid nickname is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1 "></div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input id="password" type="password" name="password" class="form-control password"
+                           placeholder="Please enter your password *" required="required"
+                           data-error="Valid password is required.">
+                    <div class="help-block with-errors error"></div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="repeat_password">Repeat password *</label>
+                    <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
+                           placeholder="Please repeat your password *" required="required"
+                           data-error="Valid password is required.">
+                    <div class="help-block with-errors error"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-block btn-primary disabled">Submit</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="reset" class="btn btn-block btn-danger">Reset</button>
+            </div>
+        </div>
     </form>
+</div>
+
+</form>
 </div>
 
 
@@ -285,6 +340,49 @@
             e.stopPropagation();
             e.preventDefault();
         });
+    });
+
+</script>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        readURL(this);
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    });
+
+    $(".cor_password").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
+
+        var value_input1 = $(".password").val(); // Получаем содержимое 1-го поля
+        var value_input2 = $(this).val(); // Получаем содержимое 2-го поля
+       
+        if (value_input1 != value_input2) { // Условие, если поля не совпадают
+            var pass = document.getElementById('password').value;
+            this.style.borderColor = '#b30300';
+
+            //   $(".help-block.with-errors").html("Пароли не совпадают!"); // Выводим сообщение
+            $("#submit").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+        } else { // Условие, если поля совпадают
+            this.style.backgroundColor.fixed;
+            $("#submit").removeAttr("disabled");  // Разрешаем отправку формы
+            $(".error").html(""); // Скрываем сообщение
+
+        }
+
     });
 </script>
 </body>
