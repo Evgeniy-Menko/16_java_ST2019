@@ -299,7 +299,7 @@
                     <input id="password" type="password" name="password" class="form-control password"
                            placeholder="Please enter your password *" required="required"
                            data-error="Valid password is required.">
-                    <div class="help-block with-errors error"></div>
+                    <div class="help-block with-errors error "></div>
                 </div>
             </div>
             <div class="col-md-5">
@@ -308,7 +308,7 @@
                     <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
                            placeholder="Please repeat your password *" required="required"
                            data-error="Valid password is required.">
-                    <div class="help-block with-errors error"></div>
+                    <div class="help-block with-errors error "></div>
                 </div>
             </div>
         </div>
@@ -368,16 +368,70 @@
 
         var value_input1 = $(".password").val(); // Получаем содержимое 1-го поля
         var value_input2 = $(this).val(); // Получаем содержимое 2-го поля
-       
+
         if (value_input1 != value_input2) { // Условие, если поля не совпадают
             var pass = document.getElementById('password').value;
-            this.style.borderColor = '#b30300';
 
-            //   $(".help-block.with-errors").html("Пароли не совпадают!"); // Выводим сообщение
+            this.style.borderColor = '#b30300';
+            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            $(".error").each(function () {
+                this.style.color = '#b30300';
+            });
+            $(".password").each(function () {
+                this.style.borderColor = '#b30300';
+                this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            });
+            $(".error").html("Пароли не совпадают!"); // Выводим сообщение
             $("#submit").attr("disabled", "disabled"); // Запрещаем отправку формы
 
         } else { // Условие, если поля совпадают
-            this.style.backgroundColor.fixed;
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+            this.style.webkitBoxShadow = '';
+            $(".password").each(function () {
+                this.style.borderColor = '';
+                this.style.boxShadow = "";
+                this.style.webkitBoxShadow = '';
+            });
+            $("#submit").removeAttr("disabled");  // Разрешаем отправку формы
+            $(".error").html(""); // Скрываем сообщение
+
+        }
+
+    });
+    $(".password").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
+
+        var value_input1 = $(".cor_password").val(); // Получаем содержимое 1-го поля
+        var value_input2 = $(this).val(); // Получаем содержимое 2-го поля
+
+        if (value_input1 != value_input2) { // Условие, если поля не совпадают
+            var pass = document.getElementById('password').value;
+
+            this.style.borderColor = '#b30300';
+            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            $(".error").each(function () {
+                this.style.color = '#b30300';
+            });
+            $(".cor_password").each(function () {
+                this.style.borderColor = '#b30300';
+                this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+            });
+            $(".error").html("Пароли не совпадают!"); // Выводим сообщение
+            $("#submit").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+        } else { // Условие, если поля совпадают
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+            this.style.webkitBoxShadow = '';
+            $(".cor_password").each(function () {
+                this.style.borderColor = '';
+                this.style.boxShadow = "";
+                this.style.webkitBoxShadow = '';
+            });
             $("#submit").removeAttr("disabled");  // Разрешаем отправку формы
             $(".error").html(""); // Скрываем сообщение
 
