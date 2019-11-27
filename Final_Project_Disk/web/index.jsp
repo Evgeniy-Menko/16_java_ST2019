@@ -51,7 +51,7 @@
                     Catalog
                 </a>
                 <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="#">All</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/search.jsp">All</a>
                     <li class="dropdown-submenu">
                         <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop2"
                            data-toggle="dropdown"
@@ -124,53 +124,53 @@
 
             <button class="btn btn-light my-1 mr-sm-1" type="button">Search</button>
         </form>
-<c:choose>
+        <c:choose>
 
-    <c:when test="${authorizedUser.role == 'USER'}">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link
+            <c:when test="${authorizedUser.role == 'USER'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
 " href="javascript:void(0)"> My profile</a>
-            </li>
-            <p class="text-white my-2">|</p>
+                    </li>
+                    <p class="text-white my-2">|</p>
 
-            <li class="nav-item">
-                <a class="nav-link
+                    <li class="nav-item">
+                        <a class="nav-link
 " href="${pageContext.request.contextPath}/logout.html">Logout</a>
-            </li>
-        </ul>
-    </c:when>
-    <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link
+                    </li>
+                </ul>
+            </c:when>
+            <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
 " href="javascript:void(0)"> My profile</a>
-            </li>
-            <p class="text-white my-2">|</p>
+                    </li>
+                    <p class="text-white my-2">|</p>
 
-            <li class="nav-item">
-                <a class="nav-link
+                    <li class="nav-item">
+                        <a class="nav-link
 " href="${pageContext.request.contextPath}/logout.html">Logout</a>
-            </li>
-        </ul>
+                    </li>
+                </ul>
 
-    </c:when>
-    <c:otherwise>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
-                   style="border: 0">Sing in</a>
-            </li>
+            </c:when>
+            <c:otherwise>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
+                           style="border: 0">Sing in</a>
+                    </li>
 
-            <p class="text-white my-2">|</p>
+                    <p class="text-white my-2">|</p>
 
-            <li class="nav-item">
-                <a class="nav-link
+                    <li class="nav-item">
+                        <a class="nav-link
 " href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
-            </li>
-        </ul>
-    </c:otherwise>
-</c:choose>
+                    </li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
 
     </div>
 
@@ -376,7 +376,8 @@
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password"
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter password"
+                               name="password"
                                required>
                     </div>
                     <div class="custom-control custom-checkbox mb-3">

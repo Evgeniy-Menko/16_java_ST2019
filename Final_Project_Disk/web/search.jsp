@@ -26,6 +26,60 @@
             margin-top: -1px;
         }
     </style>
+    <script>
+        $("#sel1").on("change", function () {
+            var type = $('#sel1').val();
+            var select2 = $('#sel2');
+            select2.prop('disabled', true);
+            select2.empty();
+            if (type === "Game") {
+                select2.prop('disabled', false);
+                select2.append('<option value="All">All</option>');
+                select2.append('<option value="Action">Action</option>');
+                select2.append('<option value="Adventure">Adventure</option>');
+                select2.append('<option value="Arcade">Arcade</option>');
+                select2.append('<option value="Fighting">Fighting</option>');
+                select2.append('<option value="MMORPG">MMORPG</option>');
+                select2.append('<option value="Quest">Quest</option>');
+                select2.append('<option value="Racing">Racing</option>');
+                select2.append('<option value="Shooter">Shooter</option>');
+                select2.append('<option value="Simulator">Simulator</option>');
+                select2.append('<option value="Sport">Shooter</option>');
+                select2.append('<option value="Strategy">Simulator</option>');
+
+            } else if (type === "Film") {
+                select2.prop('disabled', false);
+                select2.append('<option value="All">All</option>');
+                select2.append('<option value="Action">Action</option>');
+                select2.append('<option value="Westerns">Westerns</option>');
+                select2.append('<option value="Military">Military</option>');
+                select2.append('<option value="Fighting">Fighting</option>');
+                select2.append('<option value="Detectives">Detectives</option>');
+                select2.append('<option value="Documentary">Documentary</option>');
+                select2.append('<option value="Drama">Drama</option>');
+                select2.append('<option value="Historical">Historical</option>');
+                select2.append('<option value="Comedy">Comedy</option>');
+                select2.append('<option value="Crime">Crime</option>');
+                select2.append('<option value="Romance">Romance</option>');
+                select2.append('<option value="Horror">Horror</option>');
+                select2.append('<option value="Fantasy">Fantasy</option>');
+            } else if (type === "Music") {
+                select2.prop('disabled', false);
+                select2.append('<option value="All">All</option>');
+                select2.append('<option value="Country">Country</option>');
+                select2.append('<option value="Blues">Blues</option>');
+                select2.append('<option value="Jazz">Jazz</option>');
+                select2.append('<option value="Chanson, Romance">Chanson, Romance</option>');
+                select2.append('<option value="Electronic music">Electronic music</option>');
+                select2.append('<option value="Rock">Rock</option>');
+                select2.append('<option value="Hip Hop">Hip Hop</option>');
+                select2.append('<option value="Reggae">Reggae</option>');
+                select2.append('<option value="Pop">Pop</option>');
+            }
+
+        });
+
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
@@ -137,6 +191,134 @@
     </div>
 
 </nav>
+<div class="text-center" style="margin-top:30px;margin-right: 20px">
+    <h1>Catalog</h1>
+    <br>
+</div>
+<div class="row col-md-12">
+    <div class="col-md-2 border " style="margin-left: 4%; ">
+        <div class="form-group">
+            <br>
+            <label for="sel1">Type:</label>
+            <select class="form-control" id="sel1" name="type">
+                <option value="All">All</option>
+                <option value="Film">Films</option>
+                <option value="Game">Games</option>
+                <option value="Music">Music</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sel2">Genre:</label>
+            <select class="form-control" id="sel2" name="genre" disabled="disabled"></select>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input id="price" type="number" name="price" class="form-control"
+                   placeholder="От" min="0" step="0.01">
+            <input id="price2" type="number" name="price" class="form-control"
+                   placeholder="До" min="1" step="0.01">
+            <div class="help-block with-errors error"></div>
+            <script>
+                $("#price2").on("keyup", function () {
+                    var price1 = $("#price").val();
+                    var price2 = $("#price2").val();
+
+                    if (price2 === "") {
+                        $("#price2").each(function () {
+                            this.style.borderColor = '';
+                            this.style.boxShadow = "";
+                            this.style.webkitBoxShadow = '';
+                        });
+                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
+                        $(".error").html("");
+                    } else if (price2 < price1) {
+
+                        $(".error").each(function () {
+                            this.style.color = '#b30300';
+                        });
+                        $("#price2").each(function () {
+                            this.style.borderColor = '#b30300';
+                            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+
+                        });
+                        $(".error").html("Цена до не может быть больше"); // Выводим сообщение
+                        $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+                    } else { // Условие, если поля совпадают
+
+                        $("#price2").each(function () {
+                            this.style.borderColor = '';
+                            this.style.boxShadow = "";
+                            this.style.webkitBoxShadow = '';
+                        });
+                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
+                        $(".error").html(""); // Скрываем сообщение
+
+                    }
+                });
+                $("#price").on("keyup", function () {
+                    var price1 = $("#price").val();
+                    var price2 = $("#price2").val();
+
+                    if (price2 === "") {
+                        return;
+                    } else if (price2 < price1) {
+
+                        $(".error").each(function () {
+                            this.style.color = '#b30300';
+                        });
+                        $("#price2").each(function () {
+                            this.style.borderColor = '#b30300';
+                            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+
+                        });
+                        $(".error").html("Цена от не может быть больше"); // Выводим сообщение
+                        $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+                    } else { // Условие, если поля совпадают
+
+                        $("#price2").each(function () {
+                            this.style.borderColor = '';
+                            this.style.boxShadow = "";
+                            this.style.webkitBoxShadow = '';
+                        });
+                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
+                        $(".error").html(""); // Скрываем сообщение
+
+                    }
+                });
+            </script>
+        </div>
+    </div>
+    <div class="col-lg-8 ">
+        <table class="table border " style="margin-left: 4%">
+            <thead>
+            <tr>
+                <th colspan="3"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -172,6 +354,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     $(document).ready(function () {

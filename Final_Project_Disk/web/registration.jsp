@@ -46,8 +46,125 @@
 
             $('#contact-form').validator();
 
+            $("#contact-form").on("change", function () {
+
+                var fileName = $(".custom-file-input").val().split("\\").pop();
+                var ex = fileName.substring(fileName.lastIndexOf("."));
+
+                $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html(fileName);
+                $(".custom-file-input").each(function () {
+                    if (ex == ".png" | ex == ".jpg" | ex == ".jpeg") {
+                        readURL(this);
+                        $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+                    } else {
+                        $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+
+                    }
+                });
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+            });
+
+            $("#contact-form").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
+
+                var value_input1 = $(".password").val(); // Получаем содержимое 1-го поля
+                var value_input2 = $(".cor_password").val(); // Получаем содержимое 2-го поля
+
+                if (value_input1 != value_input2) { // Условие, если поля не совпадают
+                    var pass = document.getElementById('password').value;
+
+                    $(".cor_password").each(function () {
+                        this.style.borderColor = '#b30300';
+                        this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                        this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                    });
+                    $(".error").each(function () {
+                        this.style.color = '#b30300';
+                    });
+                    $(".password").each(function () {
+                        this.style.borderColor = '#b30300';
+                        this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                        this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+
+                    });
+                    $(".error").html("Пароли не совпадают!"); // Выводим сообщение
+                    $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+                } else { // Условие, если поля совпадают
+                    $(".cor_password").each(function () {
+                        this.style.borderColor = '';
+                        this.style.boxShadow = '';
+                        this.style.webkitBoxShadow = '';
+                    });
+                    $(".password").each(function () {
+                        this.style.borderColor = '';
+                        this.style.boxShadow = "";
+                        this.style.webkitBoxShadow = '';
+                    });
+                    $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
+                    $(".error").html(""); // Скрываем сообщение
+
+                }
+
+            });
+            $("#contact-form").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
+
+                var value_input1 = $(".cor_password").val(); // Получаем содержимое 1-го поля
+                var value_input2 = $(".password").val(); // Получаем содержимое 2-го поля
+
+                if (value_input1 != value_input2) { // Условие, если поля не совпадают
+                    var pass = document.getElementById('password').value;
+                    $(".password").each(function () {
+                        this.style.borderColor = '#b30300';
+                        this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                        this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                    });
+
+                    $(".error").each(function () {
+                        this.style.color = '#b30300';
+                    });
+                    $(".cor_password").each(function () {
+                        this.style.borderColor = '#b30300';
+                        this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                        this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                    });
+                    $(".error").html("Пароли не совпадают!"); // Выводим сообщение
+                    $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
+
+                } else { // Условие, если поля совпадают
+                    $(".password").each(function () {
+                        this.style.borderColor = '';
+                        this.style.boxShadow = '';
+                        this.style.webkitBoxShadow = '';
+                    });
+
+                    $(".cor_password").each(function () {
+                        this.style.borderColor = '';
+                        this.style.boxShadow = "";
+                        this.style.webkitBoxShadow = '';
+                    });
+                    $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
+                    $(".error").html(""); // Скрываем сообщение
+
+                }
+
+            });
+
+
             $('#contact-form').on('submit', function (e) {
                 if (!e.isDefaultPrevented()) {
+
                     var url = $('#contact-form').attr('action');
 
                     $.ajax({
@@ -234,9 +351,13 @@
 
                     </div>
                     <div class="custom-file cl-md-6" style="width:350px;">
-                        <label class="custom-file-label" for="customFile" style="margin: auto">Choose file</label>
-                        <input type="file" class="custom-file-input" id="customFile" name="filename">
+                        <label class="custom-file-label" for="customFile" id="image" style="margin: auto">Choose
+                            file</label>
+                        <input type="file" class="custom-file-input" id="customFile" name="filename"
+                               accept="image/jpeg,image/png" data-error="Only jpeg,png format.">
+                        <div class="help-block with-errors error2"></div>
                     </div>
+                    <div class="help-block with-errors error2"></div>
                 </div>
             </div>
 
@@ -244,14 +365,14 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="form_name">Firstname *</label>
-                    <input id="form_name" type="text" name="name" class="form-control"
+                    <input id="form_name" type="text" name="name" class="form-control d"
                            placeholder="Please enter your firstname *" required="required"
                            data-error="Firstname is required.">
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="form_lastname">Lastname *</label>
-                    <input id="form_lastname" type="text" name="surname" class="form-control"
+                    <input id="form_lastname" type="text" name="surname" class="form-control d"
                            placeholder="Please enter your lastname *" required="required"
                            data-error="Lastname is required.">
                     <div class="help-block with-errors"></div>
@@ -316,7 +437,9 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-primary disabled">Submit</button>
+                <button type="submit" class="btn btn-block btn-primary disabled" id="submit1" disabled="disabled">
+                    Submit
+                </button>
             </div>
         </div>
 
@@ -345,99 +468,8 @@
 </script>
 <script>
     // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function () {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        readURL(this);
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-    });
-
-    $(".cor_password").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
-
-        var value_input1 = $(".password").val(); // Получаем содержимое 1-го поля
-        var value_input2 = $(this).val(); // Получаем содержимое 2-го поля
-
-        if (value_input1 != value_input2) { // Условие, если поля не совпадают
-            var pass = document.getElementById('password').value;
-
-            this.style.borderColor = '#b30300';
-            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            $(".error").each(function () {
-                this.style.color = '#b30300';
-            });
-            $(".password").each(function () {
-                this.style.borderColor = '#b30300';
-                this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-                this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            });
-            $(".error").html("Пароли не совпадают!"); // Выводим сообщение
-            $("#submit").attr("disabled", "disabled"); // Запрещаем отправку формы
-
-        } else { // Условие, если поля совпадают
-            this.style.borderColor = '';
-            this.style.boxShadow = '';
-            this.style.webkitBoxShadow = '';
-            $(".password").each(function () {
-                this.style.borderColor = '';
-                this.style.boxShadow = "";
-                this.style.webkitBoxShadow = '';
-            });
-            $("#submit").removeAttr("disabled");  // Разрешаем отправку формы
-            $(".error").html(""); // Скрываем сообщение
-
-        }
-
-    });
-    $(".password").on("keyup", function () { // Выполняем скрипт при изменении содержимого 2-го поля
-
-        var value_input1 = $(".cor_password").val(); // Получаем содержимое 1-го поля
-        var value_input2 = $(this).val(); // Получаем содержимое 2-го поля
-
-        if (value_input1 != value_input2) { // Условие, если поля не совпадают
-            var pass = document.getElementById('password').value;
-
-            this.style.borderColor = '#b30300';
-            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            $(".error").each(function () {
-                this.style.color = '#b30300';
-            });
-            $(".cor_password").each(function () {
-                this.style.borderColor = '#b30300';
-                this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-                this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-            });
-            $(".error").html("Пароли не совпадают!"); // Выводим сообщение
-            $("#submit").attr("disabled", "disabled"); // Запрещаем отправку формы
-
-        } else { // Условие, если поля совпадают
-            this.style.borderColor = '';
-            this.style.boxShadow = '';
-            this.style.webkitBoxShadow = '';
-            $(".cor_password").each(function () {
-                this.style.borderColor = '';
-                this.style.boxShadow = "";
-                this.style.webkitBoxShadow = '';
-            });
-            $("#submit").removeAttr("disabled");  // Разрешаем отправку формы
-            $(".error").html(""); // Скрываем сообщение
-
-        }
-
-    });
 </script>
 </body>
 </html>
