@@ -242,7 +242,7 @@
                             this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
 
                         });
-                        $(".error").html("Цена до не может быть больше"); // Выводим сообщение
+                        $(".error").html("Цена до не может быть меньше"); // Выводим сообщение
                         $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
 
                     } else { // Условие, если поля совпадают
@@ -257,10 +257,11 @@
 
                     }
                 });
+
                 $("#price").on("keyup", function () {
                     var price1 = $("#price").val();
                     var price2 = $("#price2").val();
-
+                   
                     if (price2 === "") {
                         return;
                     } else if (price2 < price1) {
