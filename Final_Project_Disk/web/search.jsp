@@ -14,6 +14,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js"></script>
+
     <title>Panda-Disk</title>
     <style>
         .dropdown-submenu {
@@ -26,60 +30,7 @@
             margin-top: -1px;
         }
     </style>
-    <script>
-        $("#sel1").on("change", function () {
-            var type = $('#sel1').val();
-            var select2 = $('#sel2');
-            select2.prop('disabled', true);
-            select2.empty();
-            if (type === "Game") {
-                select2.prop('disabled', false);
-                select2.append('<option value="All">All</option>');
-                select2.append('<option value="Action">Action</option>');
-                select2.append('<option value="Adventure">Adventure</option>');
-                select2.append('<option value="Arcade">Arcade</option>');
-                select2.append('<option value="Fighting">Fighting</option>');
-                select2.append('<option value="MMORPG">MMORPG</option>');
-                select2.append('<option value="Quest">Quest</option>');
-                select2.append('<option value="Racing">Racing</option>');
-                select2.append('<option value="Shooter">Shooter</option>');
-                select2.append('<option value="Simulator">Simulator</option>');
-                select2.append('<option value="Sport">Shooter</option>');
-                select2.append('<option value="Strategy">Simulator</option>');
 
-            } else if (type === "Film") {
-                select2.prop('disabled', false);
-                select2.append('<option value="All">All</option>');
-                select2.append('<option value="Action">Action</option>');
-                select2.append('<option value="Westerns">Westerns</option>');
-                select2.append('<option value="Military">Military</option>');
-                select2.append('<option value="Fighting">Fighting</option>');
-                select2.append('<option value="Detectives">Detectives</option>');
-                select2.append('<option value="Documentary">Documentary</option>');
-                select2.append('<option value="Drama">Drama</option>');
-                select2.append('<option value="Historical">Historical</option>');
-                select2.append('<option value="Comedy">Comedy</option>');
-                select2.append('<option value="Crime">Crime</option>');
-                select2.append('<option value="Romance">Romance</option>');
-                select2.append('<option value="Horror">Horror</option>');
-                select2.append('<option value="Fantasy">Fantasy</option>');
-            } else if (type === "Music") {
-                select2.prop('disabled', false);
-                select2.append('<option value="All">All</option>');
-                select2.append('<option value="Country">Country</option>');
-                select2.append('<option value="Blues">Blues</option>');
-                select2.append('<option value="Jazz">Jazz</option>');
-                select2.append('<option value="Chanson, Romance">Chanson, Romance</option>');
-                select2.append('<option value="Electronic music">Electronic music</option>');
-                select2.append('<option value="Rock">Rock</option>');
-                select2.append('<option value="Hip Hop">Hip Hop</option>');
-                select2.append('<option value="Reggae">Reggae</option>');
-                select2.append('<option value="Pop">Pop</option>');
-            }
-
-        });
-
-    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
@@ -104,7 +55,7 @@
                     Catalog
                 </a>
                 <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="#">All</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/search.jsp">All</a>
                     <li class="dropdown-submenu">
                         <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop2"
                            data-toggle="dropdown"
@@ -177,17 +128,54 @@
 
             <button class="btn btn-light my-1 mr-sm-1" type="button">Search</button>
         </form>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
-                   style="border: 0">Sing in</a>
-            </li>
-            <p class="text-white my-2">|</p>
+        <c:choose>
 
-            <li class="nav-item">
-                <a class="nav-link " href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
-            </li>
-        </ul>
+            <c:when test="${authorizedUser.role == 'USER'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+                    </li>
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+                    </li>
+                </ul>
+            </c:when>
+            <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+                    </li>
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+                    </li>
+                </ul>
+
+            </c:when>
+            <c:otherwise>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
+                           style="border: 0">Sing in</a>
+                    </li>
+
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
+                    </li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 
 </nav>
@@ -197,102 +185,123 @@
 </div>
 <div class="row col-md-12">
     <div class="col-md-2 border " style="margin-left: 4%; ">
-        <div class="form-group">
-            <br>
-            <label for="sel1">Type:</label>
-            <select class="form-control" id="sel1" name="type">
-                <option value="All">All</option>
-                <option value="Film">Films</option>
-                <option value="Game">Games</option>
-                <option value="Music">Music</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="sel2">Genre:</label>
-            <select class="form-control" id="sel2" name="genre" disabled="disabled"></select>
-        </div>
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input id="price" type="number" name="price" class="form-control"
-                   placeholder="От" min="0" step="0.01">
-            <input id="price2" type="number" name="price" class="form-control"
-                   placeholder="До" min="1" step="0.01">
-            <div class="help-block with-errors error"></div>
-            <script>
-                $("#price2").on("keyup", function () {
-                    var price1 = $("#price").val();
-                    var price2 = $("#price2").val();
+        <form>
+            <div class="form-group">
+                <br>
+                <label for="sel1">Type:</label>
+                <select class="form-control" id="sel1" name="type">
+                    <option value="All">All</option>
+                    <option value="Film">Films</option>
+                    <option value="Game">Games</option>
+                    <option value="Music">Music</option>
+                </select>
+                <script>
+                    $("#sel1").on("change", function () {
+                        var type = $('#sel1').val();
+                        var select2 = $('#sel2');
+                        select2.prop('disabled', true);
+                        select2.empty();
+                        if (type === "Game") {
+                            select2.prop('disabled', false);
+                            select2.append('<option value="All">All</option>');
+                            select2.append('<option value="Action">Action</option>');
+                            select2.append('<option value="Adventure">Adventure</option>');
+                            select2.append('<option value="Arcade">Arcade</option>');
+                            select2.append('<option value="Fighting">Fighting</option>');
+                            select2.append('<option value="MMORPG">MMORPG</option>');
+                            select2.append('<option value="Quest">Quest</option>');
+                            select2.append('<option value="Racing">Racing</option>');
+                            select2.append('<option value="Shooter">Shooter</option>');
+                            select2.append('<option value="Simulator">Simulator</option>');
+                            select2.append('<option value="Sport">Shooter</option>');
+                            select2.append('<option value="Strategy">Simulator</option>');
 
-                    if (price2 === "") {
-                        $("#price2").each(function () {
-                            this.style.borderColor = '';
-                            this.style.boxShadow = "";
-                            this.style.webkitBoxShadow = '';
-                        });
-                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
-                        $(".error").html("");
-                    } else if (price2 < price1) {
+                        } else if (type === "Film") {
+                            select2.prop('disabled', false);
+                            select2.append('<option value="All">All</option>');
+                            select2.append('<option value="Action">Action</option>');
+                            select2.append('<option value="Westerns">Westerns</option>');
+                            select2.append('<option value="Military">Military</option>');
+                            select2.append('<option value="Fighting">Fighting</option>');
+                            select2.append('<option value="Detectives">Detectives</option>');
+                            select2.append('<option value="Documentary">Documentary</option>');
+                            select2.append('<option value="Drama">Drama</option>');
+                            select2.append('<option value="Historical">Historical</option>');
+                            select2.append('<option value="Comedy">Comedy</option>');
+                            select2.append('<option value="Crime">Crime</option>');
+                            select2.append('<option value="Romance">Romance</option>');
+                            select2.append('<option value="Horror">Horror</option>');
+                            select2.append('<option value="Fantasy">Fantasy</option>');
+                        } else if (type === "Music") {
+                            select2.prop('disabled', false);
+                            select2.append('<option value="All">All</option>');
+                            select2.append('<option value="Country">Country</option>');
+                            select2.append('<option value="Blues">Blues</option>');
+                            select2.append('<option value="Jazz">Jazz</option>');
+                            select2.append('<option value="Chanson, Romance">Chanson, Romance</option>');
+                            select2.append('<option value="Electronic music">Electronic music</option>');
+                            select2.append('<option value="Rock">Rock</option>');
+                            select2.append('<option value="Hip Hop">Hip Hop</option>');
+                            select2.append('<option value="Reggae">Reggae</option>');
+                            select2.append('<option value="Pop">Pop</option>');
+                        }
 
-                        $(".error").each(function () {
-                            this.style.color = '#b30300';
-                        });
-                        $("#price2").each(function () {
-                            this.style.borderColor = '#b30300';
-                            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-                            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
+                    });
 
-                        });
-                        $(".error").html("Цена до не может быть меньше"); // Выводим сообщение
-                        $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
+                </script>
+            </div>
+            <div class="form-group">
+                <label for="sel2">Genre:</label>
+                <select class="form-control" id="sel2" name="genre" disabled="disabled"></select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input id="price" type="number" name="price" class="form-control"
+                       placeholder="От" min="0" step="0.01">
+                <input id="price2" type="number" name="price" class="form-control"
+                       placeholder="До" min="1" step="0.01">
+                <div class="help-block with-errors error"></div>
+                <script>
+                    $('#price').on('keyup', function () {
 
-                    } else { // Условие, если поля совпадают
-
-                        $("#price2").each(function () {
-                            this.style.borderColor = '';
-                            this.style.boxShadow = "";
-                            this.style.webkitBoxShadow = '';
-                        });
-                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
-                        $(".error").html(""); // Скрываем сообщение
-
-                    }
-                });
-
-                $("#price").on("keyup", function () {
-                    var price1 = $("#price").val();
-                    var price2 = $("#price2").val();
-                   
-                    if (price2 === "") {
-                        return;
-                    } else if (price2 < price1) {
-
-                        $(".error").each(function () {
-                            this.style.color = '#b30300';
-                        });
-                        $("#price2").each(function () {
-                            this.style.borderColor = '#b30300';
-                            this.style.boxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-                            this.style.webkitBoxShadow = 'inset 0 1px 1px rgba(0, 0, 0, .075)';
-
-                        });
-                        $(".error").html("Цена от не может быть больше"); // Выводим сообщение
-                        $("#submit1").attr("disabled", "disabled"); // Запрещаем отправку формы
-
-                    } else { // Условие, если поля совпадают
 
                         $("#price2").each(function () {
-                            this.style.borderColor = '';
-                            this.style.boxShadow = "";
-                            this.style.webkitBoxShadow = '';
-                        });
-                        $("#submit1").removeAttr("disabled");  // Разрешаем отправку формы
-                        $(".error").html(""); // Скрываем сообщение
 
-                    }
-                });
-            </script>
-        </div>
+                            this.min = parseInt($('#price').val());
+                        });
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label for="inputDate">Date:</label>
+                <input type='number' step="1" min="1970" id="inputDate" class="form-control" placeholder="C"/>
+                <input type='number' step="1" min="1970" id="inputDate2" class="form-control" placeholder="По"/>
+                <script>
+                    inputDate.max = new Date().getFullYear();
+                    inputDate2.max = new Date().getFullYear();
+                    $('#inputDate').on('keyup', function () {
+
+                        $("#inputDate2").each(function () {
+
+                            this.min = parseInt($('#inputDate').val());
+                        });
+                    });
+                </script>
+            </div>
+            <div class="row">
+
+<div class="col-md-4"></div>
+                    <button type="submit" class="btn  btn-primary btn-sm " id="submit1">
+                        Search
+                    </button>
+                    <button type="reset" class="btn  btn-danger btn-sm" id="reset">Reset</button>
+
+            </div>
+
+        </form>
     </div>
+
+
     <div class="col-lg-8 ">
         <table class="table border " style="margin-left: 4%">
             <thead>
@@ -301,21 +310,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
+          
             </tbody>
         </table>
     </div>
@@ -348,7 +343,7 @@
                         <label class="custom-control-label" for="customCheck">Custom checkbox</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="reset" class="btn btn-danger ">Reset</button>
                 </form>
             </div>
 
@@ -365,6 +360,7 @@
             e.preventDefault();
         });
     });
+
 </script>
 </body>
 </html>

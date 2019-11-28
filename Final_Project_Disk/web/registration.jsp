@@ -42,10 +42,18 @@
         }
     </style>
     <script>
+
+
+
         $(function () {
 
             $('#contact-form').validator();
+            $('#reset').on('click', function () {
 
+                $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+                $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
+
+            });
             $("#contact-form").on("change", function () {
 
                 var fileName = $(".custom-file-input").val().split("\\").pop();
@@ -55,10 +63,10 @@
                 $(".custom-file-input").each(function () {
                     if (ex == ".png" | ex == ".jpg" | ex == ".jpeg") {
                         readURL(this);
-                        $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+
                     } else {
                         $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
-
+                        $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
                     }
                 });
 
@@ -205,7 +213,7 @@
                     Catalog
                 </a>
                 <ul class="dropdown-menu">
-                    <a class="dropdown-item" href="#">All</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/search.jsp">All</a>
                     <li class="dropdown-submenu">
                         <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop2"
                            data-toggle="dropdown"
@@ -278,17 +286,54 @@
 
             <button class="btn btn-light my-1 mr-sm-1" type="button">Search</button>
         </form>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
-                   style="border: 0">Sing in</a>
-            </li>
-            <p class="text-white my-2">|</p>
+        <c:choose>
 
-            <li class="nav-item">
-                <a class="nav-link " href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
-            </li>
-        </ul>
+            <c:when test="${authorizedUser.role == 'USER'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+                    </li>
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+                    </li>
+                </ul>
+            </c:when>
+            <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="javascript:void(0)"> My profile</a>
+                    </li>
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+                    </li>
+                </ul>
+
+            </c:when>
+            <c:otherwise>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class=" nav-link " data-toggle="modal" data-target="#myModal"
+                           style="border: 0">Sing in</a>
+                    </li>
+
+                    <p class="text-white my-2">|</p>
+
+                    <li class="nav-item">
+                        <a class="nav-link
+" href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
+                    </li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 
 </nav>
@@ -437,7 +482,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-primary disabled" id="submit1" disabled="disabled">
+                <button type="submit" class="btn btn-block btn-primary " id="submit1">
                     Submit
                 </button>
             </div>
@@ -446,7 +491,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="reset" class="btn btn-block btn-danger">Reset</button>
+                <button type="reset" class="btn btn-block btn-danger" id="reset">Reset</button>
             </div>
         </div>
     </form>
