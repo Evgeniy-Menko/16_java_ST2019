@@ -44,7 +44,6 @@
     <script>
 
 
-
         $(function () {
 
             $('#contact-form').validator();
@@ -67,6 +66,7 @@
                     } else {
                         $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
                         $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
+                        $(".custom-file-input").reset();
                     }
                 });
 
