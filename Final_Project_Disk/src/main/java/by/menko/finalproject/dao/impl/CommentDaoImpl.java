@@ -2,7 +2,7 @@ package by.menko.finalproject.dao.impl;
 
 import by.menko.finalproject.dao.CommentDao;
 import by.menko.finalproject.entity.Comment;
-import by.menko.finalproject.entity.Complaint;
+
 import by.menko.finalproject.exception.PersonalException;
 
 import java.sql.PreparedStatement;

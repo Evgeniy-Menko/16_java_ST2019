@@ -21,7 +21,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     private static final String GET_USER = "SELECT `mail`, `password`, `role`,`flag_blocked` FROM `users` WHERE `id` = ?";
     private static final String UPDATE_USER_INFO = "UPDATE `user_info` SET `first_name` = ?, `last_name` = ?, `nickname` = ?, `phone` = ? WHERE `id` = ?";
     private static final String DELETE_USER = "DELETE FROM `users` WHERE `id` = ?";
-    private static final String GET_USER_BY_EMAIL = "SELECT `id`, `mail`, `password`, `role`,`flag_blocked` FROM `users` WHERE `mail` = ? AND `password` = ? AND `flag_blocked` = 0";
+    private static final String GET_USER_BY_EMAIL = "SELECT `id_user`, `mail`, `password`, `role`,`flag_blocked` FROM `users` WHERE `mail` = ? AND `password` = ? AND `flag_blocked` = 0";
     private static final String GET_USER_INFO = "SELECT `id_user`, `first_name`, `last_name`, `nickname`, `phone` FROM `user_info` WHERE `id_user` = ?";
     private static final String DELETE_INFO = "DELETE FROM `user_info` WHERE `id_user` = ?";
     private static final String GET_ALL_USER = "SELECT `id_user`, `first_name`, `last_name`, `nickname`, `phone`,`time_registration` FROM `user_info`";
@@ -150,7 +150,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             User user = new User();
             if (resultSet.next()) {
                 user = new User();
-                user.setIdEntity(resultSet.getInt("id"));
+                user.setIdEntity(resultSet.getInt("id_user"));
                 user.setEmail(resultSet.getString("mail"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.getByIdRole(resultSet.getInt("role")));

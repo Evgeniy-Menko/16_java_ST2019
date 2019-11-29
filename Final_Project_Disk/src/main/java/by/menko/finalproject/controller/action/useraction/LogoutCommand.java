@@ -19,7 +19,7 @@ public class LogoutCommand extends Command {
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
 
         request.getSession(false).invalidate();
-        response.sendRedirect("/Panda-Disk/");
+        response.sendRedirect("/Panda-Disk/home.html");
 
     }
 }

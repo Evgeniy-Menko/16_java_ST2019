@@ -21,7 +21,7 @@ public class LoginCommand extends Command {
             UserService service = factory.createService(TypeServiceAndDao.USER);
             User user = service.finUserByEmail(login, password);
             request.getSession().setAttribute("authorizedUser", user);
-            response.sendRedirect("/Panda-Disk/");
+            response.sendRedirect("/Panda-Disk/home.html");
             // return new Forward("/index.jsp");
         } else {
             request.setAttribute("message", "Имя пользователя или пароль не опознанны");

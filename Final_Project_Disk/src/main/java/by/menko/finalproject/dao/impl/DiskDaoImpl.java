@@ -29,7 +29,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
             statement.setString(2, disk.getNameDisk());
             statement.setString(3, disk.getGenre());
             statement.setDouble(4, disk.getPrice());
-            statement.setInt(5, disk.getType().getIdTypeDisk());
+
             statement.setString(6, disk.getDescription());
             statement.setDate(7, (Date) disk.getYear());
             statement.executeUpdate();

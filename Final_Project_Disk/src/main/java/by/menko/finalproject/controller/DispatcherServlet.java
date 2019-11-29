@@ -3,7 +3,7 @@ package by.menko.finalproject.controller;
 
 import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.CommandManager;
-import by.menko.finalproject.controller.action.ActionManagerFactory;
+import by.menko.finalproject.controller.action.CommandManagerFactory;
 import by.menko.finalproject.dao.impl.TransactionFactoryImpl;
 import by.menko.finalproject.dao.pool.ConnectionPool;
 import by.menko.finalproject.exception.PersonalException;
@@ -40,7 +40,7 @@ public class DispatcherServlet extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Command command = (Command) request.getAttribute("action");
         try {
-            CommandManager commandManager = ActionManagerFactory.getManager(getFactory());
+            CommandManager commandManager = CommandManagerFactory.getManager(getFactory());
             commandManager.execute(command, request, response);
             commandManager.close();
 

@@ -12,100 +12,99 @@ public class Disk extends Entity {
     private String nameDisk;
     private String genre;
     private Double price;
-    private TypeDisk type;
+    private String type;
     private File image;
     private String description;
     private Date year;
     private Date timeAdded;
     private Boolean flagBlocked;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
 
-    public Disk setIdUser(Integer idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
-        return this;
+
     }
 
     public String getNameDisk() {
         return nameDisk;
     }
 
-    public Disk setNameDisk(String nameDisk) {
+    public void setNameDisk(String nameDisk) {
         this.nameDisk = nameDisk;
-        return this;
+
     }
 
     public String getGenre() {
         return genre;
     }
 
-    public Disk setGenre(String genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
-        return this;
+
     }
 
     public Double getPrice() {
         return price;
     }
 
-    public Disk setPrice(Double price) {
+    public void setPrice(Double price) {
         this.price = price;
-        return this;
+
     }
 
-    public TypeDisk getType() {
-        return type;
-    }
-
-    public Disk setType(TypeDisk type) {
-        this.type = type;
-        return this;
-    }
 
     public File getImage() {
         return image;
     }
 
-    public Disk setImage(File image) {
+    public void setImage(File image) {
         this.image = image;
-        return this;
+
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Disk setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
+
     }
 
     public Date getYear() {
         return year;
     }
 
-    public Disk setYear(Date year) {
+    public void setYear(Date year) {
         this.year = year;
-        return this;
+
     }
 
     public Date getTimeAdded() {
         return timeAdded;
     }
 
-    public Disk setTimeAdded(Date timeAdded) {
+    public void setTimeAdded(Date timeAdded) {
         this.timeAdded = timeAdded;
-        return this;
+
     }
 
     public Boolean getFlagBlocked() {
         return flagBlocked;
     }
 
-    public Disk setFlagBlocked(Boolean flagBlocked) {
+    public void setFlagBlocked(Boolean flagBlocked) {
         this.flagBlocked = flagBlocked;
-        return this;
     }
 }

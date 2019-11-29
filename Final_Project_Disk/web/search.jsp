@@ -56,66 +56,40 @@
                 </a>
                 <ul class="dropdown-menu">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/search.jsp">All</a>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop2"
-                           data-toggle="dropdown"
-                           tabindex="-1" href="#">Games<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <a class="dropdown-item" href="#">All</a>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Adventure</a>
-                            <a class="dropdown-item" href="#">Arcade</a>
-                            <a class="dropdown-item" href="#">Fighting</a>
-                            <a class="dropdown-item" href="#">MMORPG</a>
-                            <a class="dropdown-item" href="#">Quest</a>
-                            <a class="dropdown-item" href="#">Racing</a>
-                            <a class="dropdown-item" href="#">RPG</a>
-                            <a class="dropdown-item" href="#">Shooter</a>
-                            <a class="dropdown-item" href="#">Simulator</a>
-                            <a class="dropdown-item" href="#">Sport</a>
-                            <a class="dropdown-item" href="#">Strategy</a>
-                        </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop3"
-                           data-toggle="dropdown"
-                           tabindex="-1" href="#">Films<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <a class="dropdown-item" href="#">All</a>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Westerns</a>
-                            <a class="dropdown-item" href="#">Military</a>
-                            <a class="dropdown-item" href="#">Detectives</a>
-                            <a class="dropdown-item" href="#">Document</a>
-                            <a class="dropdown-item" href="#">Drama</a>
-                            <a class="dropdown-item" href="#">Historical</a>
-                            <a class="dropdown-item" href="#">Comedy</a>
-                            <a class="dropdown-item" href="#">Crime</a>
-                            <a class="dropdown-item" href="#">Romance</a>
-                            <a class="dropdown-item" href="#">Horror</a>
-                            <a class="dropdown-item" href="#">Fantasy</a>
-                        </ul>
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop4"
-                           data-toggle="dropdown"
-                           tabindex="-1" href="#">Music<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <a class="dropdown-item" href="#">All</a>
-                            <a class="dropdown-item" href="#">Country</a>
-                            <a class="dropdown-item" href="#">Blues</a>
-                            <a class="dropdown-item" href="#">Jazz</a>
-                            <a class="dropdown-item" href="#">Chanson, Romance</a>
-                            <a class="dropdown-item" href="#">Electronic music</a>
-                            <a class="dropdown-item" href="#">Rock</a>
-                            <a class="dropdown-item" href="#">Hip Hop</a>
-                            <a class="dropdown-item" href="#">Reggae</a>
-                            <a class="dropdown-item" href="#">Pop</a>
-                        </ul>
-                    </li>
+                    <c:set var="type" value="${firstType}"/>
+                    <c:set var="index" value="0"/>
 
+                    <c:forEach var="item" items="${catalog}">
+
+                        <c:if test="${type == item.type && index==0}">
+
+                            <c:set var="index" value="1"/>
+                            <li class="dropdown-submenu">
+                            <a class="dropdown-item nav-link dropdown-toggle test text-dark" id="navbardrop2"
+                               data-toggle="dropdown"
+                               tabindex="-1" href="#">${item.type}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="#">All</a>
+                        </c:if>
+
+                        <c:if test="${type == item.type && index==1}">
+                            <a class="dropdown-item" href="#">${item.genre}</a>
+                        </c:if>
+                        <c:if test="${type != item.type }">
+                            </ul>
+                            </li>
+                            <c:set var="type" value="${item.type}"/>
+                            <c:set var="index" value="0"/>
+                        </c:if>
+
+                    </c:forEach>
+                    <c:if test="${index==1}">
                 </ul>
             </li>
+            </c:if>
+
+        </ul>
+        </li>
 
 
             <li class="nav-item">
@@ -204,7 +178,7 @@
                         if (type === "Game") {
                             select2.prop('disabled', false);
                             select2.append('<option value="All">All</option>');
-                            select2.append('<option value="Action">Action</option>');
+                            select2.append('<option value="  Action">Action</option>');
                             select2.append('<option value="Adventure">Adventure</option>');
                             select2.append('<option value="Arcade">Arcade</option>');
                             select2.append('<option value="Fighting">Fighting</option>');

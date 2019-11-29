@@ -2,7 +2,7 @@ USE `panda_disk`;
 
 CREATE TABLE `users`
 (
-    `id`           INTEGER      NOT NULL AUTO_INCREMENT,
+    `id_user`           INTEGER      NOT NULL AUTO_INCREMENT,
     `mail`         VARCHAR(255) NOT NULL UNIQUE,
     `password`     CHAR(20)     NOT NULL,
     /*
@@ -10,26 +10,38 @@ CREATE TABLE `users`
      * 0 - пользователь (Role.USER)
      */
     `role`         TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
-
-    `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
-    PRIMARY KEY (`id`)
-) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
-
-CREATE TABLE `user_info`
-(
-    `id_user`           INTEGER     NOT NULL,
+`flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     `first_name`        VARCHAR(255),
     `last_name`         VARCHAR(255),
     `nickname`          VARCHAR(45) NOT NULL UNIQUE,
     `phone`             VARCHAR(15),
+    `image`             VARCHAR(255),
     `time_registration` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FOREIGN KEY (`id_user`)
-        REFERENCES `users` (`id`)
+    PRIMARY KEY (`id_user`)
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE `genre`
+(
+    `id_genre` INTEGER     NOT NULL AUTO_INCREMENT,
+    `type_id`  INTEGER     NOT NULL,
+    `genre`    VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id_genre`),
+    CONSTRAINT FOREIGN KEY (`type_id`)
+        REFERENCES `type` (`id_type`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE `type`
+(
+    `id_type` INTEGER     NOT NULL AUTO_INCREMENT,
+    `type`    VARCHAR(45) NOT NULL UNIQUE,
+    PRIMARY KEY (`id_type`)
+) ENGINE = INNODB
+  DEFAULT CHARACTER SET utf8;
+
 
 
 CREATE TABLE `disk`
@@ -37,22 +49,19 @@ CREATE TABLE `disk`
     `id_disk`      INTEGER      NOT NULL AUTO_INCREMENT,
     `user_id`      INTEGER      NOT NULL,
     `name`         varchar(255) NOT NULL,
-    `genre`        varchar(25)  NOT NULL,
+    `genre_id`     INTEGER      NOT NULL,
     `price`        DOUBLE       NOT NULL,
-    /*
-     *0-film,
-     *1-game,
-     *2-music,
-     */
-    `type`         TINYINT      NOT NULL CHECK (`type` IN (0, 1, 2)),
-    `image`        MEDIUMBLOB,
     `description`  TEXT,
     `year`         DATE,
     `time_added`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     PRIMARY KEY (`id_disk`),
     CONSTRAINT FOREIGN KEY (`user_id`)
-        REFERENCES `user_info` (`id_user`)
+        REFERENCES `users` (`id_user`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT FOREIGN KEY (`genre_id`)
+        REFERENCES `genre` (`id_genre`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 ) ENGINE = INNODB
@@ -60,9 +69,8 @@ CREATE TABLE `disk`
 
 CREATE TABLE `image`
 (
-    `id_image`   INTEGER NOT NULL,
-    `image`      MEDIUMBLOB,
-    `name_image` VARCHAR(255),
+    `id_image`   INTEGER      NOT NULL,
+    `image_path` VARCHAR(255) NOT NULL,
     CONSTRAINT FOREIGN KEY (`id_image`)
         REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE
@@ -74,7 +82,7 @@ CREATE TABLE `disk_info_films`
 (
     `disk_id`      INTEGER NOT NULL,
     `country`      varchar(50),
-    `running_time` TIME ,
+    `running_time` TIME,
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE
@@ -118,7 +126,7 @@ CREATE TABLE `shopping_cart`
     `disk_id`    INTEGER   NOT NULL,
     `time_added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FOREIGN KEY (`user_id`)
-        REFERENCES `user_info` (`id_user`)
+        REFERENCES `users` (`id_user`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`disk_id`)
@@ -137,7 +145,7 @@ CREATE TABLE `comments`
     `time_added`        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id_comment`),
     CONSTRAINT FOREIGN KEY (`user_id_commented`)
-        REFERENCES `user_info` (`id_user`)
+        REFERENCES `users` (`id_user`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`disk_id`)
@@ -157,11 +165,11 @@ CREATE TABLE `complaints`
     `time_added`          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id_complaint`),
     CONSTRAINT FOREIGN KEY (`user_id_complained`)
-        REFERENCES `user_info` (`id_user`)
+        REFERENCES `users` (`id_user`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`user_was_complained`)
-        REFERENCES `user_info` (`id_user`)
+        REFERENCES `users` (`id_user`)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`disk_id`)

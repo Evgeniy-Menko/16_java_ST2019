@@ -2,6 +2,7 @@ package by.menko.finalproject.controller;
 
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.action.useraction.HomeCommand;
 import by.menko.finalproject.controller.action.useraction.LoginCommand;
 import by.menko.finalproject.controller.action.useraction.LogoutCommand;
 
@@ -14,13 +15,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 //import org.apache.log4j.Logger;
 
-public class ActionFromUriFilter implements Filter {
+public class CommandFromUriFilter implements Filter {
 //	private static Logger logger = Logger.getLogger(ActionFromUriFilter.class);
 
     private static Map<String, Command> actions = new ConcurrentHashMap<>();
 
     static {
-        actions.put("/", new LoginCommand());
+        actions.put("/", new HomeCommand());
+        actions.put("/home", new HomeCommand());
         actions.put("/login", new LoginCommand());
         actions.put("/logout", new LogoutCommand());
     }

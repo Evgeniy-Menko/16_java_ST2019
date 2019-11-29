@@ -23,5 +23,4 @@ abstract public class Command {
 
     abstract public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException;
 
-
 }

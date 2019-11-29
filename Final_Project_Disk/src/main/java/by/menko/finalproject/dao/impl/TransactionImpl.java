@@ -50,6 +50,9 @@ public class TransactionImpl implements Transaction {
             case COMMENT:
                 dao = new CommentDaoImpl();
                 break;
+            case CATALOG:
+                dao = new CatalogDaoImpl();
+                break;
             default:
                 // return null;
         }
