@@ -4,6 +4,7 @@ package by.menko.finalproject.controller;
 import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.CommandManager;
 import by.menko.finalproject.controller.action.CommandManagerFactory;
+import by.menko.finalproject.controller.action.useraction.MenuCommand;
 import by.menko.finalproject.dao.impl.TransactionFactoryImpl;
 import by.menko.finalproject.dao.pool.ConnectionPool;
 import by.menko.finalproject.exception.PersonalException;
@@ -40,7 +41,9 @@ public class DispatcherServlet extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Command command = (Command) request.getAttribute("action");
         try {
+            Command menu = new MenuCommand();
             CommandManager commandManager = CommandManagerFactory.getManager(getFactory());
+            commandManager.execute(menu, request, response);
             commandManager.execute(command, request, response);
             commandManager.close();
 

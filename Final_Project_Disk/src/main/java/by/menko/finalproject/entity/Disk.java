@@ -1,9 +1,6 @@
 package by.menko.finalproject.entity;
 
 
-import by.menko.finalproject.entity.enumtype.TypeDisk;
-
-import java.io.File;
 
 import java.util.Date;
 
@@ -13,9 +10,9 @@ public class Disk extends Entity {
     private String genre;
     private Double price;
     private String type;
-    private File image;
+    private String image;
     private String description;
-    private Date year;
+    private int year;
     private Date timeAdded;
     private Boolean flagBlocked;
 
@@ -63,14 +60,20 @@ public class Disk extends Entity {
 
     }
 
-
-    public File getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(File image) {
+    public void setImage(String image) {
         this.image = image;
+    }
 
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getDescription() {
@@ -82,14 +85,6 @@ public class Disk extends Entity {
 
     }
 
-    public Date getYear() {
-        return year;
-    }
-
-    public void setYear(Date year) {
-        this.year = year;
-
-    }
 
     public Date getTimeAdded() {
         return timeAdded;

@@ -5,6 +5,7 @@ import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.useraction.HomeCommand;
 import by.menko.finalproject.controller.action.useraction.LoginCommand;
 import by.menko.finalproject.controller.action.useraction.LogoutCommand;
+import by.menko.finalproject.controller.action.useraction.SearchCommand;
 
 
 import javax.servlet.*;
@@ -25,6 +26,7 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/home", new HomeCommand());
         actions.put("/login", new LoginCommand());
         actions.put("/logout", new LogoutCommand());
+        actions.put("/search", new SearchCommand());
     }
 
     @Override

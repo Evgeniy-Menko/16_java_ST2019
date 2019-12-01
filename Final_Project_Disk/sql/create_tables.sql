@@ -3,20 +3,20 @@ USE `panda_disk`;
 CREATE TABLE `users`
 (
     `id_user`           INTEGER      NOT NULL AUTO_INCREMENT,
-    `mail`         VARCHAR(255) NOT NULL UNIQUE,
-    `password`     CHAR(20)     NOT NULL,
+    `mail`              VARCHAR(255) NOT NULL UNIQUE,
+    `password`          CHAR(20)     NOT NULL,
     /*
      * 1 - администратор (Role.ADMINISTRATOR)
      * 0 - пользователь (Role.USER)
      */
-    `role`         TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
-`flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
+    `role`              TINYINT      NOT NULL CHECK (`role` IN (0, 1)),
+    `flag_blocked`      TINYINT(1)   NOT NULL DEFAULT false,
     `first_name`        VARCHAR(255),
     `last_name`         VARCHAR(255),
-    `nickname`          VARCHAR(45) NOT NULL UNIQUE,
+    `nickname`          VARCHAR(45)  NOT NULL UNIQUE,
     `phone`             VARCHAR(15),
     `image`             VARCHAR(255),
-    `time_registration` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `time_registration` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id_user`)
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
@@ -52,31 +52,27 @@ CREATE TABLE `disk`
     `genre_id`     INTEGER      NOT NULL,
     `price`        DOUBLE       NOT NULL,
     `description`  TEXT,
-    `year`         DATE,
+    `year`         SMALLINT,
+    `image`        VARCHAR(255),
     `time_added`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,
     PRIMARY KEY (`id_disk`),
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id_user`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
+        ON
+            UPDATE CASCADE
+        ON
+            DELETE RESTRICT,
     CONSTRAINT FOREIGN KEY (`genre_id`)
         REFERENCES `genre` (`id_genre`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
+        ON
+            UPDATE CASCADE
+        ON
+            DELETE RESTRICT
 ) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
+  DEFAULT CHARACTER
+      SET utf8;
 
-CREATE TABLE `image`
-(
-    `id_image`   INTEGER      NOT NULL,
-    `image_path` VARCHAR(255) NOT NULL,
-    CONSTRAINT FOREIGN KEY (`id_image`)
-        REFERENCES `disk` (`id_disk`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
-) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE `disk_info_films`
 (

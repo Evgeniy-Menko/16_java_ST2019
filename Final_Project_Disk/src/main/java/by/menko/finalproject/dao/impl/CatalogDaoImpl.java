@@ -13,7 +13,7 @@ import java.util.List;
 
 
 public class CatalogDaoImpl extends BaseDao implements CatalogDao {
-    private static final String READ_ALL = "SELECT  `genre`,`type` FROM `genre` INNER JOIN `type` ON `type_id` = `id_type` ORDER BY `type`";
+    private static final String READ_ALL = "SELECT  `genre`,`type`,`id_genre`,`id_type` FROM `genre` INNER JOIN `type` ON `type_id` = `id_type` ORDER BY `type`";
 
     @Override
     public List<Catalog> read() throws PersonalException {
@@ -26,6 +26,8 @@ public class CatalogDaoImpl extends BaseDao implements CatalogDao {
             Catalog catalog;
             while (resultSet.next()) {
                 catalog = new Catalog();
+                catalog.setIdGenre(resultSet.getInt("id_genre"));
+                catalog.setIdType(resultSet.getInt("id_type"));
                 catalog.setGenre(resultSet.getString("genre"));
                 catalog.setType(resultSet.getString("type"));
                 result.add(catalog);

@@ -35,6 +35,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
             case COMMENT:
                 service = new CommentServiceImpl();
                 break;
+            case CATALOG:
+                service = new CatalogServiceImpl();
+                break;
             default:
                 // return null;
         }
