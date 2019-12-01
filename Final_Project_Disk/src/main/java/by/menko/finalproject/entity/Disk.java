@@ -2,6 +2,7 @@ package by.menko.finalproject.entity;
 
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Disk extends Entity {
@@ -13,7 +14,7 @@ public class Disk extends Entity {
     private String image;
     private String description;
     private int year;
-    private Date timeAdded;
+    private Timestamp timeAdded;
     private Boolean flagBlocked;
 
     public String getType() {
@@ -86,11 +87,11 @@ public class Disk extends Entity {
     }
 
 
-    public Date getTimeAdded() {
+    public Timestamp getTimeAdded() {
         return timeAdded;
     }
 
-    public void setTimeAdded(Date timeAdded) {
+    public void setTimeAdded(Timestamp timeAdded) {
         this.timeAdded = timeAdded;
 
     }

@@ -144,12 +144,12 @@
                         <td><img src="${item.image}" height="200" width="200"></td>
                     </c:when>
                     <c:otherwise>
-                        <td height="210" width="210"><img src="images/test.png" height="200" width="200"></td>
+                        <td height="210" width="210"><img src="images/no.png" height="200" width="200"></td>
                     </c:otherwise>
                 </c:choose>
                 <td>${item.nameDisk}</td>
                 <td>${item.price}</td>
-                <td>${item.timeAdded}</td>
+                <td>${item.timeAdded}  </td>
                 <td><a href="javascript:void(0)" class="nav-link">More</a></td>
             </c:forEach>
             </tbody>

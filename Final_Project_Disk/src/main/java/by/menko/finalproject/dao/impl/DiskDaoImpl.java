@@ -177,7 +177,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                     disk.setNameDisk(resultSet.getString("name"));
                     disk.setImage(resultSet.getString("image"));
                     disk.setPrice(resultSet.getDouble("price"));
-                    disk.setTimeAdded(resultSet.getDate("time_added"));
+                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
                     resultList.add(disk);
                 }
                 return resultList;
@@ -246,7 +246,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                     disk.setNameDisk(resultSet.getString("name"));
                     disk.setImage(resultSet.getString("image"));
                     disk.setPrice(resultSet.getDouble("price"));
-                    disk.setTimeAdded(resultSet.getDate("time_added"));
+                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
                     resultList.add(disk);
                 }
                 return resultList;
