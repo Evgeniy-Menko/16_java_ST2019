@@ -1,23 +1,18 @@
 package by.menko.finalproject.dao;
 
-import by.menko.finalproject.entity.User;
+
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.exception.PersonalException;
 
-import java.util.List;
+
 import java.util.Optional;
 
-public interface UserDao extends Dao<User> {
-    void updateInfo(UserInfo user) throws PersonalException;
+public interface UserDao extends Dao<UserInfo> {
+    Integer createUser(UserInfo user) throws PersonalException;
 
-    void createInfo(UserInfo user) throws PersonalException;
+    Integer createUserNoPhone(UserInfo user) throws PersonalException;
 
-    Optional<User> readUserByEmail(String email, String password) throws PersonalException;
+    Boolean readByEmailAndNickname(UserInfo user) throws PersonalException;
 
-    Optional<UserInfo> readInfo(Integer id) throws PersonalException;
-
-    void deleteInfo(Integer id) throws PersonalException;
-
-    List<UserInfo> read() throws PersonalException;
-
+   Optional<UserInfo> getSaltAndPassword(String email) throws PersonalException;
 }

@@ -2,10 +2,7 @@ package by.menko.finalproject.controller;
 
 
 import by.menko.finalproject.controller.action.Command;
-import by.menko.finalproject.controller.action.useraction.HomeCommand;
-import by.menko.finalproject.controller.action.useraction.LoginCommand;
-import by.menko.finalproject.controller.action.useraction.LogoutCommand;
-import by.menko.finalproject.controller.action.useraction.SearchCommand;
+import by.menko.finalproject.controller.action.useraction.*;
 
 
 import javax.servlet.*;
@@ -27,6 +24,9 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/login", new LoginCommand());
         actions.put("/logout", new LogoutCommand());
         actions.put("/search", new SearchCommand());
+        actions.put("/registr", new RegistrationCommand());
+        actions.put("/registration", new RegistrPageCommand());
+        actions.put("/profile", new ProfileCommand());
     }
 
     @Override

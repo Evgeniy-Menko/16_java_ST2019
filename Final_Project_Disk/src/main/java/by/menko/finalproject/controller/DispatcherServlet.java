@@ -11,17 +11,21 @@ import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.ServiceFactory;
 import by.menko.finalproject.service.impl.ServiceFactoryImpl;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@MultipartConfig
 public class DispatcherServlet extends HttpServlet {
-    public void init() {
+    public void init(ServletConfig config) {
         try {
             ConnectionPool.getInstance();
-        } catch (PersonalException e) {
+            super.init(config);
+        } catch (PersonalException | ServletException e) {
             destroy();
         }
     }

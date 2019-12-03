@@ -194,7 +194,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         stringBuilder.append(GET_DISK_BY_PARAMETER);
         int count = 0;
         if (type != 0) {
-            stringBuilder.append("  `genre_id`=?");
+            stringBuilder.append("  `type_id`=?");
             count++;
         }
         if (genre != 0) {
@@ -220,9 +220,9 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
         if (dateIn != 0) {
             if (count == 1) {
-                stringBuilder.append("  ");
+                stringBuilder.append(" AND ");
             }
-            stringBuilder.append(" AND `year`>=?");
+            stringBuilder.append("  `year`>=?");
             count++;
         }
         if (dateTo != 0) {

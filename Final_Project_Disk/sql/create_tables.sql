@@ -4,7 +4,8 @@ CREATE TABLE `users`
 (
     `id_user`           INTEGER      NOT NULL AUTO_INCREMENT,
     `mail`              VARCHAR(255) NOT NULL UNIQUE,
-    `password`          CHAR(20)     NOT NULL,
+    `password`          CHAR(50)     NOT NULL,
+    `salt`              char(35)     NOT NULL,
     /*
      * 1 - администратор (Role.ADMINISTRATOR)
      * 0 - пользователь (Role.USER)

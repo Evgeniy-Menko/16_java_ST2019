@@ -9,6 +9,43 @@
         margin-top: -1px;
     }
 </style>
+<script>
+    $(function () {
+        $('#reset').on('click', function () {
+
+            $("#unknowLogin").html("");
+
+        });
+        $('#login-form').on('submit', function (e) {
+            !e.isDefaultPrevented()
+            var $form = $(this);
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (response) {
+                    var stringified = JSON.stringify(response);
+                    var json = JSON.parse(stringified);
+
+                    if (json['unknowLogin'] != null) {
+                        $("#unknowLogin").html("");
+                        $("#unknowLogin").append('<span><fmt:message key="unknowLogin"/></span>');
+                    } else {
+
+                        window.location.href = "/Panda-Disk/home.html"
+                    }
+
+                },
+                error: function (request, status, error) {
+                    alert("<fmt:message key="errorAjax"/>")
+                }
+
+            });
+
+            e.preventDefault();
+        });
+    });
+</script>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 
     <a class="navbar-brand" href="${pageContext.request.contextPath}/home.html">
@@ -69,9 +106,7 @@
         </li>
 
 
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)">Company</a>
-        </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0 mr-auto">
 
@@ -85,7 +120,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link
-" href="javascript:void(0)"> My profile</a>
+" href="${pageContext.request.contextPath}/profile.html"> My profile</a>
                     </li>
                     <p class="text-white my-2">|</p>
 
@@ -121,7 +156,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/registration.jsp">Sing Up</a>
+" href="${pageContext.request.contextPath}/registration.html">Sing Up</a>
                     </li>
                 </ul>
             </c:otherwise>
@@ -138,11 +173,13 @@
             <div class="modal-header">
                 <h4 class="modal-title">Login form</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+
             </div>
-            <div class="modal-header" id="erro_div" style="color: #b30300"></div>
+
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/login.html" method="post">
+                <span id="unknowLogin" style="color: #b30300"></span>
+                <form id="login-form" action="${pageContext.request.contextPath}/login.html" method="post">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"

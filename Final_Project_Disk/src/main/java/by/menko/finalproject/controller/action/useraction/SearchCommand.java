@@ -30,7 +30,8 @@ public class SearchCommand extends Command {
             request.setAttribute("listDisk", resultList);
             request.getRequestDispatcher("/search.jsp").forward(request, response);
         } catch (ServicePersonalException e) {
-            e.printStackTrace();
+            request.setAttribute("error","errorSearch");
+            request.getRequestDispatcher("/search.jsp").forward(request,response);
         }
     }
 }
