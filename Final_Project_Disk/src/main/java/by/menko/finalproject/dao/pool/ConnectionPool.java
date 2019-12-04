@@ -42,7 +42,7 @@ final public class ConnectionPool {
                 availableConnections.put(createConnection());
             }
         } catch (InterruptedException | SQLException e) {
-            e.printStackTrace();
+            logger.debug("Error created  connection.");
         }
 
     }
@@ -127,7 +127,8 @@ final public class ConnectionPool {
                 connection = availableConnections.take();
                 connection.realClose();
             } catch (InterruptedException | SQLException e) {
-                e.printStackTrace();
+                logger.debug("Error closing connection.");
+
             }
         }
     }

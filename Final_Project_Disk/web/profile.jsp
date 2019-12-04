@@ -25,11 +25,40 @@
     </head>
     <body>
     <%@ include file="menu.jsp" %>
-
-    <div class="container">
-        <h2>Circle</h2>
-        <p>The .rounded-circle class shapes the image to a circle:</p>
-     <img src="file:/${userInfo.image}"  class="rounded-circle" alt="Cinque Terre" width="304" height="236">
+    <div class="text-center" style="margin-top:30px;margin-right: 20px">
+        <h1 class="display-4">Profile</h1>
+        <br>
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <br>
+            <img src="${userInfo.image}" class="rounded-circle" width="304" height="236">
+        </div>
+        <div class="col-md-6">
+            <br>
+            <h5>First name: ${userInfo.firstName}</h5>
+            <br>
+            <h5>Last name: ${userInfo.lastName}</h5>
+            <br>
+            <h5>Nickname: ${userInfo.nickname}</h5>
+            <br>
+            <h5>Phone : ${userInfo.phone}</h5>
+            <br>
+            <h5>Email: ${userInfo.email}</h5>
+            <br>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <a class="btn btn-outline-primary" style="margin-left: 19%"
+               href="${pageContext.request.contextPath}/editProfile.html">Update profile</a>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">My announcements</button>
+            <button type="button" class="btn btn-primary">Shopping cart</button>
+            <a  class="btn btn-primary"
+               href="${pageContext.request.contextPath}/addAnnouncement.html">Add announcement</a>
+        </div>
     </div>
 
     </body>

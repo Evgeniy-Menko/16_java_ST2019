@@ -2,14 +2,15 @@ package by.menko.finalproject.entity;
 
 import by.menko.finalproject.entity.enumtype.Role;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 public class UserInfo extends Entity {
     private String firstName;
     private String lastName;
     private String nickname;
     private String phone;
-    private Date dateRegistration;
+    private Timestamp dateRegistration;
     private String email;
     private String image;
     private String password;
@@ -109,12 +110,12 @@ public class UserInfo extends Entity {
         return this;
     }
 
-    public Date getDateRegistration() {
+    public Timestamp getDateRegistration() {
         return dateRegistration;
     }
 
-    public UserInfo setDateRegistration(Date dateRegistration) {
+    public void setDateRegistration(Timestamp dateRegistration) {
         this.dateRegistration = dateRegistration;
-        return this;
+
     }
 }

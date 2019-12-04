@@ -27,6 +27,10 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/registr", new RegistrationCommand());
         actions.put("/registration", new RegistrPageCommand());
         actions.put("/profile", new ProfileCommand());
+        actions.put("/editProfile", new EditProfileCommand());
+        actions.put("/editProfileResult", new ResultEditCommand());
+        actions.put("/addAnnouncement", new AddAnnouncementCommant());
+
     }
 
     @Override
@@ -48,14 +52,11 @@ public class CommandFromUriFilter implements Filter {
             } else {
                 actionName = uri.substring(beginAction);
             }
-            try {
+
                 Command command = actions.get(actionName);
                 httpRequest.setAttribute("action", command);
                 chain.doFilter(request, response);
-            } catch (NullPointerException e) {
-                //		logger.error("It is impossible to create action handler object", e);
 
-            }
         } else {
             //	logger.error("It is impossible to use HTTP filter");
 

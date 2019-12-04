@@ -11,17 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ProfileCommand extends Command {
+public class EditProfileCommand extends Command {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("authorizedUser");
         userInfo = service.getUser(userInfo.getIdEntity());
-        /*String pathImage = request.getServletContext()
+       /* String pathImage = request.getServletContext()
                 .getInitParameter("images.dir") + "/" + userInfo.getImage();
         userInfo.setImage(pathImage);*/
         request.setAttribute("userInfo", userInfo);
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/editProfile.jsp").forward(request, response);
     }
 }

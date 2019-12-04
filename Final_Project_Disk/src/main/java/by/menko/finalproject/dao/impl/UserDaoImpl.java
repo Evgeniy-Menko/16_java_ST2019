@@ -272,7 +272,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
          }
      }*/
     private static final String CREATE_USER_WITH_PHONE = "INSERT INTO `users` (`mail`, `password`,`salt`,`role`,`first_name`,`last_name`,`nickname`,`phone`,`image`) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
-    private static final String CREATE_USER_WITHOUT_PHONE = "INSERT INTO `users` (`mail`, `password`,`salt`,`role`,`first_name`,`last_name`,`nickname`,`image`) VALUES (?, ?, ?,?, ?, ?,?,?)";
 
     @Override
     public Integer createUser(UserInfo user) throws PersonalException {
@@ -305,35 +304,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         }
     }
 
-    @Override
-    public Integer createUserNoPhone(UserInfo user) throws PersonalException {
 
-
-        try (PreparedStatement statement = connection.prepareStatement(CREATE_USER_WITHOUT_PHONE, Statement.RETURN_GENERATED_KEYS)) {
-
-            statement.setString(1, user.getEmail());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getSalt());
-            statement.setInt(4, user.getRole().getIdRole());
-            statement.setString(5, user.getFirstName());
-            statement.setString(6, user.getLastName());
-            statement.setString(7, user.getNickname());
-            statement.setString(8, user.getImage());
-            statement.executeUpdate();
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1);
-                } else {
-                    //		logger.error("There is no autoincremented index after trying to add record into table `users`");
-                    throw new PersonalException();
-                }
-            } catch (SQLException e) {
-                throw new PersonalException(e);
-            }
-        } catch (SQLException e) {
-            throw new PersonalException(e);
-        }
-    }
 
     private static final String GET_USER_INFO = "SELECT `id_user` FROM `users` WHERE `mail` = ? OR `nickname`=?";
 
@@ -377,7 +348,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         }
     }
 
-    private static final String GET_USER_BY_ID = "SELECT `mail`,`first_name`,`last_name`,`nickname`,`image` FROM `users` WHERE `id_user` = ?";
+    private static final String GET_USER_BY_ID = "SELECT `mail`,`first_name`,`last_name`,`nickname`,`image`,`phone` FROM `users` WHERE `id_user` = ?";
 
     @Override
     public Optional<UserInfo> read(Integer identity) throws PersonalException {
@@ -392,6 +363,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                     user.setFirstName(resultSet.getString("first_name"));
                     user.setLastName(resultSet.getString("last_name"));
                     user.setNickname(resultSet.getString("nickname"));
+                    user.setPhone(resultSet.getString("phone"));
                     user.setImage(resultSet.getString("image"));
                 }
                 return Optional.ofNullable(user);
@@ -402,4 +374,54 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             throw new PersonalException(e);
         }
     }
+
+    private static final String GET_ALL_INFO_BY_ID = "SELECT `id_user`,`first_name`,`last_name`,`nickname`,`image`,`salt`,`password` FROM `users` WHERE `id_user` = ?";
+
+    @Override
+    public Optional<UserInfo> readAllInfo(Integer identity) throws PersonalException {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_INFO_BY_ID)) {
+            statement.setInt(1, identity);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                UserInfo user = null;
+                if (resultSet.next()) {
+                    user = new UserInfo();
+                    user.setIdEntity(resultSet.getInt("id_user"));
+                    user.setFirstName(resultSet.getString("first_name"));
+                    user.setLastName(resultSet.getString("last_name"));
+                    user.setNickname(resultSet.getString("nickname"));
+                    user.setImage(resultSet.getString("image"));
+                    user.setSalt(resultSet.getString("salt"));
+                    user.setPassword(resultSet.getString("password"));
+                }
+                return Optional.ofNullable(user);
+            } catch (SQLException e) {
+                throw new PersonalException(e);
+            }
+        } catch (SQLException e) {
+            throw new PersonalException(e);
+        }
+    }
+
+    private static final String UPDATE_USER_INFO = "UPDATE `users` SET `first_name` = ?, `last_name` = ?, `nickname` = ?, `password`=? ,`image`=?,`phone`=? WHERE `id_user` = ?";
+
+        @Override
+        public void update(UserInfo user) throws PersonalException {
+            try (PreparedStatement statement = connection.prepareStatement(UPDATE_USER_INFO)) {
+
+                statement.setString(1, user.getFirstName());
+                statement.setString(2, user.getLastName());
+                statement.setString(3, user.getNickname());
+                statement.setString(4, user.getPassword());
+                statement.setString(5, user.getImage());
+                statement.setString(6, user.getPhone());
+                statement.setInt(7, user.getIdEntity());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new PersonalException(e);
+            }
+    }
+
+
+
 }

@@ -10,9 +10,12 @@ import java.util.Optional;
 public interface UserDao extends Dao<UserInfo> {
     Integer createUser(UserInfo user) throws PersonalException;
 
-    Integer createUserNoPhone(UserInfo user) throws PersonalException;
 
     Boolean readByEmailAndNickname(UserInfo user) throws PersonalException;
 
-   Optional<UserInfo> getSaltAndPassword(String email) throws PersonalException;
+    Optional<UserInfo> getSaltAndPassword(String email) throws PersonalException;
+
+    Optional<UserInfo> readAllInfo(Integer identity) throws PersonalException;
+
+
 }

@@ -17,7 +17,8 @@ import java.util.Optional;
 
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
-    private final static String NO_IMAGE = "no.png";
+    private final static String NO_IMAGE = "images/no.png";
+    private final static String PATH = "images/";
 
     public UserInfo finUserByEmail(String email, String password) throws PersonalException, ServicePersonalException {
         UserDao dao = transaction.createDao(TypeServiceAndDao.USER);
@@ -46,7 +47,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         String fileName = image.getSubmittedFileName();
         if (!fileName.isEmpty()) {
             createDirAndWriteToFile(pathTemp, image);
-            user.setImage(fileName);
+            user.setImage(PATH + fileName);
         } else {
             user.setImage(NO_IMAGE);
         }
@@ -56,11 +57,9 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         user.setPassword(hashPassword);
         user.setRole(Role.USER);
         Integer id;
-        if (user.getPhone() != null && !user.getPhone().isEmpty()) {
-            id = dao.createUser(user);
-        } else {
-            id = dao.createUserNoPhone(user);
-        }
+
+        id = dao.createUser(user);
+
         UserInfo resultUser = new UserInfo();
         resultUser.setIdEntity(id);
         resultUser.setRole(user.getRole());
@@ -99,6 +98,41 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         } catch (IOException e) {
             throw new PersonalException();
         }
+    }
+
+    @Override
+    public void updateService(UserInfo newUser, Integer idEntity, String oldPassowrd, Part image, String pathTemp) throws PersonalException, ServicePersonalException {
+        UserDao dao = transaction.createDao(TypeServiceAndDao.USER);
+        Optional<UserInfo> oldUser = dao.readAllInfo(idEntity);
+        if (oldPassowrd != null && !oldPassowrd.isEmpty()) {
+            if (oldUser.isPresent()) {
+                boolean flag = PasswordUtils.verifyUserPassword(oldPassowrd,
+                        oldUser.get().getPassword(), oldUser.get().getSalt());
+                if (flag) {
+                    String password = PasswordUtils.generateSecurePassword(newUser.getPassword(), oldUser.get().getSalt());
+                    newUser.setPassword(password);
+                } else {
+                    throw new ServicePersonalException("unknowPassword");
+                }
+            } else {
+                throw new PersonalException();
+            }
+        } else if (oldUser.isPresent()) {
+            newUser.setPassword(oldUser.get().getPassword());
+        } else {
+            throw new PersonalException();
+        }
+        newUser.setIdEntity(oldUser.get().getIdEntity());
+        if (newUser.getImage() != null && !newUser.getImage().isEmpty()
+                && !oldUser.get().getImage().equals(newUser.getImage())) {
+            createDirAndWriteToFile(pathTemp, image);
+            String fileName = PATH+image.getSubmittedFileName();
+            newUser.setImage(fileName);
+        } else {
+            newUser.setImage(oldUser.get().getImage());
+        }
+
+        dao.update(newUser);
     }
 }
 

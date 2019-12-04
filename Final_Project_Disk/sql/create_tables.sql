@@ -89,14 +89,14 @@ CREATE TABLE `disk_info_films`
 
 CREATE TABLE `disk_info_game`
 (
-    `disk_id`       INTEGER  NOT NULL,
+    `disk_id`       INTEGER NOT NULL,
     /*
       *0-PS4
       *1-XBOX
       *2-PC
      */
-    `console_types` TINYINT  NOT NULL CHECK (`console_types` IN (0, 1, 2)),
-    `age_limit`     SMALLINT NOT NULL,
+    `console_types` TINYINT NOT NULL CHECK (`console_types` IN (0, 1, 2)),
+    `age_limit`     SMALLINT,
     `developer`     varchar(255),
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
@@ -107,8 +107,8 @@ CREATE TABLE `disk_info_game`
 
 CREATE TABLE `disk_info_music`
 (
-    `disk_id` INTEGER      NOT NULL,
-    `singer`  varchar(255) NOT NULL,
+    `disk_id` INTEGER NOT NULL,
+    `singer`  varchar(255),
     `albom`   VARCHAR(255),
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
