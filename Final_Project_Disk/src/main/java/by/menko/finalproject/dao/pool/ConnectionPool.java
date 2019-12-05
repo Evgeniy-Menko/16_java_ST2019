@@ -28,7 +28,7 @@ final public class ConnectionPool {
         try {
             Class.forName(resources.getDriverClass());
         } catch (ClassNotFoundException e) {
-          throw  new PersonalException(e);
+            throw new PersonalException(e);
         }
         init();
     }
@@ -76,7 +76,8 @@ final public class ConnectionPool {
                     if (!connection.isValid(resources.getCheckConnectionTimeout())) {
                         try {
                             connection.getConnection().close();
-                        } catch (SQLException ignored) {
+                        } catch (SQLException e) {
+                            connection = null;
                         }
                         connection = null;
                     }

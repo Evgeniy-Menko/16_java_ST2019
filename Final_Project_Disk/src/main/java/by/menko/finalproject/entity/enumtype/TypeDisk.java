@@ -1,9 +1,9 @@
 package by.menko.finalproject.entity.enumtype;
 
 public enum TypeDisk {
-    FILM("film"),
-    GAME("game"),
-    MUSIC("music");
+    FILM("Film"),
+    GAME("Game"),
+    MUSIC("Music");
 
     private String name;
 
@@ -14,6 +14,7 @@ public enum TypeDisk {
     public String getName() {
         return name;
     }
+
     public Integer getIdTypeDisk() {
         return ordinal();
     }

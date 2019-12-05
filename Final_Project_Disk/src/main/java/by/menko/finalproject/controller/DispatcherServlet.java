@@ -21,11 +21,11 @@ import java.io.IOException;
 
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
-    public void init(ServletConfig config) {
+    public void init() {
         try {
             ConnectionPool.getInstance();
-            super.init(config);
-        } catch (PersonalException | ServletException e) {
+
+        } catch (PersonalException e) {
             destroy();
         }
     }

@@ -34,7 +34,7 @@
     </div>
     <div class="row col-md-12">
         <div class="col-md-2 border " style="margin-left: 4%; ">
-            <form ac>
+            <form>
                 <div class="form-group">
 
                     <br>
@@ -42,7 +42,7 @@
                     <select class="form-control" id="sel1" name="type">
                         <option value="0">All</option>
                         <c:set var="ind" value="0"/>
-                        <c:set var="types" value="${firstType}"/>
+                        <c:set var="types" value="${catalog[0].type}"/>
                         <c:forEach var="i" items="${catalog}">
                             <c:if test="${types== i.type && ind ==0}">
                                 <c:set var="ind" value="1"/>
@@ -58,8 +58,9 @@
                         $("#sel1").on("change", function () {
                             var type = $('#sel1').val();
                             var select2 = $('#sel2');
-                            select2.prop('disabled', true);
                             select2.empty();
+                            select2.prop('disabled', true);
+
                             if (type !== "All") {
                                 select2.append('<option value="0">All</option>');
                             }
@@ -143,7 +144,7 @@
 
                 </tr>
                 <tr>
-                    <th>${listDisk == null}</th>
+                    <th></th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Time added</th>
@@ -152,15 +153,16 @@
                 </thead>
                 <tbody>
 
-                <c:if test="${listDisk != null}">
-                    <c:forEach var="item" items="${listDisk}">
-                        <td><img src="${item.image}" height="200" width="200"></td>
+
+                <c:forEach var="item" items="${listDisk}">
+                    <tr>
+                        <td><img src="${item.image}" height="100" width="100"></td>
                         <td>${item.nameDisk}</td>
                         <td>${item.price}</td>
                         <td>${item.timeAdded} </td>
                         <td><a href="javascript:void(0)" class="nav-link">More</a></td>
-                    </c:forEach>
-                </c:if>
+                    </tr>
+                </c:forEach>
 
 
                 </tbody>

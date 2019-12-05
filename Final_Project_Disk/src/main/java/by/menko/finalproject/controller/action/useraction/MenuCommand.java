@@ -20,6 +20,6 @@ public class MenuCommand extends Command {
 
         List<Catalog> catalog = service.getCatalog();
         request.setAttribute("catalog", catalog);
-        request.setAttribute("firstType", catalog.get(0).getType());
+
     }
 }

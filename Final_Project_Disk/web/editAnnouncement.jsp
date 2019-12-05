@@ -57,7 +57,7 @@
                     $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
                     $(".help-block").html("");
                     $("#errorLoginNick").html("");
-                    $('#blah').attr('src', "images/no.png");
+                    $('#blah').attr('src', "${disk.image}");
 
                 });
                 $("#contact-form").on("change", function () {
@@ -71,7 +71,7 @@
                             readURL(this);
 
                         } else {
-                            $('#blah').attr('src', "images/no.png");
+                            $('#blah').attr('src', "${disk.image}");
                             $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
 
                         }
@@ -122,15 +122,15 @@
                                 $("#errorAge").append('<span><fmt:message key="errorAge"/></span>');
                             } else if (json['errorNameDisk'] != null) {
                                 $("#errorNameDisk").append('<span><fmt:message key="errorNameDisk"/></span>');
-                            } else if (json['errorFormatImage'] != null) {
+                            }else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
-                            }else if (json['errorRequired'] != null) {
+                            } else if (json['errorRequired'] != null) {
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
                             } else if (json['incorrectNumber'] != null) {
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
                             } else {
 
-                                window.location.href = "/Panda-Disk/profile.html"
+                                window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 
                         },
@@ -143,18 +143,22 @@
 
                 });
             });</script>
+
     </head>
     <body>
     <%@ include file="menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1 class="display-4">Add announcement</h1>
+        <h1 class="display-4">Edit announcement</h1>
         <span style="color: #b30300" id="errorValue"></span>
     </div>
     <div class="container" style="margin-top:30px">
 
         <form id="contact-form" enctype="multipart/form-data" method="post"
-              action="${pageContext.request.contextPath}/announcementResult.html" novalidate="true">
-
+              action="${pageContext.request.contextPath}/announcementEditResult.html"
+              novalidate="true">
+            <input type="hidden" name="id" value="${disk.idEntity}">
+            <input type="hidden" name="type" value="${disk.type}">
+            <input type="hidden" name="genre" value="${disk.genre}">
             <div class="messages"></div>
 
 
@@ -165,7 +169,7 @@
                         <div class="card cl-md-6" style="width:350px; height:203px">
 
                             <img id="blah" class="card-img-top"
-                                 src="images/no.png"
+                                 src="${disk.image}"
                                  alt="your image" style="width:100%;height:100%">
 
                         </div>
@@ -183,85 +187,30 @@
 
 
                 <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label for="type">Type </label>
+                        <input id="type" type="text" name="type" class="form-control d" value="${disk.type}"
+                               required="required" disabled
+                        />
+                        <div class="help-block with-errors" id="errorType" style="color: #b30300;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <input id="genre" type="text" name="genre" class="form-control d" value="${disk.genre}"
+                               required="required" disabled
+                        />
+                        <div class="help-block with-errors" id="errorGenre" style="color: #b30300;"></div>
+                    </div>
+
                     <div class="form-group">
                         <label for="form_name">Name disk *</label>
-                        <input id="form_name" type="text" name="name" class="form-control d"
+                        <input id="form_name" type="text" name="name" class="form-control d" value="${disk.nameDisk}"
                                placeholder="Please enter your name disk *" required="required"
                                data-error="<fmt:message key="errorNameDisk"/>" pattern="^[A-zА-яЁё0-9()_ ]*$">
                         <div class="help-block with-errors" id="errorNameDisk" style="color: #b30300;">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="sel1">Type:</label>
-                        <select class="form-control" id="sel1" name="type" required>
-                            <c:set var="ind" value="0"/>
-                            <c:set var="types" value="${catalog[0].type}"/>
-                            <c:forEach var="i" items="${catalog}">
-                                <c:if test="${types== i.type && ind ==0}">
-                                    <c:set var="ind" value="1"/>
-                                    <option value="${i.type}">${i.type}</option>
-                                </c:if>
-                                <c:if test="${types != i.type && ind ==1}">
-                                    <c:set var="types" value="${i.type}"/>
-                                    <option value="${i.type}">${i.type}</option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
-                        <script>
-                            $("#sel1").on("change", function () {
-                                var type = $('#sel1').val();
-                                var select2 = $('#sel2');
-                                var film = $("#Music");
-                                var game = $("#Game");
-                                var music = $("#Film");
-
-                                select2.empty();
-                                <c:forEach var="item" items="${catalog}">
-                                if (type === "${item.type}") {
-                                    select2.append('<option value="${item.idGenre}"> ${item.genre}</option>');
-                                }
-                                </c:forEach>
-                                film.each(function () {
-                                    this.style.display = "none";
-                                })
-                                game.each(function () {
-                                    this.style.display = "none";
-                                })
-                                music.each(function () {
-                                    this.style.display = "none";
-                                })
-                                if (type === "Film") {
-                                    $("#Film").each(function () {
-
-                                        this.style.display = "block";
-                                    });
-                                }
-                                if (type === "Game") {
-
-                                    $("#Game").each(function () {
-                                        this.style.display = "block";
-                                    });
-                                }
-                                if (type === "Music") {
-                                    $("#Music").each(function () {
-                                        this.style.display = "block";
-                                    });
-                                }
-                            });
-
-                        </script>
-                    </div>
-                    <div class="form-group">
-                        <label for="sel2">Genre:</label>
-                        <select class="form-control" id="sel2" name="genre" required>
-
-                            <c:set var="typess" value="${catalog[0].type}"/>
-                            <c:forEach var="item" items="${catalog}">
-                                <c:if test="${typess == item.type}">
-                                    <option value="${item.genre}"> ${item.genre}</option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
                     </div>
 
                 </div>
@@ -275,7 +224,7 @@
                     <div class="form-group">
                         <label for="price">Price *</label>
                         <input id="price" type="number" name="price" class="form-control price" step="0.01" min="0"
-                               placeholder="Please enter price *" required
+                               placeholder="Please enter price *" required value="${disk.price}"
                                data-error="<fmt:message key="errorRequired"/>"
                         >
                         <div class="help-block with-errors " id="errorPrice" style="color: #b30300;"></div>
@@ -285,7 +234,7 @@
                     <div class="form-group">
                         <label for="inputYear">Year </label>
                         <input id="inputYear" type="number" name="year" class="form-control"
-                               placeholder="Please enter year "
+                               placeholder="Please enter year " value="${disk.year}"
                                data-error="<fmt:message key="incorrectNumber"/>">
                         <div class="help-block with-errors" id="errorYear" style="color: #b30300;"></div>
                         <script>
@@ -299,69 +248,78 @@
                 <div class=" col-md-1"></div>
                 <div class="form-group col-md-10">
                     <label for="comment">Description:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    <textarea class="form-control" rows="5" id="comment" name="comment"
+                              value="${disk.description}"></textarea>
                 </div>
                 <div class=" col-md-1"></div>
                 <div class=" col-md-1"></div>
-                <div class="form group col-md-10" id="Film">
-                    <div class="form-group ">
-                        <label for="country">Country </label>
-                        <input id="country" type="text" name="country" class="form-control country"
-                               placeholder="Please enter country " pattern="[A-zА-яЁё]*"
-                               data-error="<fmt:message key="errorCountry"/>"
-                        >
-                        <div class="help-block with-errors " id="errorCountry" style="color: #b30300;"></div>
+                <c:set var="film" value="Film"/>
+                <c:set var="game" value="Game"/>
+                <c:set var="music" value="Music"/>
+                <c:if test="${disk.type==film}">
+                    <div class="form group col-md-10" id="Film">
+                        <div class="form-group ">
+                            <label for="country">Country </label>
+                            <input id="country" type="text" name="country" class="form-control country"
+                                   placeholder="Please enter country " pattern="[A-zА-яЁё]*" value="${disk.country}"
+                                   data-error="<fmt:message key="errorCountry"/>"
+                            >
+                            <div class="help-block with-errors " id="errorCountry" style="color: #b30300;"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="time">Running time</label>
+                            <input id="time" type="text" name="time" class="form-control" value="${disk.runningTime}"
+                                   placeholder="Please enter running time(hh:mm) *" pattern="[0-9:0-9]{3,5}"
+                                   data-error="<fmt:message key="errorTime"/>">
+                            <div class="help-block with-errors" id="errorTime" style="color: #b30300;"></div>
+                        </div>
                     </div>
+                </c:if>
+
+                <c:if test="${disk.type==game}">
+                    <div class="form group col-md-10" id="Game">
+                        <div class="form-group">
+                            <label for="age">Age limit </label>
+                            <input id="age" type="number" name="age" class="form-control country"
+                                   placeholder="Please enter age limit *" min="0" max="18" value="${disk.ageLimit}"
+                                   data-error="<fmt:message key="errorAge"/>"
+                            >
+                            <div class="help-block with-errors " id="errorAge" style="color: #b30300;"></div>
+                        </div>
 
 
-                    <div class="form-group">
-                        <label for="time">Running time</label>
-                        <input id="time" type="text" name="time" class="form-control"
-                               placeholder="Please enter running time(hh:mm) *" pattern="[0-9:0-9]{3,5}"
-                               data-error="<fmt:message key="errorTime"/>">
-                        <div class="help-block with-errors" id="errorTime" style="color: #b30300;"></div>
+                        <div class="form-group">
+                            <label for="developer">Developer</label>
+                            <input id="developer" type="text" name="developer" class="form-control"
+                                   placeholder="Please enter developer's name " value="${disk.developer}"
+                                   data-error="">
+                            <div class="help-block with-errors" id="errorDeveloper" style="color: #b30300;"></div>
+                        </div>
+
                     </div>
-                </div>
+                </c:if>
+                <c:if test="${disk.type==music}">
+                    <div class="form group col-md-10" id="Music">
+                        <div class="form-group">
+                            <label for="singer">Singer </label>
+                            <input id="singer" type="text" name="singer" class="form-control singer"
+                                   placeholder="Please enter singer " value="${disk.singer}"
+                                   data-error=""
+                            >
+                            <div class="help-block with-errors " id="errorSinger" style="color: #b30300;"></div>
+                        </div>
 
-                <div class="form group col-md-10" id="Game" style="display: none">
-                    <div class="form-group">
-                        <label for="age">Age limit </label>
-                        <input id="age" type="number" name="age" class="form-control country"
-                               placeholder="Please enter age limit *" min="0" max="18"
-                               data-error="<fmt:message key="errorAge"/>"
-                        >
-                        <div class="help-block with-errors " id="errorAge" style="color: #b30300;"></div>
+                        <div class="form-group">
+                            <label for="albom">Albom</label>
+                            <input id="albom" type="text" name="albom" class="form-control albom"
+                                   placeholder="Please enter albom's name " value="${disk.albom}"
+                                   data-error="">
+                            <div class="help-block with-errors" id="errorAlbom" style="color: #b30300;"></div>
+                        </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <label for="developer">Developer</label>
-                        <input id="developer" type="text" name="developer" class="form-control"
-                               placeholder="Please enter developer's name "
-                               data-error="">
-                        <div class="help-block with-errors" id="errorDeveloper" style="color: #b30300;"></div>
-                    </div>
-
-                </div>
-
-                <div class="form group col-md-10" id="Music" style="display: none">
-                    <div class="form-group">
-                        <label for="singer">Singer </label>
-                        <input id="singer" type="text" name="singer" class="form-control singer"
-                               placeholder="Please enter singer "
-                               data-error=""
-                        >
-                        <div class="help-block with-errors " id="errorSinger" style="color: #b30300;"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="albom">Albom</label>
-                        <input id="albom" type="text" name="albom" class="form-control albom"
-                               placeholder="Please enter albom's name "
-                               data-error="">
-                        <div class="help-block with-errors" id="errorAlbom" style="color: #b30300;"></div>
-                    </div>
-                </div>
+                </c:if>
             </div>
 
 
@@ -383,7 +341,6 @@
 
         </form>
     </div>
-
     </body>
     </html>
 </fmt:bundle>

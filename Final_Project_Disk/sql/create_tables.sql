@@ -79,7 +79,7 @@ CREATE TABLE `disk_info_films`
 (
     `disk_id`      INTEGER NOT NULL,
     `country`      varchar(50),
-    `running_time` TIME,
+    `running_time` varchar(10),
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE
@@ -89,15 +89,10 @@ CREATE TABLE `disk_info_films`
 
 CREATE TABLE `disk_info_game`
 (
-    `disk_id`       INTEGER NOT NULL,
-    /*
-      *0-PS4
-      *1-XBOX
-      *2-PC
-     */
-    `console_types` TINYINT NOT NULL CHECK (`console_types` IN (0, 1, 2)),
-    `age_limit`     SMALLINT,
-    `developer`     varchar(255),
+    `disk_id`   INTEGER NOT NULL,
+
+    `age_limit` SMALLINT,
+    `developer` varchar(255),
     CONSTRAINT FOREIGN KEY (`disk_id`)
         REFERENCES `disk` (`id_disk`)
         ON UPDATE CASCADE

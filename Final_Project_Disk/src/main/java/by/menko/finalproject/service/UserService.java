@@ -16,5 +16,5 @@ public interface UserService extends Service {
 
     UserInfo getUser(Integer identity) throws PersonalException;
 
-    void updateService(UserInfo newUser, Integer idEntity,String newPassword,Part image,String pathTemp) throws PersonalException, ServicePersonalException;
+    void updateUser(UserInfo newUser, Integer idEntity, String newPassword, Part image, String pathTemp) throws PersonalException, ServicePersonalException;
 }

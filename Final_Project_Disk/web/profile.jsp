@@ -54,7 +54,8 @@
                href="${pageContext.request.contextPath}/editProfile.html">Update profile</a>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary">My announcements</button>
+            <a  class="btn btn-primary"
+                href="${pageContext.request.contextPath}/myAnnouncements.html">My announcements</a>
             <button type="button" class="btn btn-primary">Shopping cart</button>
             <a  class="btn btn-primary"
                href="${pageContext.request.contextPath}/addAnnouncement.html">Add announcement</a>

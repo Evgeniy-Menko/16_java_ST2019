@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public void updateService(UserInfo newUser, Integer idEntity, String oldPassowrd, Part image, String pathTemp) throws PersonalException, ServicePersonalException {
+    public void updateUser(UserInfo newUser, Integer idEntity, String oldPassowrd, Part image, String pathTemp) throws PersonalException, ServicePersonalException {
         UserDao dao = transaction.createDao(TypeServiceAndDao.USER);
         Optional<UserInfo> oldUser = dao.readAllInfo(idEntity);
         if (oldPassowrd != null && !oldPassowrd.isEmpty()) {

@@ -17,9 +17,7 @@ public class ProfileCommand extends Command {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("authorizedUser");
         userInfo = service.getUser(userInfo.getIdEntity());
-        /*String pathImage = request.getServletContext()
-                .getInitParameter("images.dir") + "/" + userInfo.getImage();
-        userInfo.setImage(pathImage);*/
+
         request.setAttribute("userInfo", userInfo);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 

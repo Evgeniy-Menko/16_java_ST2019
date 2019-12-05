@@ -69,7 +69,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/search.html?type=0">All</a>
-                    <c:set var="type" value="${firstType}"/>
+                    <c:set var="type" value="${catalog[0].type}"/>
                     <c:set var="index" value="0"/>
 
                     <c:forEach var="item" items="${catalog}">

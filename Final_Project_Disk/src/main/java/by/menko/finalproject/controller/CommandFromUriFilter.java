@@ -30,7 +30,10 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/editProfile", new EditProfileCommand());
         actions.put("/editProfileResult", new ResultEditCommand());
         actions.put("/addAnnouncement", new AddAnnouncementCommant());
-
+        actions.put("/announcementResult", new ResultAddAnnouncementCommand());
+        actions.put("/myAnnouncements", new MyAnnouncementCommand());
+        actions.put("/updateAnnouncement", new UpdateAnnouncementCommand());
+        actions.put("/announcementEditResult", new AnnouncementEditResultCommand());
     }
 
     @Override
