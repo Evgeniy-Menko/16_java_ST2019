@@ -114,8 +114,9 @@ CREATE TABLE `disk_info_music`
 
 CREATE TABLE `shopping_cart`
 (
+
     `user_id`    INTEGER   NOT NULL,
-    `disk_id`    INTEGER   NOT NULL,
+    `disk_id`    INTEGER   NOT NULL UNIQUE,
     `time_added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FOREIGN KEY (`user_id`)
         REFERENCES `users` (`id_user`)
@@ -146,6 +147,7 @@ CREATE TABLE `comments`
         ON DELETE RESTRICT
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
+
 
 CREATE TABLE `complaints`
 (

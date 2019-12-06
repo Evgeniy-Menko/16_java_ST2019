@@ -54,7 +54,7 @@
                 $('#contact-form').validator();
                 $('#reset').on('click', function () {
 
-                    $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+                    $('#blah').attr('src', "images/no.png");
                     $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
                     $(".help-block").html("");
                     $("#errorLoginNick").html("");
@@ -71,7 +71,7 @@
                             readURL(this);
 
                         } else {
-                            $('#blah').attr('src', "https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png");
+                            $('#blah').attr('src', "images/no.png");
                             $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
                             $(".custom-file-input").reset();
                         }
@@ -217,7 +217,7 @@
                                 $("#errorLoginNick").append('<span><fmt:message key="errorLoginNick"/></span>');
                             } else {
 
-                               window.location.href ="/Panda-Disk/home.html"
+                               window.location.href ="/Panda-Disk/profile.html"
                             }
 
                         },
@@ -253,8 +253,8 @@
                     <div class="form-group">
                         <div class="card cl-md-6" style="width:350px; height:203px">
 
-                            <img id="blah" class="card-img-top"
-                                 src="https://winnote.ru/uploads/posts/2016-01/1454222417_del_recent_avatar1.png"
+                            <img id="blah" class="card-img-top "
+                                 src="images/no.png"
                                  alt="your image" style="width:100%;height:100%">
 
                         </div>

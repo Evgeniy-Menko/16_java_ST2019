@@ -55,4 +55,9 @@ public class DispatcherServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
 }

@@ -33,7 +33,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">
             <br>
-            <img src="${userInfo.image}" class="rounded-circle" width="304" height="236">
+            <img src="${userInfo.image}" class="rounded-circle " width="304" height="236">
         </div>
         <div class="col-md-6">
             <br>
@@ -54,10 +54,11 @@
                href="${pageContext.request.contextPath}/editProfile.html">Update profile</a>
         </div>
         <div class="btn-group">
-            <a  class="btn btn-primary"
-                href="${pageContext.request.contextPath}/myAnnouncements.html">My announcements</a>
-            <button type="button" class="btn btn-primary">Shopping cart</button>
-            <a  class="btn btn-primary"
+            <a class="btn btn-primary"
+               href="${pageContext.request.contextPath}/myAnnouncements.html">My announcements</a>
+            <a class="btn btn-primary"
+               href="${pageContext.request.contextPath}/shoppingCart.html">Shopping cart</a>
+            <a class="btn btn-primary"
                href="${pageContext.request.contextPath}/addAnnouncement.html">Add announcement</a>
         </div>
     </div>

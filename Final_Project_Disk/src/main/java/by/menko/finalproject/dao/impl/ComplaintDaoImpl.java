@@ -87,7 +87,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     }
 
     @Override
-    public void delete(Integer id) throws PersonalException {
+    public void delete(Integer id,Integer idUser) throws PersonalException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_COMPLAINT);

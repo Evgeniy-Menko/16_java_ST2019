@@ -32,7 +32,7 @@
                         $("#unknowLogin").append('<span><fmt:message key="unknowLogin"/></span>');
                     } else {
 
-                        window.location.href = "/Panda-Disk/home.html"
+                        window.location.href = "/Panda-Disk/profile.html"
                     }
 
                 },
@@ -130,11 +130,11 @@
                     </li>
                 </ul>
             </c:when>
-            <c:when test="${sessionScope.redirectedData.authorizedUser.role == 'ADMINISTRATOR'}">
+            <c:when test="${authorizedUser.role == 'ADMINISTRATOR'}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link
-" href="javascript:void(0)"> My profile</a>
+" href="javascript:void(0)"> Settings</a>
                     </li>
                     <p class="text-white my-2">|</p>
 
@@ -149,14 +149,14 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="#myModal" class=" nav-link " data-toggle="modal" data-target="#myModal" id="rrr"
-                           style="border: 0">Sing in</a>
+                           style="border: 0">Sign in</a>
                     </li>
 
                     <p class="text-white my-2">|</p>
 
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/registration.html">Sing Up</a>
+" href="${pageContext.request.contextPath}/registration.html">Sign Up</a>
                     </li>
                 </ul>
             </c:otherwise>

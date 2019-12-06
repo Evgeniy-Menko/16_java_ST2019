@@ -130,7 +130,7 @@
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
                             } else {
 
-                                window.location.href = "/Panda-Disk/profile.html"
+                                window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 
                         },
@@ -187,7 +187,7 @@
                         <label for="form_name">Name disk *</label>
                         <input id="form_name" type="text" name="name" class="form-control d"
                                placeholder="Please enter your name disk *" required="required"
-                               data-error="<fmt:message key="errorNameDisk"/>" pattern="^[A-zА-яЁё0-9()_ ]*$">
+                               data-error="<fmt:message key="errorNameDisk"/>" pattern="^(?!\s*$)[A-zА-яЁё0-9\S_ ]*$">
                         <div class="help-block with-errors" id="errorNameDisk" style="color: #b30300;">
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                                 select2.empty();
                                 <c:forEach var="item" items="${catalog}">
                                 if (type === "${item.type}") {
-                                    select2.append('<option value="${item.idGenre}"> ${item.genre}</option>');
+                                    select2.append('<option value="${item.genre}"> ${item.genre}</option>');
                                 }
                                 </c:forEach>
                                 film.each(function () {

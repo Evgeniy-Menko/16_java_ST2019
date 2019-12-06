@@ -28,8 +28,8 @@
     </head>
     <body>
     <%@ include file="menu.jsp" %>
-    <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1>My announcements</h1>
+    <div class="text-center" style="margin-top:30px;margin-left: 50px">
+        <h1> Shopping Cart</h1>
         <br>
     </div>
     <div class="row col-md-12">
@@ -43,7 +43,7 @@
                             <th colspan="5" style="color: #b30300;text-align: center"><fmt:message key="${error}"/></th>
                         </c:when>
                         <c:when test="${fn:length(listDisk) == 0}">
-                            <th colspan="5" style="text-align: center">Not found</th>
+                            <th colspan="5" style="text-align: center">Shopping cart is empty</th>
                         </c:when>
                     </c:choose>
 
@@ -54,7 +54,10 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Time added</th>
-                    <th></th>
+                    <th>  <c:if test="${fn:length(listDisk) != 0}">
+                        <a href="${pageContext.request.contextPath}/deleteAll.html"
+                           class="nav-link">Delete All</a>
+                    </c:if></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,15 +69,17 @@
                         <td>${item.nameDisk}</td>
                         <td>${item.price}</td>
                         <td><fmt:formatDate value="${item.timeAdded}"
-                                            type="date" pattern="dd-MM-yyyy HH:mm"  /></td>
-                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}" class="nav-link">More</a>
+                                            type="date" pattern="dd-MM-yyyy HH:mm"/></td>
+                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}"
+                               class="nav-link">More</a>
 
-                        <a href="${pageContext.request.contextPath}/updateAnnouncement.html?disk=${item.idEntity}"
-                               class="nav-link">Edit</a>
-                            <a href="javascript:void(0)" class="nav-link">Delete</a>
+                            <a href="${pageContext.request.contextPath}/deleteFromShopCart.html?disk=${item.idEntity}"
+                               class="nav-link">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
+
+
 
 
                 </tbody>

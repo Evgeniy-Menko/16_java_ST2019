@@ -19,7 +19,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
     private static final String CREATE_DISK = "INSERT INTO `disk` (`user_id`, `name`, `genre_id`,`price`,`description`,`year`,`image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String GET_DISK_BY_PARAMETER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre`  WHERE  ";
-    private static final String GET_ALL = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` ";
+    private static final String GET_ALL = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` ORDER BY `time_added` DESC";
 
     @Override
     public Integer create(Disk disk, Integer idGenre) throws PersonalException {
@@ -180,6 +180,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
             }
             stringBuilder.append(" `year`<=?");
         }
+        stringBuilder.append("ORDER BY `time_added` DESC");
         return stringBuilder.toString();
     }
 
@@ -209,7 +210,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
     }
 
-    private static final String GET_BY_ID_USER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` WHERE `user_id`=? ";
+    private static final String GET_BY_ID_USER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` WHERE `user_id`=? ORDER BY `time_added` DESC";
 
     @Override
     public List<Disk> readByIdUser(Integer idUser) throws PersonalException {
@@ -248,6 +249,33 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                     disk = new Disk();
                     disk.setType(resultSet.getString("type"));
                     disk.setIdUser(resultSet.getInt("user_id"));
+                }
+                return Optional.ofNullable(disk);
+            } catch (SQLException e) {
+                throw new PersonalException(e);
+            }
+        } catch (SQLException e) {
+            throw new PersonalException(e);
+        }
+    }
+
+    private static final String GET_BY_ID_DISK = "SELECT `user_id`,`name`,`price`,`description`,`year`,`image`,`time_added` FROM `disk`  WHERE  `id_disk`=?";
+
+    @Override
+    public Optional<Disk> readByIdDisk(Integer idDisk) throws PersonalException {
+        try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_DISK)) {
+            statement.setInt(1, idDisk);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                Disk disk = null;
+                if (resultSet.next()) {
+                    disk = new Disk();
+                    disk.setIdUser(resultSet.getInt("user_id"));
+                    disk.setNameDisk(resultSet.getString("name"));
+                    disk.setPrice(resultSet.getDouble("price"));
+                    disk.setDescription(resultSet.getString("description"));
+                    disk.setYear(resultSet.getInt("year"));
+                    disk.setImage(resultSet.getString("image"));
+                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -407,5 +435,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
             throw new PersonalException(e);
         }
     }
+
+
 }
 

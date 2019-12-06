@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class DiskValidator {
     private final static String REGEX = "[A-zА-яЁё]*";
-    private final static String REGEX_SENTENCE = "^[A-zА-яЁё0-9()_ ]*$";
+    private final static String REGEX_SENTENCE = "^(?!\\s*$)[A-zА-яЁё0-9\\S_ ]*$";
     private final static String REGEX_TIME_RUNNING = "[0-9:0-9]{3,5}";
 
     public Disk validate(HttpServletRequest request) throws IOException, ServletException, ServicePersonalException {

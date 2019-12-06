@@ -29,11 +29,19 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/profile", new ProfileCommand());
         actions.put("/editProfile", new EditProfileCommand());
         actions.put("/editProfileResult", new ResultEditCommand());
-        actions.put("/addAnnouncement", new AddAnnouncementCommant());
+        actions.put("/addAnnouncement", new AddAnnouncementCommand());
         actions.put("/announcementResult", new ResultAddAnnouncementCommand());
         actions.put("/myAnnouncements", new MyAnnouncementCommand());
         actions.put("/updateAnnouncement", new UpdateAnnouncementCommand());
         actions.put("/announcementEditResult", new AnnouncementEditResultCommand());
+        actions.put("/showDisk", new ShowDiskCommand());
+        actions.put("/addComment", new AddCommentCommand());
+        actions.put("/deleteComment", new DeleteCommentCommand());
+        actions.put("/addShoppingCart", new AddShoppingCartCommand());
+        actions.put("/shoppingCart", new ShoppingCartCommand());
+        actions.put("/deleteFromShopCart", new DeleteFromShopCartCommand());
+       actions.put("/deleteAll", new DeleteAllFromShopCartCommand());
+
     }
 
     @Override

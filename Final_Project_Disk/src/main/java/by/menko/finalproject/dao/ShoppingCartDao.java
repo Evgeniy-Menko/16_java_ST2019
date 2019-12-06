@@ -8,5 +8,5 @@ import java.util.List;
 public interface ShoppingCartDao extends Dao<ShoppingCart> {
     List<ShoppingCart> readAll(Integer id) throws PersonalException;
 
-    void deleteDisk(Integer idDisk, Integer idUser) throws PersonalException;
+    void deleteAll(Integer idUser) throws PersonalException;
 }

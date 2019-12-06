@@ -20,7 +20,7 @@ public interface Dao<T extends Entity> {
         throw new PersonalException();
     }
 
-    default void delete(Integer identity) throws PersonalException {
+    default void delete(Integer identity,Integer idUser) throws PersonalException {
         throw new PersonalException();
     }
 }

@@ -159,8 +159,9 @@
                         <td><img src="${item.image}" height="100" width="100"></td>
                         <td>${item.nameDisk}</td>
                         <td>${item.price}</td>
-                        <td>${item.timeAdded} </td>
-                        <td><a href="javascript:void(0)" class="nav-link">More</a></td>
+                        <td><fmt:formatDate value="${item.timeAdded}"
+                                            type="date" pattern="dd-MM-yyyy HH:mm"  /></td>
+                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}" class="nav-link">More</a></td>
                     </tr>
                 </c:forEach>
 

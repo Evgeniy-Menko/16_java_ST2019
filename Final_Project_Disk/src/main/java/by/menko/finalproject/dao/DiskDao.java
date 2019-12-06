@@ -38,4 +38,6 @@ public interface DiskDao extends Dao<Disk> {
 
     void updateMusic(Disk disk) throws PersonalException;
 
+    Optional<Disk> readByIdDisk(Integer idDisk) throws PersonalException;
+
 }

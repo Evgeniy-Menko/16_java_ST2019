@@ -3,19 +3,19 @@ package by.menko.finalproject.entity;
 import java.util.Date;
 
 public class ShoppingCart extends Entity {
-     private Integer diskID;
+
+     private Integer diskId;
      private Date timeAdded;
 
-      public Integer getDisk_id() {
-            return diskID;
-      }
+    public Integer getDiskId() {
+        return diskId;
+    }
 
-      public ShoppingCart setDisk_id(Integer idDisk) {
-            this.diskID = idDisk;
-            return this;
-      }
+    public void setDiskId(Integer diskId) {
+        this.diskId = diskId;
+    }
 
-      public Date getTimeAdded() {
+    public Date getTimeAdded() {
             return timeAdded;
       }
 
