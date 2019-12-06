@@ -30,7 +30,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
                 service = new DiskServiceImpl();
                 break;
             case COMPLAINT:
-                service = new CommentServiceImpl();
+                service = new ComplaintServiceImpl();
                 break;
             case COMMENT:
                 service = new CommentServiceImpl();

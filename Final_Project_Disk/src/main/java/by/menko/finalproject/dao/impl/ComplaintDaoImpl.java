@@ -22,33 +22,23 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
 
     @Override
     public Integer create(Complaint entity) throws PersonalException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(CREATE_COMPLAINT, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement statement = connection.prepareStatement(CREATE_COMPLAINT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, entity.getUserIdComplained());
             statement.setInt(2, entity.getIdDisk());
             statement.setInt(3, entity.getUserWasComplained());
             statement.setString(4, entity.getTextComplaint());
             statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            } else {
-                //		logger.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersonalException();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    throw new PersonalException();
+                }
+            } catch (SQLException e) {
+                throw new PersonalException(e);
             }
         } catch (SQLException e) {
             throw new PersonalException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-            }
         }
     }
 
@@ -87,7 +77,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     }
 
     @Override
-    public void delete(Integer id,Integer idUser) throws PersonalException {
+    public void delete(Integer id, Integer idUser) throws PersonalException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(DELETE_COMPLAINT);

@@ -11,6 +11,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:setLocale value="ru_RU"/>
 <fmt:bundle basename="text">
+    <jsp:useBean id="disk" scope="request" type="by.menko.finalproject.entity.Disk"/>
+
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,7 +85,8 @@
                             </c:forEach>
                             <c:if test="${authorizedUser.idEntity!=disk.idUser && ind==1}">
                                 <th>
-                                   Disk is in your shopping cart </th>
+                                    Disk is in your shopping cart
+                                </th>
                             </c:if>
                             <c:if test="${authorizedUser.idEntity!=disk.idUser && ind==0}">
                                 <th>
@@ -196,18 +199,20 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Heading</h4>
+                        <h4 class="modal-title">Write complaint</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        Modal body..
-                    </div>
+                        <form action="${pageContext.request.contextPath}/addComplaint.html">
+                            <input type="hidden" name="idDisk" value="${disk.idEntity}">
+                            <input type="hidden" name="idUser" value="${disk.idUser}">
 
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <textarea class="form-control" rows="5" id="compl" name="complaint" required></textarea>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </form>
                     </div>
 
                 </div>

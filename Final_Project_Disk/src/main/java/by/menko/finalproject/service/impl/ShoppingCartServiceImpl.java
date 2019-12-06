@@ -8,9 +8,7 @@ import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.ShoppingCartService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCartService {
     @Override
@@ -35,19 +33,21 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
     }
 
     @Override
-    public List<Disk> getShoppingCart(Integer idUser) throws PersonalException {
+    public  Map<ShoppingCart, Disk> getShoppingCart(Integer idUser) throws PersonalException {
         DiskDao diskDao = transaction.createDao(TypeServiceAndDao.DISK);
         List<ShoppingCart> list = getAllDiskFromShopCart(idUser);
-        List<Disk> listDisk = new ArrayList<>();
+        Map<ShoppingCart, Disk> map = new HashMap<>();
         Optional<Disk> disk;
+
         for (ShoppingCart item : list) {
             disk = diskDao.readByIdDisk(item.getDiskId());
             if (disk.isPresent()) {
                 disk.get().setIdEntity(item.getDiskId());
-                listDisk.add(disk.get());
+                map.put(item, disk.get());
             }
         }
-        return listDisk;
+
+        return map;
     }
 
     @Override

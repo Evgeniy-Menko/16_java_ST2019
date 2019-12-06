@@ -24,11 +24,9 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
         List<Comment> listComment = dao.readByIdDisk(idDisk);
         Optional<UserInfo> user;
         Map<UserInfo, Comment> mapCommentAndUser = new HashMap<>();
-        for (int i = 0; i < listComment.size(); i++) {
-            user = userDao.read(listComment.get(i).getIdUserCommented());
-            if (user.isPresent()) {
-                mapCommentAndUser.put(user.get(), listComment.get(i));
-            }
+        for (Comment comment : listComment) {
+            user = userDao.read(comment.getIdUserCommented());
+            user.ifPresent(userInfo -> mapCommentAndUser.put(userInfo, comment));
         }
 
         return mapCommentAndUser;

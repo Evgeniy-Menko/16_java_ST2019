@@ -41,6 +41,7 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/shoppingCart", new ShoppingCartCommand());
         actions.put("/deleteFromShopCart", new DeleteFromShopCartCommand());
        actions.put("/deleteAll", new DeleteAllFromShopCartCommand());
+        actions.put("/addComplaint", new AddComplaintCommand());
 
     }
 

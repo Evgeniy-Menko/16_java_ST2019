@@ -180,7 +180,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
             }
             stringBuilder.append(" `year`<=?");
         }
-        stringBuilder.append("ORDER BY `time_added` DESC");
+        stringBuilder.append(" ORDER BY  `time_added` DESC");
         return stringBuilder.toString();
     }
 

@@ -1,27 +1,25 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
-import by.menko.finalproject.entity.Disk;
-import by.menko.finalproject.entity.ShoppingCart;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.service.ShoppingCartService;
+import by.menko.finalproject.service.ComplaintService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import java.util.Map;
-
-public class ShoppingCartCommand extends Command {
+public class AddComplaintCommand extends Command {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
-        ShoppingCartService service = factory.createService(TypeServiceAndDao.SHOPPING_CART);
+        ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
-        Map<ShoppingCart, Disk> mapDisk = service.getShoppingCart(user.getIdEntity());
-        request.setAttribute("mapDisk", mapDisk);
-        request.getRequestDispatcher("/shoppingCart.jsp").forward(request, response);
+        String idUser = request.getParameter("idUser");
+        String complaint = request.getParameter("complaint");
+        String idDisk = request.getParameter("idDisk");
+        service.addComplaint(idDisk, idUser, complaint, user.getIdEntity());
+        response.sendRedirect("/Panda-Disk/showDisk.html?disk=" + idDisk);
     }
 }

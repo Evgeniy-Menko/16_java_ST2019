@@ -11,6 +11,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:setLocale value="en_US"/>
 <fmt:bundle basename="text">
+    <jsp:useBean id="mapDisk" scope="request" type="java.util.Map"/>
     <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +43,7 @@
                         <c:when test="${error!=null}">
                             <th colspan="5" style="color: #b30300;text-align: center"><fmt:message key="${error}"/></th>
                         </c:when>
-                        <c:when test="${fn:length(listDisk) == 0}">
+                        <c:when test="${fn:length(mapDisk) == 0}">
                             <th colspan="5" style="text-align: center">Shopping cart is empty</th>
                         </c:when>
                     </c:choose>
@@ -54,7 +55,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Time added</th>
-                    <th>  <c:if test="${fn:length(listDisk) != 0}">
+                    <th>  <c:if test="${fn:length(mapDisk) != 0}">
                         <a href="${pageContext.request.contextPath}/deleteAll.html"
                            class="nav-link">Delete All</a>
                     </c:if></th>
@@ -63,17 +64,17 @@
                 <tbody>
 
 
-                <c:forEach var="item" items="${listDisk}">
+                <c:forEach var="item" items="${mapDisk}">
                     <tr>
-                        <td><img src="${item.image}" height="100" width="100"></td>
-                        <td>${item.nameDisk}</td>
-                        <td>${item.price}</td>
-                        <td><fmt:formatDate value="${item.timeAdded}"
+                        <td><img src="${item.value.image}" alt="no image" height="100" width="100"></td>
+                        <td>${item.value.nameDisk}</td>
+                        <td>${item.value.price}</td>
+                        <td><fmt:formatDate value="${item.key.timeAdded}"
                                             type="date" pattern="dd-MM-yyyy HH:mm"/></td>
-                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}"
+                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.value.idEntity}"
                                class="nav-link">More</a>
 
-                            <a href="${pageContext.request.contextPath}/deleteFromShopCart.html?disk=${item.idEntity}"
+                            <a href="${pageContext.request.contextPath}/deleteFromShopCart.html?disk=${item.value.idEntity}"
                                class="nav-link">Delete</a>
                         </td>
                     </tr>
