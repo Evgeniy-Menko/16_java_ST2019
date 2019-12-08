@@ -31,8 +31,8 @@
                         $("#unknowLogin").html("");
                         $("#unknowLogin").append('<span><fmt:message key="unknowLogin"/></span>');
                     } else {
+                        window.location.href = json['url'];
 
-                        window.location.href = "/Panda-Disk/profile.html"
                     }
 
                 },
@@ -106,7 +106,6 @@
         </li>
 
 
-
         </ul>
         <form class="form-inline my-2 my-lg-0 mr-auto">
 
@@ -134,7 +133,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link
-" href="javascript:void(0)"> Settings</a>
+" href="${pageContext.request.contextPath}/complaints.html">Complaints</a>
                     </li>
                     <p class="text-white my-2">|</p>
 

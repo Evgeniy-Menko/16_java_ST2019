@@ -18,7 +18,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     private static final String DELETE_COMPLAINT = "DELETE FROM `complaints` WHERE `id_complaint`=?";
     private static final String CREATE_COMPLAINT = "INSERT INTO `complaints` (`user_id_complained`, `disk_id`, `user_was_complained`,`complaint_text`) VALUES (?, ?, ?,?)";
     private static final String GET_COMPLAINT = "SELECT `id_complaint`, `user_id_complained`, `disk_id`,`user_was_complained`,`complaint_text`,`time_added` FROM `complaints` WHERE `id_complaint` = ?";
-    private static final String GET_ALL = "SELECT `id_complaint`, `user_id_complained`, `disk_id`,`user_was_complained`,`complaint_text`,`time_added` FROM `complaints`";
+    private static final String GET_ALL = "SELECT `id_complaint`, `user_id_complained`, `disk_id`,`user_was_complained`,`complaint_text`,`time_added` FROM `complaints` ORDER BY `time_added` DESC ";
 
     @Override
     public Integer create(Complaint entity) throws PersonalException {
@@ -46,7 +46,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     public Optional<Complaint> read(Integer id) throws PersonalException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        try {
+        try{
             statement = connection.prepareStatement(GET_COMPLAINT);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
@@ -77,53 +77,38 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     }
 
     @Override
-    public void delete(Integer id, Integer idUser) throws PersonalException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_COMPLAINT);
+    public void delete(Integer id) throws PersonalException {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_COMPLAINT)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersonalException(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-            }
         }
     }
 
     @Override
     public List<Complaint> readAll() throws PersonalException {
         List<Complaint> result = new ArrayList<>();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(GET_ALL);
-            resultSet = statement.executeQuery();
-            Complaint complaint = null;
-            if (resultSet.next()) {
-                complaint = new Complaint();
-                complaint.setIdEntity(resultSet.getInt("id_complaint"));
-                complaint.setUserIdComplained(resultSet.getInt("user_id_complained"));
-                complaint.setIdDisk(resultSet.getInt("disk_id"));
-                complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
-                complaint.setTextComplaint(resultSet.getString("complaint_text"));
-                complaint.setTimeAdded(resultSet.getDate("time_added"));
-                result.add(complaint);
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                Complaint complaint = null;
+                while (resultSet.next()) {
+                    complaint = new Complaint();
+                    complaint.setIdEntity(resultSet.getInt("id_complaint"));
+                    complaint.setUserIdComplained(resultSet.getInt("user_id_complained"));
+                    complaint.setIdDisk(resultSet.getInt("disk_id"));
+                    complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
+                    complaint.setTextComplaint(resultSet.getString("complaint_text"));
+                    complaint.setTimeAdded(resultSet.getDate("time_added"));
+                    result.add(complaint);
+                }
+                return result;
+            } catch (SQLException e) {
+                throw new PersonalException(e);
             }
-            return result;
         } catch (SQLException e) {
             throw new PersonalException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-            }
         }
     }
 }

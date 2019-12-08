@@ -1,7 +1,10 @@
-package by.menko.finalproject.controller;
+package by.menko.finalproject.controller.filters;
 
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.action.adminaction.DeleteComplaintCommand;
+import by.menko.finalproject.controller.action.adminaction.ShowComplaintsCommand;
+import by.menko.finalproject.controller.action.forallaction.*;
 import by.menko.finalproject.controller.action.useraction.*;
 
 
@@ -42,7 +45,9 @@ public class CommandFromUriFilter implements Filter {
         actions.put("/deleteFromShopCart", new DeleteFromShopCartCommand());
        actions.put("/deleteAll", new DeleteAllFromShopCartCommand());
         actions.put("/addComplaint", new AddComplaintCommand());
-
+        actions.put("/complaints", new ShowComplaintsCommand());
+        actions.put("/deleteComplaint", new DeleteComplaintCommand());
+        actions.put("/deleteDisk", new DeleteDiskCommand());
     }
 
     @Override
@@ -70,7 +75,7 @@ public class CommandFromUriFilter implements Filter {
                 chain.doFilter(request, response);
 
         } else {
-            //	logger.error("It is impossible to use HTTP filter");
+
 
         }
     }

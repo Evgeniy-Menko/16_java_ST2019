@@ -7,27 +7,15 @@ import by.menko.finalproject.exception.PersonalException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 public class TransactionImpl implements Transaction {
     //  private static Logger logger = Logger.getLogger(String.valueOf(TransactionImpl.class));
 
-    /* private static Map<Class<? extends Dao<?>>, BaseDao> classes = new ConcurrentHashMap<>();
 
-     static {
-         classes.put(AuthorDao.class, AuthorDaoImpl.class);
-         classes.put(BookDao.class, BookDaoImpl.class);
-         classes.put(UserDao.class, new UserDaoImpl());
-         classes.put(ReaderDao.class, ReaderDaoImpl.class);
-         classes.put(UsageDao.class, UsageDaoImpl.class);
-     }
- */
     private Connection connection;
 
-    public TransactionImpl(Connection connection) {
+    TransactionImpl(Connection connection) {
         this.connection = connection;
     }
 

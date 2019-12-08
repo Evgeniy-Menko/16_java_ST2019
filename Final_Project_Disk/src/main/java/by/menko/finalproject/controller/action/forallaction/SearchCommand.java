@@ -1,4 +1,4 @@
-package by.menko.finalproject.controller.action.useraction;
+package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
 

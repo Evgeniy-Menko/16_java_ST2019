@@ -20,7 +20,7 @@
     </servlet-mapping>
     <filter>
         <filter-name>CommandFromUriFilter</filter-name>
-        <filter-class>by.menko.finalproject.controller.CommandFromUriFilter</filter-class>
+        <filter-class>by.menko.finalproject.controller.filters.CommandFromUriFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CommandFromUriFilter</filter-name>
@@ -28,7 +28,7 @@
     </filter-mapping>
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>by.menko.finalproject.controller.EncodingFilter</filter-class>
+        <filter-class>by.menko.finalproject.controller.filters.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>

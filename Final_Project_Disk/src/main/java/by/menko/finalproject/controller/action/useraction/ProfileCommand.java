@@ -17,7 +17,6 @@ public class ProfileCommand extends Command {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("authorizedUser");
         userInfo = service.getUser(userInfo.getIdEntity());
-
         request.setAttribute("userInfo", userInfo);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 

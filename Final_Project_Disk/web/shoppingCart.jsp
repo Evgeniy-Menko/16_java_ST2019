@@ -30,7 +30,7 @@
     <body>
     <%@ include file="menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-left: 50px">
-        <h1> Shopping Cart</h1>
+        <h1 class="display-4"> Shopping Cart</h1>
         <br>
     </div>
     <div class="row col-md-12">
@@ -40,6 +40,7 @@
                 <thead>
                 <tr>
                     <c:choose>
+
                         <c:when test="${error!=null}">
                             <th colspan="5" style="color: #b30300;text-align: center"><fmt:message key="${error}"/></th>
                         </c:when>
@@ -79,8 +80,6 @@
                         </td>
                     </tr>
                 </c:forEach>
-
-
 
 
                 </tbody>

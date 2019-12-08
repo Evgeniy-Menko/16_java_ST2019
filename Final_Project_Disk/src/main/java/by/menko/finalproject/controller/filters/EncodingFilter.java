@@ -1,4 +1,4 @@
-package by.menko.finalproject.controller;
+package by.menko.finalproject.controller.filters;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

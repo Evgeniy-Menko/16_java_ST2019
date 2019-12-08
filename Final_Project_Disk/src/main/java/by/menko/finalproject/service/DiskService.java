@@ -19,5 +19,7 @@ public interface DiskService extends Service {
 
     void updateDisk(Disk disk, Part image, String pathTemp) throws PersonalException;
 
+    void deleteDisk(String idDisk, Integer idUser) throws PersonalException;
+
 
 }

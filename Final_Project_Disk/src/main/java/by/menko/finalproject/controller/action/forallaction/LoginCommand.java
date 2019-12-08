@@ -1,4 +1,4 @@
-package by.menko.finalproject.controller.action.useraction;
+package by.menko.finalproject.controller.action.forallaction;
 
 
 import by.menko.finalproject.controller.action.Command;
@@ -22,16 +22,20 @@ public class LoginCommand extends Command {
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, IOException {
         String login = request.getParameter("email");
         String password = request.getParameter("password");
-
+        Map<String, String> message = new HashMap<>();
         try {
             if (login != null && password != null) {
                 UserService service = factory.createService(TypeServiceAndDao.USER);
                 UserInfo user = service.finUserByEmail(login, password);
                 request.getSession().setAttribute("authorizedUser", user);
-
+                String referrer = request.getHeader("referer");
+                message.put("url", referrer);
+                String json = new Gson().toJson(message);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (ServicePersonalException e) {
-            Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());
             String json = new Gson().toJson(message);
             response.setContentType("application/json");

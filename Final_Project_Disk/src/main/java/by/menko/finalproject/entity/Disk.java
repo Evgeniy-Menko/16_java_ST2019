@@ -1,7 +1,6 @@
 package by.menko.finalproject.entity;
 
 
-
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -100,7 +99,11 @@ public class Disk extends Entity {
         return flagBlocked;
     }
 
-    public void setFlagBlocked(Boolean flagBlocked) {
-        this.flagBlocked = flagBlocked;
+    public void setFlagBlocked(Integer id) {
+        if (id == 0) {
+            this.flagBlocked = false;
+        } else if (id == 1) {
+            this.flagBlocked = true;
+        }
     }
 }

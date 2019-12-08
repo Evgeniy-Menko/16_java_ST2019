@@ -1,4 +1,4 @@
-package by.menko.finalproject.controller.action.useraction;
+package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.entity.Comment;
@@ -28,8 +28,10 @@ public class ShowDiskCommand extends Command {
         String idDisk = request.getParameter("disk");
         Disk disk = service.getDisk(idDisk);
         Map<UserInfo, Comment> mapComment = serviceComment.getComment(disk.getIdEntity());
-        List<ShoppingCart> listShopCart = serviceShopCart.getAllDiskFromShopCart(user.getIdEntity());
-        request.setAttribute("shopCart", listShopCart);
+        if (user != null) {
+            List<ShoppingCart> listShopCart = serviceShopCart.getAllDiskFromShopCart(user.getIdEntity());
+            request.setAttribute("shopCart", listShopCart);
+        }
         request.setAttribute("disk", disk);
         request.setAttribute("mapComment", mapComment);
         request.getRequestDispatcher("/disk.jsp").forward(request, response);

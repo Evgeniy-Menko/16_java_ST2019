@@ -146,6 +146,16 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
         }
     }
 
+    @Override
+    public void deleteDisk(String idDisk, Integer idUser) throws PersonalException {
+        DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
+        try {
+            Integer diskId = Integer.parseInt(idDisk);
+            dao.delete(diskId, idUser);
+        } catch (NumberFormatException e) {
+            throw new PersonalException();
+        }
+    }
 
     private boolean validPriceAndYear(Double priceFrom, Double priceTo, Integer yearIn, Integer yearTo) {
         boolean flag = true;
@@ -177,4 +187,6 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
             throw new PersonalException();
         }
     }
+
+
 }

@@ -4,21 +4,20 @@ import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.service.CommentService;
+import by.menko.finalproject.service.DiskService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddCommentCommand extends Command {
+public class DeleteDiskCommand extends Command {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
-        CommentService service = factory.createService(TypeServiceAndDao.COMMENT);
+        DiskService service = factory.createService(TypeServiceAndDao.DISK);
+        String idDisk = request.getParameter("disk");
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
-        String idDisk = request.getParameter("idDisk");
-        String commentText = request.getParameter("comment");
-        service.addComment(idDisk,commentText, user.getIdEntity());
-        response.sendRedirect(request.getContextPath()+"/showDisk.html?disk=" + idDisk + "#com");
+        service.deleteDisk(idDisk, user.getIdEntity());
+        response.sendRedirect("/Panda-Disk/myAnnouncements.html");
     }
 }

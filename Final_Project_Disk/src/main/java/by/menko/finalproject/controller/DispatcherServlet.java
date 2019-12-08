@@ -4,14 +4,13 @@ package by.menko.finalproject.controller;
 import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.CommandManager;
 import by.menko.finalproject.controller.action.CommandManagerFactory;
-import by.menko.finalproject.controller.action.useraction.MenuCommand;
+import by.menko.finalproject.controller.action.forallaction.MenuCommand;
 import by.menko.finalproject.dao.impl.TransactionFactoryImpl;
 import by.menko.finalproject.dao.pool.ConnectionPool;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.ServiceFactory;
 import by.menko.finalproject.service.impl.ServiceFactoryImpl;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +51,7 @@ public class DispatcherServlet extends HttpServlet {
             commandManager.close();
 
         } catch (PersonalException e) {
-            e.printStackTrace();
+
         }
     }
 

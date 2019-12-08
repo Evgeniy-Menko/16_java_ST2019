@@ -34,7 +34,7 @@ public class TransactionFactoryImpl implements TransactionFactory {
     public void close() {
         try {
             connection.close();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 }

@@ -27,6 +27,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         if (user.isPresent()) {
             boolean flag = PasswordUtils.verifyUserPassword(password, user.get().getPassword(), user.get().getSalt());
             if (flag) {
+                user.get().setPassword("");
+                user.get().setSalt("");
                 return user.get();
             } else {
                 throw new ServicePersonalException("unknowLogin");

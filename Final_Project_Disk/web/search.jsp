@@ -29,7 +29,7 @@
     <body>
     <%@ include file="menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1>Catalog</h1>
+        <h1 class="display-4">Catalog</h1>
         <br>
     </div>
     <div class="row col-md-12">

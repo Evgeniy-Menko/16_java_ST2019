@@ -235,7 +235,7 @@
     <body>
     <%@ include file="menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1>Registration Form</h1>
+        <h1 class="display-4">Registration Form</h1>
         <span style="color: #b30300" id="errorLoginNick"></span>
     </div>
 

@@ -95,9 +95,11 @@
                             </c:if>
 
                             <th><a href="#commentDiv">Write comment</a></th>
-                            <th class="text-center"><a href="#complaint" data-toggle="modal" data-target="#complaint">Complaint</a>
-                            </th>
-
+                            <c:if test="${authorizedUser.idEntity!=disk.idUser}">
+                                <th class="text-center"><a href="#complaint" data-toggle="modal"
+                                                           data-target="#complaint">Complaint</a>
+                                </th>
+                            </c:if>
                         </tr>
                     </table>
                 </c:if>
