@@ -51,7 +51,7 @@ public class DispatcherServlet extends HttpServlet {
             commandManager.close();
 
         } catch (PersonalException e) {
-
+            request.getRequestDispatcher("/Error.jsp").forward(request, response);
         }
     }
 

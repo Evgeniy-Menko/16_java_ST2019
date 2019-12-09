@@ -118,20 +118,22 @@
                                 $("#errorTime").append('<span><fmt:message key="errorTime"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
-                            }else if (json['errorAge'] != null) {
+                            } else if (json['errorAge'] != null) {
                                 $("#errorAge").append('<span><fmt:message key="errorAge"/></span>');
                             } else if (json['errorNameDisk'] != null) {
                                 $("#errorNameDisk").append('<span><fmt:message key="errorNameDisk"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
-                            }else if (json['errorRequired'] != null) {
+                            } else if (json['errorFormatImage'] != null) {
+                                $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
+                            } else if (json['errorRequired'] != null) {
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
                             } else if (json['incorrectNumber'] != null) {
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
                             } else {
-
                                 window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
+
 
                         },
                         error: function (request, status, error) {

@@ -2,6 +2,7 @@ package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.entity.Disk;
+import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
@@ -21,6 +22,7 @@ public class AnnouncementEditResultCommand extends Command {
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         DiskValidator validator = new DiskValidator();
+        UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("id");
         String path = request.getServletContext().getResource("")
                 .getPath();
@@ -29,7 +31,7 @@ public class AnnouncementEditResultCommand extends Command {
         try {
             Disk disk = validator.validate(request);
             disk.setIdEntity(Integer.parseInt(idDisk));
-            service.updateDisk(disk, request.getPart("image"), pathTemp);
+            service.updateDisk(disk, request.getPart("image"), pathTemp,user);
 
         } catch (ServicePersonalException e) {
             Map<String, String> message = new HashMap<>();

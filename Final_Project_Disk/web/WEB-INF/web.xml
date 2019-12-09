@@ -27,6 +27,14 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.menko.finalproject.controller.filters.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>by.menko.finalproject.controller.filters.EncodingFilter</filter-class>
     </filter>
@@ -34,4 +42,5 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
+
 </web-app>

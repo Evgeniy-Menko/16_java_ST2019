@@ -2,6 +2,7 @@ package by.menko.finalproject.service;
 
 
 import by.menko.finalproject.entity.Disk;
+import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 
@@ -15,9 +16,9 @@ public interface DiskService extends Service {
 
     List<Disk> getAllDiskByIdUser(Integer idUser) throws PersonalException;
 
-    Disk getDisk(String diskId) throws PersonalException;
+    Disk getDisk(String diskId, UserInfo user) throws PersonalException;
 
-    void updateDisk(Disk disk, Part image, String pathTemp) throws PersonalException;
+    void updateDisk(Disk disk, Part image, String pathTemp,UserInfo user) throws PersonalException;
 
     void deleteDisk(String idDisk, Integer idUser) throws PersonalException;
 

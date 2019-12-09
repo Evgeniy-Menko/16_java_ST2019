@@ -4,6 +4,7 @@ import by.menko.finalproject.dao.ComplaintDao;
 
 import by.menko.finalproject.dao.DiskDao;
 import by.menko.finalproject.dao.UserDao;
+import by.menko.finalproject.dao.impl.DiskDaoImpl;
 import by.menko.finalproject.entity.Complaint;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
@@ -71,5 +72,27 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             disk.ifPresent(diskList::add);
         }
         return diskList;
+    }
+
+    @Override
+    public void blockAnnouncement(String idDisk) throws PersonalException {
+        DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
+        try {
+            Integer diskId = Integer.parseInt(idDisk);
+            dao.blocked(diskId);
+        } catch (NumberFormatException e) {
+            throw new PersonalException();
+        }
+    }
+
+    @Override
+    public void unlockAnnouncement(String idDisk) throws PersonalException {
+        DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
+        try {
+            Integer diskId = Integer.parseInt(idDisk);
+            dao.unLock(diskId);
+        } catch (NumberFormatException e) {
+            throw new PersonalException();
+        }
     }
 }

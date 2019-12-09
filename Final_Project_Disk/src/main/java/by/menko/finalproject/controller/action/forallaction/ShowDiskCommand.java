@@ -26,7 +26,7 @@ public class ShowDiskCommand extends Command {
         ShoppingCartService serviceShopCart = factory.createService(TypeServiceAndDao.SHOPPING_CART);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("disk");
-        Disk disk = service.getDisk(idDisk);
+        Disk disk = service.getDisk(idDisk,user);
         Map<UserInfo, Comment> mapComment = serviceComment.getComment(disk.getIdEntity());
         if (user != null) {
             List<ShoppingCart> listShopCart = serviceShopCart.getAllDiskFromShopCart(user.getIdEntity());

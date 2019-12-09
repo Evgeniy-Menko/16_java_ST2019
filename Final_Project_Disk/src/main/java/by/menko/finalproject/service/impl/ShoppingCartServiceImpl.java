@@ -14,12 +14,18 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
     @Override
     public void addShoppingCart(String idDisk, Integer idUser) throws PersonalException {
         ShoppingCartDao dao = transaction.createDao(TypeServiceAndDao.SHOPPING_CART);
+        DiskDao diskDao = transaction.createDao(TypeServiceAndDao.DISK);
         ShoppingCart cart = new ShoppingCart();
         try {
             Integer id = Integer.parseInt(idDisk);
-            cart.setDiskId(id);
-            cart.setIdEntity(idUser);
-            dao.create(cart);
+            Optional<Disk> disk = diskDao.readByIdDisk(id);
+            if (disk.isPresent()) {
+                cart.setDiskId(id);
+                cart.setIdEntity(idUser);
+                dao.create(cart);
+            }else {
+                throw new PersonalException();
+            }
         } catch (NumberFormatException e) {
             throw new PersonalException();
         }
@@ -33,7 +39,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
     }
 
     @Override
-    public  Map<ShoppingCart, Disk> getShoppingCart(Integer idUser) throws PersonalException {
+    public Map<ShoppingCart, Disk> getShoppingCart(Integer idUser) throws PersonalException {
         DiskDao diskDao = transaction.createDao(TypeServiceAndDao.DISK);
         List<ShoppingCart> list = getAllDiskFromShopCart(idUser);
         Map<ShoppingCart, Disk> map = new HashMap<>();

@@ -2,52 +2,81 @@ package by.menko.finalproject.controller.filters;
 
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.action.adminaction.BlockAnnouncementCommand;
 import by.menko.finalproject.controller.action.adminaction.DeleteComplaintCommand;
 import by.menko.finalproject.controller.action.adminaction.ShowComplaintsCommand;
+import by.menko.finalproject.controller.action.adminaction.UnlockAnnouncementCommand;
 import by.menko.finalproject.controller.action.forallaction.*;
 import by.menko.finalproject.controller.action.useraction.*;
-
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-//import org.apache.log4j.Logger;
 
 public class CommandFromUriFilter implements Filter {
-//	private static Logger logger = Logger.getLogger(ActionFromUriFilter.class);
 
-    private static Map<String, Command> actions = new ConcurrentHashMap<>();
-
-    static {
-        actions.put("/", new HomeCommand());
-        actions.put("/home", new HomeCommand());
-        actions.put("/login", new LoginCommand());
-        actions.put("/logout", new LogoutCommand());
-        actions.put("/search", new SearchCommand());
-        actions.put("/registr", new RegistrationCommand());
-        actions.put("/registration", new RegistrPageCommand());
-        actions.put("/profile", new ProfileCommand());
-        actions.put("/editProfile", new EditProfileCommand());
-        actions.put("/editProfileResult", new ResultEditCommand());
-        actions.put("/addAnnouncement", new AddAnnouncementCommand());
-        actions.put("/announcementResult", new ResultAddAnnouncementCommand());
-        actions.put("/myAnnouncements", new MyAnnouncementCommand());
-        actions.put("/updateAnnouncement", new UpdateAnnouncementCommand());
-        actions.put("/announcementEditResult", new AnnouncementEditResultCommand());
-        actions.put("/showDisk", new ShowDiskCommand());
-        actions.put("/addComment", new AddCommentCommand());
-        actions.put("/deleteComment", new DeleteCommentCommand());
-        actions.put("/addShoppingCart", new AddShoppingCartCommand());
-        actions.put("/shoppingCart", new ShoppingCartCommand());
-        actions.put("/deleteFromShopCart", new DeleteFromShopCartCommand());
-       actions.put("/deleteAll", new DeleteAllFromShopCartCommand());
-        actions.put("/addComplaint", new AddComplaintCommand());
-        actions.put("/complaints", new ShowComplaintsCommand());
-        actions.put("/deleteComplaint", new DeleteComplaintCommand());
-        actions.put("/deleteDisk", new DeleteDiskCommand());
+    private Command getCommand(String action) {
+        switch (action) {
+            case "/":
+                return new HomeCommand();
+            case "/home":
+                return new HomeCommand();
+            case "/login":
+                return new LoginCommand();
+            case "/logout":
+                return new LogoutCommand();
+            case "/search":
+                return new SearchCommand();
+            case "/registr":
+                return new RegistrationCommand();
+            case "/registration":
+                return new RegistrPageCommand();
+            case "/profile":
+                return new ProfileCommand();
+            case "/editProfile":
+                return new EditProfileCommand();
+            case "/editProfileResult":
+                return new ResultEditCommand();
+            case "/addAnnouncement":
+                return new AddAnnouncementCommand();
+            case "/announcementResult":
+                return new ResultAddAnnouncementCommand();
+            case "/myAnnouncements":
+                return new MyAnnouncementCommand();
+            case "/updateAnnouncement":
+                return new UpdateAnnouncementCommand();
+            case "/announcementEditResult":
+                return new AnnouncementEditResultCommand();
+            case "/showDisk":
+                return new ShowDiskCommand();
+            case "/addComment":
+                return new AddCommentCommand();
+            case "/deleteComment":
+                return new DeleteCommentCommand();
+            case "/addShoppingCart":
+                return new AddShoppingCartCommand();
+            case "/shoppingCart":
+                return new ShoppingCartCommand();
+            case "/deleteFromShopCart":
+                return new DeleteFromShopCartCommand();
+            case "/deleteAll":
+                return new DeleteFromShopCartCommand();
+            case "/addComplaint":
+                return new AddComplaintCommand();
+            case "/complaints":
+                return new ShowComplaintsCommand();
+            case "/deleteComplaint":
+                return new DeleteComplaintCommand();
+            case "/deleteDisk":
+                return new DeleteDiskCommand();
+            case "/block":
+                return new BlockAnnouncementCommand();
+            case "/unlock":
+                return new UnlockAnnouncementCommand();
+            default:
+                return new HomeCommand();
+        }
     }
 
     @Override
@@ -69,10 +98,9 @@ public class CommandFromUriFilter implements Filter {
             } else {
                 actionName = uri.substring(beginAction);
             }
-
-                Command command = actions.get(actionName);
-                httpRequest.setAttribute("action", command);
-                chain.doFilter(request, response);
+            Command command = getCommand(actionName);
+            httpRequest.setAttribute("action", command);
+            chain.doFilter(request, response);
 
         } else {
 

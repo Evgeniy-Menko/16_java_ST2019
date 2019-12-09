@@ -14,13 +14,11 @@ public class EncodingFilter implements Filter {
         request.setCharacterEncoding("UTF-8");
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setCharacterEncoding("UTF-8");
-        httpResponse.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
-        httpResponse.setHeader("Pragma", "no-cache"); //HTTP 1.0
-        httpResponse.setDateHeader("Expires", 0); //prevents caching at the proxy server
-
+        httpResponse.setHeader("Cache-Control", "no-cache");
+        httpResponse.setHeader("Pragma", "no-cache");
+        httpResponse.setDateHeader("Expires", 0);
         chain.doFilter(request, response);
 
-        // ANY COMMANDS
     }
 
     @Override

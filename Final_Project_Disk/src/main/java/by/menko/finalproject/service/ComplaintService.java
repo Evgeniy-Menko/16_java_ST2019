@@ -16,4 +16,8 @@ public interface ComplaintService extends Service {
     void deleteComplaint(String idComplaint) throws PersonalException;
 
     List<Disk> getDiskWithComplaint(Map<UserInfo, Complaint> complaintMap) throws PersonalException;
+
+    void blockAnnouncement(String idDisk) throws PersonalException;
+
+    void unlockAnnouncement(String idDisk) throws PersonalException;
 }

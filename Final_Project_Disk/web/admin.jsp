@@ -81,7 +81,7 @@
                                    class="nav-link">Block</a></c:if>
                             <c:if test="${listDisk[ind].flagBlocked == 'true'}">
                                 <a href="${pageContext.request.contextPath}/unlock.html?disk=${item.value.idDisk}"
-                                   class="nav-link">Unlock</a></c:if>
+                                   class="nav-link" style="color: #b30300">Unlock</a></c:if>
                         </td>
                     </tr>
                     <c:set var="ind" value="${ind+1}"/>

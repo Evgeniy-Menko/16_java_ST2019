@@ -18,7 +18,7 @@ public class UpdateAnnouncementCommand extends Command {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("disk");
-        Disk disk = service.getDisk(idDisk);
+        Disk disk = service.getDisk(idDisk,user);
         if (user.getIdEntity().equals(disk.getIdUser())) {
             request.setAttribute("disk", disk);
             request.getRequestDispatcher("/editAnnouncement.jsp").forward(request, response);

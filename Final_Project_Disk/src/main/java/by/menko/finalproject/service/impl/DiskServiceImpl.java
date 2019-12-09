@@ -9,6 +9,7 @@ import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
+import com.sun.xml.internal.txw2.output.DumpSerializer;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Part;
@@ -100,9 +101,15 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
     }
 
     @Override
-    public Disk getDisk(String diskId) throws PersonalException {
+    public Disk getDisk(String diskId, UserInfo user) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         Integer id;
+        int flagBlocked;
+        if (user != null && user.getRole().getName().equals("Administrator")) {
+            flagBlocked = 1;
+        } else {
+            flagBlocked = 0;
+        }
         try {
             id = Integer.parseInt(diskId);
         } catch (NumberFormatException e) {
@@ -111,13 +118,17 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
         Optional<Disk> disk = dao.read(id);
         if (disk.isPresent()) {
             if (disk.get().getType().equals(TypeDisk.FILM.getName())) {
-                disk = dao.readFilm(id);
+                disk = dao.readFilm(id, flagBlocked);
             } else if (disk.get().getType().equals(TypeDisk.GAME.getName())) {
-                disk = dao.readGame(id);
+                disk = dao.readGame(id, flagBlocked);
             } else if (disk.get().getType().equals(TypeDisk.MUSIC.getName())) {
-                disk = dao.readMusic(id);
+                disk = dao.readMusic(id, flagBlocked);
             }
-            disk.get().setIdEntity(id);
+            if (disk.isPresent()) {
+                disk.get().setIdEntity(id);
+            } else {
+                throw new PersonalException();
+            }
         } else {
             throw new PersonalException();
         }
@@ -126,9 +137,9 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
     }
 
     @Override
-    public void updateDisk(Disk disk, Part image, String pathTemp) throws PersonalException {
+    public void updateDisk(Disk disk, Part image, String pathTemp, UserInfo user) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
-        Disk diskOld = getDisk(String.valueOf(disk.getIdEntity()));
+        Disk diskOld = getDisk(String.valueOf(disk.getIdEntity()), user);
         if (disk.getImage() != null && !disk.getImage().isEmpty()
                 && !diskOld.getImage().equals(disk.getImage())) {
             createDirAndWriteToFile(pathTemp, image);

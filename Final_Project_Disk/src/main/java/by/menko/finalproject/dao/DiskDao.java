@@ -25,11 +25,11 @@ public interface DiskDao extends Dao<Disk> {
 
     List<Disk> readByIdUser(Integer idUser) throws PersonalException;
 
-    Optional<Disk> readFilm(Integer identity) throws PersonalException;
+    Optional<Disk> readFilm(Integer identity,Integer flagBlocked) throws PersonalException;
 
-    Optional<Disk> readGame(Integer identity) throws PersonalException;
+    Optional<Disk> readGame(Integer identity,Integer flagBlocked) throws PersonalException;
 
-    Optional<Disk> readMusic(Integer identity) throws PersonalException;
+    Optional<Disk> readMusic(Integer identity,Integer flagBlocked) throws PersonalException;
 
     void updateFilm(Disk disk) throws PersonalException;
 
