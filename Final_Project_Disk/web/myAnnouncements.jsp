@@ -62,17 +62,21 @@
 
                 <c:forEach var="item" items="${listDisk}">
                     <tr>
-                        <td><img src="${item.image}" height="100" width="100"></td>
+                        <td><img src="${item.image}" alt=" " height="100" width="100"></td>
                         <td>${item.nameDisk}</td>
                         <td>${item.price}</td>
-                        <td><fmt:formatDate value="${item.timeAdded}"
-                                            type="date" pattern="dd-MM-yyyy HH:mm"  /></td>
-                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}" class="nav-link">More</a>
 
-                        <a href="${pageContext.request.contextPath}/updateAnnouncement.html?disk=${item.idEntity}"
-                               class="nav-link">Edit</a>
-                            <a href="${pageContext.request.contextPath}/deleteDisk.html?disk=${item.idEntity}" class="nav-link">Delete</a>
+
+                        <td><fmt:formatDate value="${item.timeAdded}"
+                                            type="date" pattern="dd-MM-yyyy HH:mm"/></td>
+                            <form method="post">
+                                <input type="hidden" name="disk" value="${item.idEntity}">
+                        <td>
+                            <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/showDisk.html">More</button>
+                            <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/updateAnnouncement.html">Edit</button>
+                            <button type="submit" class="btn btn-danger"  formaction="${pageContext.request.contextPath}/deleteDisk.html">Delete</button>
                         </td>
+                        </form>
                     </tr>
                 </c:forEach>
 

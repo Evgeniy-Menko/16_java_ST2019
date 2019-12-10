@@ -61,7 +61,7 @@ public class CommandFromUriFilter implements Filter {
             case "/deleteFromShopCart":
                 return new DeleteFromShopCartCommand();
             case "/deleteAll":
-                return new DeleteFromShopCartCommand();
+                return new DeleteAllFromShopCartCommand();
             case "/addComplaint":
                 return new AddComplaintCommand();
             case "/complaints":

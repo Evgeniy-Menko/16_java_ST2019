@@ -89,14 +89,22 @@
                                 </th>
                             </c:if>
                             <c:if test="${authorizedUser.idEntity!=disk.idUser && ind==0}">
-                                <th>
-                                    <a href="${pageContext.request.contextPath}/addShoppingCart.html?disk=${disk.idEntity}">
-                                        Add to shopping cart</a></th>
+
+                                <form method="post">
+                                    <th>
+                                        <input type="hidden" name="disk" value="${disk.idEntity}">
+                                        <button type="submit" class="btn btn-link"
+                                                formaction="${pageContext.request.contextPath}/addShoppingCart.html"><strong>Add
+                                            to shopping cart</strong>
+                                        </button>
+                                    </th>
+                                </form>
+
                             </c:if>
 
-                            <th><a href="#commentDiv">Write comment</a></th>
+                            <th><a  class="nav-link" href="#commentDiv">Write comment</a></th>
                             <c:if test="${authorizedUser.idEntity!=disk.idUser}">
-                                <th class="text-center"><a href="#complaint" data-toggle="modal"
+                                <th class="text-center"><a class="nav-link" href="#complaint" data-toggle="modal"
                                                            data-target="#complaint">Complaint</a>
                                 </th>
                             </c:if>
@@ -153,12 +161,20 @@
 
                                 </em></small>
                                 </h4>
-                                <p>${item.value.commentText}</p><c:if
-                                    test="${item.value.idUserCommented == authorizedUser.idEntity}">
-                                <p style="text-align: right"><a class="nav-link"
-                                                                href="${pageContext.request.contextPath}/deleteComment.html?disk=${disk.idEntity}&com=${item.value.idEntity}">Delete</a>
-                                </p>
-                            </c:if>
+                                <p>${item.value.commentText}</p>
+                                <c:if
+                                        test="${item.value.idUserCommented == authorizedUser.idEntity}">
+                                    <form method="post">
+                                        <input type="hidden" name="disk" value="${disk.idEntity}">
+                                        <input type="hidden" name="com" value="${item.value.idEntity}">
+                                        <p style="text-align: right">
+                                            <button type="submit" class="btn btn-link"
+                                                    formaction="${pageContext.request.contextPath}/deleteComment.html">
+                                                Delete
+                                            </button>
+                                        </p>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>

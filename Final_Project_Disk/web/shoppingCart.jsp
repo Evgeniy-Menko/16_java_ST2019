@@ -56,10 +56,14 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Time added</th>
-                    <th>  <c:if test="${fn:length(mapDisk) != 0}">
-                        <a href="${pageContext.request.contextPath}/deleteAll.html"
-                           class="nav-link">Delete All</a>
-                    </c:if></th>
+                    <form method="post">
+                        <th><c:if test="${fn:length(mapDisk) != 0}">
+
+                            <button type="submit" formaction="${pageContext.request.contextPath}/deleteAll.html"
+                                    class="btn btn-link"><strong>Delete All</strong>
+                            </button>
+                        </c:if></th>
+                    </form>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,11 +76,15 @@
                         <td>${item.value.price}</td>
                         <td><fmt:formatDate value="${item.key.timeAdded}"
                                             type="date" pattern="dd-MM-yyyy HH:mm"/></td>
-                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.value.idEntity}"
-                               class="nav-link">More</a>
 
-                            <a href="${pageContext.request.contextPath}/deleteFromShopCart.html?disk=${item.value.idEntity}"
-                               class="nav-link">Delete</a>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="disk" value="${item.value.idEntity}">
+
+                            <button class="btn btn-link" type="submit" formaction="${pageContext.request.contextPath}/showDisk.html">More</button>
+
+                                <button class="btn btn-link" type="submit" formaction="${pageContext.request.contextPath}/deleteFromShopCart.html">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>
