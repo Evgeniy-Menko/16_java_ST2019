@@ -1,7 +1,12 @@
 package by.menko.finalproject.controller.filters;
 
 
+import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.action.adminaction.AdminAction;
+import by.menko.finalproject.controller.action.forallaction.ForAllAction;
+import by.menko.finalproject.controller.action.useraction.UserAction;
 import by.menko.finalproject.entity.UserInfo;
+import by.menko.finalproject.entity.enumtype.Role;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -51,96 +56,27 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws
             IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String contextPath = httpRequest.getContextPath();
-        String uri = httpRequest.getRequestURI();
-        //	logger.debug(String.format("Starting of processing of request for URI \"%s\"", uri));
-        int beginAction = contextPath.length();
-        int endAction = uri.lastIndexOf('.');
-        String actionName;
-        if (endAction >= 0) {
-            actionName = uri.substring(beginAction, endAction);
-        } else {
-            actionName = uri.substring(beginAction);
-        }
+        Command command = (Command) httpRequest.getAttribute("action");
         UserInfo user = (UserInfo) httpRequest.getSession().getAttribute("authorizedUser");
-
-        if (user != null && user.getRole().getName().equals("User")) {
-            if (!secureForUser(actionName)) {
-                httpRequest.getRequestDispatcher("/Error.jsp").forward(request, response);
+        boolean flagClass = false;
+        if (user != null && user.getRole() == Role.USER) {
+            if (command instanceof UserAction || command instanceof ForAllAction) {
+                flagClass = true;
             }
-        } else if (user != null && user.getRole().getName().equals("Administrator")) {
-            if (!secureForAdmin(actionName)) {
-                httpRequest.getRequestDispatcher("/Error.jsp").forward(request, response);
+        } else if (user != null && user.getRole() == Role.ADMINISTRATOR) {
+            if (command instanceof AdminAction || command instanceof ForAllAction) {
+                flagClass = true;
             }
         } else {
-            if (!secureForAll(actionName)) {
-                httpRequest.getRequestDispatcher("/Error.jsp").forward(request, response);
+            if (command instanceof ForAllAction) {
+                flagClass = true;
             }
         }
-
-        chain.doFilter(request, response);
-
-    }
-
-
-    private Boolean secureForAll(String action) {
-        switch (action) {
-            case "/":
-            case "/home":
-            case "/login":
-            case "/search":
-            case "/registr":
-            case "/registration":
-            case "/showDisk":
-                return true;
-            default:
-                return false;
+        if (flagClass) {
+            chain.doFilter(request, response);
+        } else {
+            httpRequest.getRequestDispatcher("/Error.jsp").forward(request, response);
         }
     }
 
-    private Boolean secureForUser(String action) {
-        switch (action) {
-            case "/":
-            case "/home":
-            case "/logout":
-            case "/search":
-            case "/profile":
-            case "/editProfile":
-            case "/editProfileResult":
-            case "/addAnnouncement":
-            case "/announcementResult":
-            case "/myAnnouncements":
-            case "/updateAnnouncement":
-            case "/announcementEditResult":
-            case "/showDisk":
-            case "/addComment":
-            case "/deleteComment":
-            case "/addShoppingCart":
-            case "/shoppingCart":
-            case "/deleteFromShopCart":
-            case "/deleteAll":
-            case "/addComplaint":
-            case "/deleteDisk":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private Boolean secureForAdmin(String action) {
-        switch (action) {
-            case "/":
-            case "/home":
-            case "/logout":
-            case "/search":
-            case "/complaints":
-            case "/deleteComplaint":
-            case "/block":
-            case "/unlock":
-            case "/showDisk":
-                return true;
-            default:
-                return false;
-        }
-    }
 }

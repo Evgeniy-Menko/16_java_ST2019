@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import java.util.Map;
 
-public class ShoppingCartCommand extends Command {
+public class ShoppingCartCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         ShoppingCartService service = factory.createService(TypeServiceAndDao.SHOPPING_CART);

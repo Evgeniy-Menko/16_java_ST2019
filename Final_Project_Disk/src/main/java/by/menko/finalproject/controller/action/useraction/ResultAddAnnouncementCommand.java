@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResultAddAnnouncementCommand extends Command {
+public class ResultAddAnnouncementCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);

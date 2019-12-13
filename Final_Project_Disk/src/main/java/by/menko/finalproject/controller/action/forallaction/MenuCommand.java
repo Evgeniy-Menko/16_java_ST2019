@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class MenuCommand extends Command {
+public class MenuCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         CatalogService service = factory.createService(TypeServiceAndDao.CATALOG);

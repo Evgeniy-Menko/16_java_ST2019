@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ProfileCommand extends Command {
+public class ProfileCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);

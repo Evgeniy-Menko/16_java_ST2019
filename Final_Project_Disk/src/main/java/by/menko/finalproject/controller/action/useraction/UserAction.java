@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddAnnouncementCommand extends UserAction {
-    @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
-          request.getRequestDispatcher("/addAnnouncement.jsp").forward(request,response);
-    }
+public abstract class UserAction extends Command {
+    abstract public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException;
 }
+
+

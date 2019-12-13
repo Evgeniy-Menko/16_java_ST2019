@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class ShowDiskCommand extends Command {
+public class ShowDiskCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);

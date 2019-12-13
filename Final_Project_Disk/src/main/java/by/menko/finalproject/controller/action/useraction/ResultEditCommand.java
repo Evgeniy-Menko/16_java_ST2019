@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResultEditCommand extends Command {
+public class ResultEditCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);

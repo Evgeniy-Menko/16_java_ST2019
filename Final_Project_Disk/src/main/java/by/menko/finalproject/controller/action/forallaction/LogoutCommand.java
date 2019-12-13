@@ -1,4 +1,4 @@
-package by.menko.finalproject.controller.action.useraction;
+package by.menko.finalproject.controller.action.forallaction;
 
 
 import by.menko.finalproject.controller.action.Command;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 //import org.apache.log4j.Logger;
 
-public class LogoutCommand extends Command {
+public class LogoutCommand extends ForAllAction {
 
 
     @Override

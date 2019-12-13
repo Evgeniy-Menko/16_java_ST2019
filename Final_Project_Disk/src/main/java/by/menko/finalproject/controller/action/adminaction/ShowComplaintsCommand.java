@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class ShowComplaintsCommand extends Command {
+public class ShowComplaintsCommand extends AdminAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);

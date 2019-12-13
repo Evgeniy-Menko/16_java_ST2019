@@ -103,8 +103,7 @@ public class CommandFromUriFilter implements Filter {
             chain.doFilter(request, response);
 
         } else {
-
-
+            request.getRequestDispatcher("/Error.jsp").forward(request, response);
         }
     }
 

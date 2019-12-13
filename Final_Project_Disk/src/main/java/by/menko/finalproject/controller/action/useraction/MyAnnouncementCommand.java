@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class MyAnnouncementCommand extends Command {
+public class MyAnnouncementCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);

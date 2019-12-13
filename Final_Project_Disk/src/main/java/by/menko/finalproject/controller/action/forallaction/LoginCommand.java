@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginCommand extends Command {
+public class LoginCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, IOException {
         String login = request.getParameter("email");

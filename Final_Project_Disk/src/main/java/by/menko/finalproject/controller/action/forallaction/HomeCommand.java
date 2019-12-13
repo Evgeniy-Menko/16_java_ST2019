@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class HomeCommand extends Command {
+public class HomeCommand extends ForAllAction {
 
 
     @Override

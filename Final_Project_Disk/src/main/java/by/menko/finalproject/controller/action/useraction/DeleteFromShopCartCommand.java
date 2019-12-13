@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DeleteFromShopCartCommand extends Command {
+public class DeleteFromShopCartCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         ShoppingCartService service = factory.createService(TypeServiceAndDao.SHOPPING_CART);

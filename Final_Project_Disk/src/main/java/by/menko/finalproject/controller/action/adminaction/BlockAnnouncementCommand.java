@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class BlockAnnouncementCommand extends Command {
+public class BlockAnnouncementCommand extends AdminAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);

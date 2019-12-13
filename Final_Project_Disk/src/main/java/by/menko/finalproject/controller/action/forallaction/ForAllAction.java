@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrPageCommand extends ForAllAction {
-    @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
-        request.getRequestDispatcher("/registration.jsp").forward(request, response);
-    }
+public abstract class ForAllAction extends Command {
+    abstract public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException;
 }
+
+

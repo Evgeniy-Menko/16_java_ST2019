@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class SearchCommand extends Command {
+public class SearchCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);

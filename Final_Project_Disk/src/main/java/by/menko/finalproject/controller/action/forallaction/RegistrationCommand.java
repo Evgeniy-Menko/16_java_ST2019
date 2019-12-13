@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @MultipartConfig
-public class RegistrationCommand extends Command {
+public class RegistrationCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         RegistrValidator validator = new RegistrValidator();
