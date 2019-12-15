@@ -15,6 +15,7 @@ public class AddCommentCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         CommentService service = factory.createService(TypeServiceAndDao.COMMENT);
+
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("idDisk");
         String commentText = request.getParameter("comment");

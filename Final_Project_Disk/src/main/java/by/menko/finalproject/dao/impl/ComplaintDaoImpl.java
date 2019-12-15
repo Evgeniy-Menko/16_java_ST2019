@@ -58,7 +58,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
                 complaint.setIdDisk(resultSet.getInt("disk_id"));
                 complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
                 complaint.setTextComplaint(resultSet.getString("complaint_text"));
-                complaint.setTimeAdded(resultSet.getDate("time_added"));
+                complaint.setTimeAdded(resultSet.getTimestamp("time_added"));
             }
             return Optional.of(
                     complaint);
@@ -100,7 +100,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
                     complaint.setIdDisk(resultSet.getInt("disk_id"));
                     complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
                     complaint.setTextComplaint(resultSet.getString("complaint_text"));
-                    complaint.setTimeAdded(resultSet.getDate("time_added"));
+                    complaint.setTimeAdded(resultSet.getTimestamp("time_added"));
                     result.add(complaint);
                 }
                 return result;

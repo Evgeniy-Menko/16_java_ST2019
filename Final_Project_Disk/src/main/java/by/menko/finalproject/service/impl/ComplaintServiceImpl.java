@@ -30,26 +30,35 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
                 complaint.setUserIdComplained(userId);
                 complaint.setUserWasComplained(idUserWasComplaint);
                 dao.create(complaint);
+                transaction.commit();
             } else {
+                transaction.rollback();
                 throw new PersonalException();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }
 
     @Override
     public Map<UserInfo, Complaint> getAllComplaints() throws PersonalException {
-        ComplaintDao dao = transaction.createDao(TypeServiceAndDao.COMPLAINT);
-        List<Complaint> complaintList = dao.readAll();
-        UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
-        Optional<UserInfo> user;
-        Map<UserInfo, Complaint> mapUserAndComplaint = new HashMap<>();
-        for (Complaint complaint : complaintList) {
-            user = userDao.read(complaint.getUserWasComplained());
-            user.ifPresent(userInfo -> mapUserAndComplaint.put(userInfo, complaint));
+        try {
+            ComplaintDao dao = transaction.createDao(TypeServiceAndDao.COMPLAINT);
+            List<Complaint> complaintList = dao.readAll();
+            UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
+            Optional<UserInfo> user;
+            Map<UserInfo, Complaint> mapUserAndComplaint = new HashMap<>();
+            for (Complaint complaint : complaintList) {
+                user = userDao.read(complaint.getUserWasComplained());
+                user.ifPresent(userInfo -> mapUserAndComplaint.put(userInfo, complaint));
+            }
+            transaction.commit();
+            return mapUserAndComplaint;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
         }
-        return mapUserAndComplaint;
     }
 
     public void deleteComplaint(String idComplaint) throws PersonalException {
@@ -57,7 +66,9 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
         try {
             Integer id = Integer.parseInt(idComplaint);
             dao.delete(id);
-        } catch (NumberFormatException e) {
+            transaction.commit();
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }
@@ -65,13 +76,19 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
     @Override
     public List<Disk> getDiskWithComplaint(Map<UserInfo, Complaint> complaintMap) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
-        List<Disk> diskList = new ArrayList<>();
-        Optional<Disk> disk;
-        for (Complaint item : complaintMap.values()) {
-            disk = dao.readForAdmin(item.getIdDisk());
-            disk.ifPresent(diskList::add);
+        try {
+            List<Disk> diskList = new ArrayList<>();
+            Optional<Disk> disk;
+            for (Complaint item : complaintMap.values()) {
+                disk = dao.readForAdmin(item.getIdDisk());
+                disk.ifPresent(diskList::add);
+            }
+            transaction.commit();
+            return diskList;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
         }
-        return diskList;
     }
 
     @Override
@@ -80,7 +97,9 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
         try {
             Integer diskId = Integer.parseInt(idDisk);
             dao.blocked(diskId);
-        } catch (NumberFormatException e) {
+            transaction.commit();
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }
@@ -91,7 +110,9 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
         try {
             Integer diskId = Integer.parseInt(idDisk);
             dao.unLock(diskId);
-        } catch (NumberFormatException e) {
+            transaction.commit();
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }

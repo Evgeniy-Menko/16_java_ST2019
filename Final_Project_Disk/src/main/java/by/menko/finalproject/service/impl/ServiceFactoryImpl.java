@@ -38,6 +38,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
             case CATALOG:
                 service = new CatalogServiceImpl();
                 break;
+            case FILE:
+                service = new FileServiceImpl();
+                break;
             default:
                 // return null;
         }

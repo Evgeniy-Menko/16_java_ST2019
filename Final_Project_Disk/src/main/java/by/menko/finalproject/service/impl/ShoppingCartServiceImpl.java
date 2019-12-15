@@ -23,10 +23,13 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
                 cart.setDiskId(id);
                 cart.setIdEntity(idUser);
                 dao.create(cart);
-            }else {
+                transaction.commit();
+            } else {
+                transaction.rollback();
                 throw new PersonalException();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }
@@ -34,32 +37,51 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
     @Override
     public List<ShoppingCart> getAllDiskFromShopCart(Integer idUser) throws PersonalException {
         ShoppingCartDao dao = transaction.createDao(TypeServiceAndDao.SHOPPING_CART);
-        return dao.readAll(idUser);
+        try {
+            List<ShoppingCart> listCart = new ArrayList<>();
+            listCart = dao.readAll(idUser);
+            transaction.commit();
+            return listCart;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
+        }
 
     }
 
     @Override
     public Map<ShoppingCart, Disk> getShoppingCart(Integer idUser) throws PersonalException {
         DiskDao diskDao = transaction.createDao(TypeServiceAndDao.DISK);
-        List<ShoppingCart> list = getAllDiskFromShopCart(idUser);
-        Map<ShoppingCart, Disk> map = new HashMap<>();
-        Optional<Disk> disk;
+        try {
+            List<ShoppingCart> list = getAllDiskFromShopCart(idUser);
+            Map<ShoppingCart, Disk> map = new HashMap<>();
+            Optional<Disk> disk;
 
-        for (ShoppingCart item : list) {
-            disk = diskDao.readByIdDisk(item.getDiskId());
-            if (disk.isPresent()) {
-                disk.get().setIdEntity(item.getDiskId());
-                map.put(item, disk.get());
+            for (ShoppingCart item : list) {
+                disk = diskDao.readByIdDisk(item.getDiskId());
+                if (disk.isPresent()) {
+                    disk.get().setIdEntity(item.getDiskId());
+                    map.put(item, disk.get());
+                }
             }
+            transaction.commit();
+            return map;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
         }
-
-        return map;
     }
 
     @Override
     public void deleteAll(Integer idUser) throws PersonalException {
         ShoppingCartDao dao = transaction.createDao(TypeServiceAndDao.SHOPPING_CART);
-        dao.deleteAll(idUser);
+        try {
+            dao.deleteAll(idUser);
+            transaction.commit();
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
+        }
     }
 
     @Override
@@ -68,7 +90,9 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
         try {
             Integer id = Integer.parseInt(idDisk);
             dao.delete(id, idUser);
-        } catch (NumberFormatException e) {
+            transaction.commit();
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }

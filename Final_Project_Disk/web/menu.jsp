@@ -59,13 +59,14 @@
     <div class="navbar-collapse collapse show" id="navb" style="">
         <ul class="navbar-nav mr-sm-4 ">
             <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/home.html">Home</a>
+                <a class="nav-link active" href="${pageContext.request.contextPath}/home.html"><fmt:message
+                        key="home"/> </a>
             </li>
 
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Catalog
+                    <fmt:message key="catalog"/>
                 </a>
                 <ul class="dropdown-menu">
                     <a class="dropdown-item" href="${pageContext.request.contextPath}/search.html?type=0">All</a>
@@ -109,23 +110,31 @@
         </ul>
         <form class="form-inline my-2 my-lg-0 mr-auto">
 
-            <input class="form-control mr-sm-1" type="text" placeholder="Search">
-
-            <button class="btn btn-light my-1 mr-sm-1" type="button">Search</button>
         </form>
+        <ul class="navbar-nav mr-sm-4 ">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="lang" data-toggle="dropdown">
+                    <fmt:message key="language"/>
+                </a>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-item" href="?locale=en"><fmt:message key="english"/> </a>
+                    <a class="dropdown-item" href="?locale=ru_RU"><fmt:message key="russian"/></a>
+                </ul>
+            </li>
+        </ul>
         <c:choose>
 
             <c:when test="${authorizedUser.role == 'USER'}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/profile.html"> My profile</a>
+" href="${pageContext.request.contextPath}/profile.html"> <fmt:message key="myAcc"/></a>
                     </li>
                     <p class="text-white my-2">|</p>
 
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+" href="${pageContext.request.contextPath}/logout.html"><fmt:message key="logout"/></a>
                     </li>
                 </ul>
             </c:when>
@@ -133,13 +142,13 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/complaints.html">Complaints</a>
+" href="${pageContext.request.contextPath}/complaints.html"><fmt:message key="complaints"/> </a>
                     </li>
                     <p class="text-white my-2">|</p>
 
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/logout.html">Logout</a>
+" href="${pageContext.request.contextPath}/logout.html"><fmt:message key="logout"/></a>
                     </li>
                 </ul>
 
@@ -148,14 +157,14 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="#myModal" class=" nav-link " data-toggle="modal" data-target="#myModal" id="rrr"
-                           style="border: 0">Sign in</a>
+                           style="border: 0"><fmt:message key="singIn"/> </a>
                     </li>
 
                     <p class="text-white my-2">|</p>
 
                     <li class="nav-item">
                         <a class="nav-link
-" href="${pageContext.request.contextPath}/registration.html">Sign Up</a>
+" href="${pageContext.request.contextPath}/registration.html"><fmt:message key="singUp"/> </a>
                     </li>
                 </ul>
             </c:otherwise>
@@ -170,7 +179,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Login form</h4>
+                <h4 class="modal-title"><fmt:message key="singIn"/></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
             </div>
@@ -180,22 +189,18 @@
                 <span id="unknowLogin" style="color: #b30300"></span>
                 <form id="login-form" action="${pageContext.request.contextPath}/login.html" method="post">
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+                        <label for="email"><fmt:message key="email"/>:</label>
+                        <input type="email" class="form-control" id="email" placeholder="<fmt:message key="enterEmail"/>" name="email"
                                required>
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password"
+                        <label for="pwd"><fmt:message key="password"/>: </label>
+                        <input type="password" class="form-control" id="pwd" placeholder="<fmt:message key="enterPass"/>"
                                name="password"
                                required>
                     </div>
-                    <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                        <label class="custom-control-label" for="customCheck">Custom checkbox</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="submit"/></button>
+
                 </form>
             </div>
 

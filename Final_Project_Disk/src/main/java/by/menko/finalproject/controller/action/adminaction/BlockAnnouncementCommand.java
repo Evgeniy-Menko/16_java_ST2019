@@ -1,6 +1,5 @@
 package by.menko.finalproject.controller.action.adminaction;
 
-import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.ComplaintService;

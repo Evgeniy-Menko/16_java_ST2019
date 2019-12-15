@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en_US"/>
+<c:set var="language"
+       value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
+<fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
-    <html>
+    <html lang="${language}">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -55,7 +57,7 @@
                 $('#reset').on('click', function () {
 
                     $('#blah').attr('src', "images/no.png");
-                    $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
+                    $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("  <fmt:message key="choose"/>");
                     $(".help-block").html("");
                     $("#errorLoginNick").html("");
 
@@ -72,7 +74,7 @@
 
                         } else {
                             $('#blah').attr('src', "images/no.png");
-                            $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("Choose file");
+                            $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html("  <fmt:message key="choose"/> ");
                             $(".custom-file-input").reset();
                         }
                     });
@@ -235,7 +237,7 @@
     <body>
     <%@ include file="menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1 class="display-4">Registration Form</h1>
+        <h1 class="display-4"><fmt:message key="registration"/> </h1>
         <span style="color: #b30300" id="errorLoginNick"></span>
     </div>
 
@@ -259,8 +261,8 @@
 
                         </div>
                         <div class="custom-file cl-md-6" style="width:350px;">
-                            <label class="custom-file-label" for="customFile" id="image" style="margin: auto">Choose
-                                file</label>
+                            <label class="custom-file-label" for="customFile" id="image" style="margin: auto">
+                                <fmt:message key="choose"/> </label>
                             <input type="file" class="custom-file-input" id="customFile" name="image"
                                    accept="image/jpeg,image/png,/image/gif,image/jpg"
                                    data-error="<fmt:message key="errorFormatImage"/>">
@@ -273,24 +275,24 @@
 
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="form_name">Firstname *</label>
+                        <label for="form_name"><fmt:message key="firstName"/> *</label>
                         <input id="form_name" type="text" name="name" class="form-control d"
-                               placeholder="Please enter your firstname *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="firstName"/> *" required="required"
                                data-error="<fmt:message key="errorFirstName"/>" pattern="[A-zА-яЁё]*">
                         <div class="help-block with-errors" id="errorFirst" style="color: #b30300;">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="form_lastname">Lastname *</label>
+                        <label for="form_lastname"><fmt:message key="LastName"/> *</label>
                         <input id="form_lastname" type="text" name="surname" class="form-control d"
-                               placeholder="Please enter your lastname *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="LastName"/> *" required="required"
                                data-error="<fmt:message key="errorLastName"/>" pattern="[A-zА-яЁё]*">
                         <div class="help-block with-errors" id="errorLast" style="color: #b30300;"></div>
                     </div>
                     <div class="form-group">
-                        <label for="form_phone">Phone</label>
+                        <label for="form_phone"><fmt:message key="phone"/></label>
                         <input id="form_phone" type="tel" name="phone" class="form-control"
-                               placeholder="Please enter your phone"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="phone"/>"
                         >
                         <div class="help-block with-errors" id="errorPhone" style="color: #b30300;"></div>
                     </div>
@@ -303,9 +305,9 @@
                 <div class="col-md-5">
 
                     <div class="form-group">
-                        <label for="form_email">Email *</label>
+                        <label for="form_email"><fmt:message key="email"/> *</label>
                         <input id="form_email" type="email" name="email" class="form-control"
-                               placeholder="Please enter your email *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="email"/> *" required="required"
                                data-error="<fmt:message key="errorEmail"/>">
                         <div class="help-block with-errors" id="errorEmail" style="color: #b30300;"></div>
                     </div>
@@ -313,9 +315,9 @@
                 <div class="col-md-5">
 
                     <div class="form-group">
-                        <label for="form_nickname">Nickname *</label>
+                        <label for="form_nickname"><fmt:message key="nickname"/> *</label>
                         <input id="form_nickname" type="text" name="nickname" class="form-control"
-                               placeholder="Please enter your nickname *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="nickname"/> *" required="required"
                                data-error="<fmt:message key="errorNickname"/>" pattern="[A-zА-яЁё]*">
                         <div class="help-block with-errors" id="errorNick" style="color: #b30300;"></div>
                     </div>
@@ -327,9 +329,9 @@
                 <div class="col-md-1 "></div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="password">Password *</label>
+                        <label for="password"><fmt:message key="password"/> *</label>
                         <input id="password" type="password" name="password" class="form-control password"
-                               placeholder="Please enter your password *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="password"/> *" required="required"
                                data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors error" id="errorPassword" style="color: #b30300;">
@@ -338,9 +340,9 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="repeat_password">Repeat password *</label>
+                        <label for="repeat_password"><fmt:message key="repeatPass"/> *</label>
                         <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
-                               placeholder="Please repeat your password *" required="required"
+                               placeholder="<fmt:message key="please"/> <fmt:message key="password"/> *" required="required"
                                data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors error "></div>
@@ -352,16 +354,14 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-block btn-primary " id="submit1">
-                        Submit
+                        <fmt:message key="submit"/>
                     </button>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <button type="reset" class="btn btn-block btn-danger" id="reset">Reset</button>
-                </div>
+
             </div>
         </form>
     </div>

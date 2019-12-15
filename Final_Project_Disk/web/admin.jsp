@@ -9,11 +9,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<fmt:setLocale value="en_US"/>
+<c:set var="language"
+       value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
+<fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
+    <html lang="${language}">
     <jsp:useBean id="mapComplaint" scope="request" type="java.util.Map"/>
 
-    <html>
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -30,7 +33,7 @@
     </head>
     <body>
     <%@ include file="menu.jsp" %>
-
+    <jsp:useBean id="listDisk" scope="request" type="java.util.List"/>
 
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
         <h1 class="display-4">Complaints</h1>

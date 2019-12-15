@@ -1,5 +1,6 @@
 package by.menko.finalproject.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Complaint extends Entity {
@@ -8,7 +9,7 @@ public class Complaint extends Entity {
     private Integer userWasComplained;
     private Integer idDisk;
     private String textComplaint;
-    private Date timeAdded;
+    private Timestamp timeAdded;
 
     public Integer getUserIdComplained() {
         return userIdComplained;
@@ -31,26 +32,24 @@ public class Complaint extends Entity {
         return userWasComplained;
     }
 
-    public Complaint setUserWasComplained(Integer userWasComplained) {
+    public void setUserWasComplained(Integer userWasComplained) {
         this.userWasComplained = userWasComplained;
-        return this;
     }
 
     public String getTextComplaint() {
         return textComplaint;
     }
 
-    public Complaint setTextComplaint(String textComplaint) {
+    public void setTextComplaint(String textComplaint) {
         this.textComplaint = textComplaint;
-        return this;
     }
 
-    public Date getTimeAdded() {
+    public Timestamp getTimeAdded() {
         return timeAdded;
     }
 
-    public Complaint setTimeAdded(Date timeAdded) {
+    public void setTimeAdded(Timestamp timeAdded) {
         this.timeAdded = timeAdded;
-        return this;
+
     }
 }

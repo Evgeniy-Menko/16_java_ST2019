@@ -12,9 +12,9 @@ import java.io.IOException;
 public interface UserService extends Service {
     UserInfo finUserByEmail(String email, String password) throws PersonalException, ServicePersonalException;
 
-    UserInfo registrUser(UserInfo user, Part image, String pathTemp) throws PersonalException, IOException, ServicePersonalException;
+    UserInfo registrUser(UserInfo user) throws PersonalException, IOException, ServicePersonalException;
 
     UserInfo getUser(Integer identity) throws PersonalException;
 
-    void updateUser(UserInfo newUser, Integer idEntity, String newPassword, Part image, String pathTemp) throws PersonalException, ServicePersonalException;
+    void updateUser(UserInfo newUser, Integer idEntity, String newPassword) throws PersonalException, ServicePersonalException;
 }

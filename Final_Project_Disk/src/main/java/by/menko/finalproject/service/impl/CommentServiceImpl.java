@@ -19,17 +19,22 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
 
     @Override
     public Map<UserInfo, Comment> getComment(Integer idDisk) throws PersonalException {
-        CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
-        UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
-        List<Comment> listComment = dao.readByIdDisk(idDisk);
-        Optional<UserInfo> user;
-        Map<UserInfo, Comment> mapCommentAndUser = new HashMap<>();
-        for (Comment comment : listComment) {
-            user = userDao.read(comment.getIdUserCommented());
-            user.ifPresent(userInfo -> mapCommentAndUser.put(userInfo, comment));
+        try {
+            CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
+            UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
+            List<Comment> listComment = dao.readByIdDisk(idDisk);
+            Optional<UserInfo> user;
+            Map<UserInfo, Comment> mapCommentAndUser = new HashMap<>();
+            for (Comment comment : listComment) {
+                user = userDao.read(comment.getIdUserCommented());
+                user.ifPresent(userInfo -> mapCommentAndUser.put(userInfo, comment));
+            }
+            transaction.commit();
+            return mapCommentAndUser;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
         }
-
-        return mapCommentAndUser;
     }
 
     @Override
@@ -44,10 +49,13 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
                 comment.setIdDisk(id);
                 comment.setIdUserCommented(idUser);
                 dao.create(comment);
+                transaction.commit();
             } else {
+                transaction.rollback();
                 throw new PersonalException();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
 
@@ -59,7 +67,9 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
         try {
             Integer idCom = Integer.parseInt(idComment);
             dao.delete(idCom, idUser);
-        } catch (NumberFormatException e) {
+            transaction.commit();
+        } catch (NumberFormatException | PersonalException e) {
+            transaction.rollback();
             throw new PersonalException();
         }
     }

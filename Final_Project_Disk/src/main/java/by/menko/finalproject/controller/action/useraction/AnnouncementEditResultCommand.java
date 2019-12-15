@@ -1,12 +1,13 @@
 package by.menko.finalproject.controller.action.useraction;
 
-import by.menko.finalproject.controller.action.Command;
+
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
+import by.menko.finalproject.service.FileService;
 import by.menko.finalproject.service.validator.DiskValidator;
 import com.google.gson.Gson;
 
@@ -21,6 +22,7 @@ public class AnnouncementEditResultCommand extends UserAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
+        FileService fileService = factory.createService(TypeServiceAndDao.FILE);
         DiskValidator validator = new DiskValidator();
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("id");
@@ -28,11 +30,12 @@ public class AnnouncementEditResultCommand extends UserAction {
                 .getPath();
         String pathTemp = path + request.getServletContext()
                 .getInitParameter("images.dir") + "/";
+        String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"));
         try {
             Disk disk = validator.validate(request);
             disk.setIdEntity(Integer.parseInt(idDisk));
-            service.updateDisk(disk, request.getPart("image"), pathTemp,user);
-
+            disk.setImage(pathImage);
+            service.updateDisk(disk, user);
         } catch (ServicePersonalException e) {
             Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());

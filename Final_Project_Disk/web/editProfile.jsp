@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en_US"/>
+<c:set var="language"
+       value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
+<fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
-    <html>
+    <html lang="${language}">
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -275,7 +278,7 @@
 
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="form_name">Firstname *</label>
+                        <label for="form_name"><fmt:message key="firstName"/> *</label>
                         <input id="form_name" type="text" name="name" class="form-control d" value="${userInfo.firstName}"
                                placeholder="Please enter your firstname *" required="required"
                                data-error="<fmt:message key="errorFirstName"/>" pattern="[A-zА-яЁё]*">
@@ -283,14 +286,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="form_lastname">Lastname *</label>
+                        <label for="form_lastname"><fmt:message key="LastName"/> *</label>
                         <input id="form_lastname" type="text" name="surname" class="form-control d" value="${userInfo.lastName}"
                                placeholder="Please enter your lastname *" required="required"
                                data-error="<fmt:message key="errorLastName"/>" pattern="[A-zА-яЁё]*">
                         <div class="help-block with-errors" id="errorLast" style="color: #b30300;"></div>
                     </div>
                     <div class="form-group">
-                        <label for="form_phone">Phone</label>
+                        <label for="form_phone"><fmt:message key="phone"/></label>
                         <input id="form_phone" type="tel" name="phone" class="form-control" value="${userInfo.phone}"
                                placeholder="Please enter your phone"
                         >
@@ -317,7 +320,7 @@
                 <div class="col-md-5">
 
                     <div class="form-group">
-                        <label for="form_nickname">Nickname *</label>
+                        <label for="form_nickname"><fmt:message key="nickname"/> *</label>
                         <input id="form_nickname" type="text" name="nickname" class="form-control" value="${userInfo.nickname}"
                                placeholder="Please enter your nickname *" required="required"
                                data-error="<fmt:message key="errorNickname"/>" pattern="[A-zА-яЁё]*">
@@ -331,7 +334,7 @@
                 <div class="col-md-1 "></div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="password">Password *</label>
+                        <label for="password"><fmt:message key="password"/> *</label>
                         <input id="password" type="password" name="password" class="form-control password"
                                placeholder="Please enter your password *"
                                data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
@@ -342,7 +345,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="repeat_password">Repeat password *</label>
+                        <label for="repeat_password"><fmt:message key="repeatPass"/> *</label>
                         <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
                                placeholder="Please repeat your password *"
                                data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"

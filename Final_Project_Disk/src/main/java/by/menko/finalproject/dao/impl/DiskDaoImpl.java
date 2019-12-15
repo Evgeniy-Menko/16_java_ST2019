@@ -267,12 +267,21 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     private static final String GET_BY_ID_FILM = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_FILM_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? ";
 
     @Override
     public Optional<Disk> readFilm(Integer identity, Integer flagBlocked) throws PersonalException {
-        try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_FILM)) {
+        String sql;
+        if (flagBlocked == 1) {
+            sql = GET_BY_ID_FILM_FOR_ADMIN;
+        } else {
+            sql = GET_BY_ID_FILM;
+        }
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, identity);
-            statement.setInt(2, flagBlocked);
+            if (flagBlocked == 0) {
+                statement.setInt(2, flagBlocked);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 Film disk = null;
                 if (resultSet.next()) {
@@ -299,12 +308,21 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     private static final String GET_BY_ID_GAME = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_GAME_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
 
     @Override
     public Optional<Disk> readGame(Integer identity, Integer flagBlocked) throws PersonalException {
-        try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_GAME)) {
+        String sql;
+        if (flagBlocked == 1) {
+            sql = GET_BY_ID_GAME_FOR_ADMIN;
+        } else {
+            sql = GET_BY_ID_GAME;
+        }
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, identity);
-            statement.setInt(2, flagBlocked);
+            if (flagBlocked == 0) {
+                statement.setInt(2, flagBlocked);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 Game disk = null;
                 if (resultSet.next()) {
@@ -331,12 +349,21 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     private static final String GET_BY_ID_MUSIC = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_MUSIC_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
 
     @Override
     public Optional<Disk> readMusic(Integer identity, Integer flagBlocked) throws PersonalException {
-        try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_MUSIC)) {
+        String sql;
+        if (flagBlocked == 1) {
+            sql = GET_BY_ID_MUSIC_FOR_ADMIN;
+        } else {
+            sql = GET_BY_ID_MUSIC;
+        }
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, identity);
-            statement.setInt(2, flagBlocked);
+            if (flagBlocked == 0) {
+                statement.setInt(2, flagBlocked);
+            }
             try (ResultSet resultSet = statement.executeQuery()) {
                 Music disk = null;
                 if (resultSet.next()) {

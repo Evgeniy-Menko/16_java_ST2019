@@ -9,11 +9,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<fmt:setLocale value="ru_RU"/>
+<c:set var="language"
+       value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
+<fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
+    <html lang="${language}">
     <jsp:useBean id="disk" scope="request" type="by.menko.finalproject.entity.Disk"/>
 
-    <html>
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 

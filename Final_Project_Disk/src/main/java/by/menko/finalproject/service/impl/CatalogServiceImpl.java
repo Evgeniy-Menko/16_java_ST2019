@@ -12,7 +12,13 @@ import java.util.List;
 public class CatalogServiceImpl extends ServiceImpl implements CatalogService {
     @Override
     public List<Catalog> getCatalog() throws PersonalException {
-        CatalogDao dao = transaction.createDao(TypeServiceAndDao.CATALOG);
-        return dao.read();
+        try {
+            CatalogDao dao = transaction.createDao(TypeServiceAndDao.CATALOG);
+            transaction.commit();
+            return dao.read();
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException();
+        }
     }
 }
