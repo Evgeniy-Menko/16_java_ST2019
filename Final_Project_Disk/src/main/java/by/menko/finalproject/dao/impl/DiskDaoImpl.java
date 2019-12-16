@@ -1,6 +1,7 @@
 package by.menko.finalproject.dao.impl;
 
 import by.menko.finalproject.dao.DiskDao;
+import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.*;
 
 import by.menko.finalproject.exception.PersonalException;
@@ -14,10 +15,26 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     private static final String CREATE_FILM = "INSERT INTO `disk_info_films` (`disk_id`, `country`, `running_time`) VALUES (?, ?, ?)";
     private static final String CREATE_GAME = "INSERT INTO `disk_info_game` (`disk_id`,  `age_limit`,`developer`) VALUES (?, ?, ?)";
     private static final String CREATE_MUSIC = "INSERT INTO `disk_info_music` (`disk_id`, `singer`,`albom`) VALUES (?, ?, ?)";
-
+    private static final String UNLOCK_DISK_FOR_ADMIN = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? ";
     private static final String CREATE_DISK = "INSERT INTO `disk` (`user_id`, `name`, `genre_id`,`price`,`description`,`year`,`image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String GET_DISK_BY_PARAMETER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre`  WHERE `flag_blocked`=? ";
     private static final String GET_ALL = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` WHERE `flag_blocked`=? ORDER BY `time_added` DESC";
+    private static final String GET_FOR_ADMIN = "SELECT `user_id`,`name`,`price`,`description`,`year`,`image`,`time_added`,`flag_blocked` FROM `disk`  WHERE  `id_disk`=? ";
+    private static final String BLOCKED_DISK_FOR_ADMIN = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? ";
+    private static final String BLOCKED_DISK = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? AND `user_id`=? ";
+    private static final String UPDATE_MUSIC = "UPDATE `disk` INNER JOIN `disk_info_music`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`albom`=?,`singer`=? where `id_disk`=?";
+    private static final String UPDATE_GAME = "UPDATE `disk` INNER JOIN `disk_info_game`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`age_limit`=?,`developer`=? where `id_disk`=?";
+    private static final String UPDATE_FILM = "UPDATE `disk` INNER JOIN `disk_info_films`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`country`=?,`running_time`=? where `id_disk`=?";
+    private static final String GET_BY_ID_MUSIC = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_MUSIC_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
+    private static final String GET_BY_ID_GAME = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_GAME_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
+    private static final String GET_BY_ID_FILM = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
+    private static final String GET_BY_ID_FILM_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? ";
+    private static final String GET_BY_ID_DISK = "SELECT `user_id`,`name`,`price`,`description`,`year`,`image`,`time_added` FROM `disk`  WHERE  `id_disk`=? AND `flag_blocked`=? ";
+    private static final String GET_BY_ID = "SELECT `type`,`user_id` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` WHERE  `id_disk`=?";
+    private static final String GET_BY_ID_USER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` WHERE `user_id`=? AND `flag_blocked`=? ORDER BY `time_added` DESC";
+
 
     @Override
     public Integer create(Disk disk, Integer idGenre) throws PersonalException {
@@ -120,11 +137,11 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk;
                 while (resultSet.next()) {
                     disk = new Disk();
-                    disk.setIdEntity(resultSet.getInt("id_disk"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    disk.setIdEntity(resultSet.getInt(ConstantColumn.ID_DISK));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                     resultList.add(disk);
                 }
                 return resultList;
@@ -171,11 +188,11 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk;
                 while (resultSet.next()) {
                     disk = new Disk();
-                    disk.setIdEntity(resultSet.getInt("id_disk"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    disk.setIdEntity(resultSet.getInt(ConstantColumn.ID_DISK));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                     resultList.add(disk);
                 }
                 return resultList;
@@ -188,7 +205,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
     }
 
-    private static final String GET_BY_ID_USER = "SELECT `id_disk`,`name`,`image`,`price`,`time_added` FROM `disk` WHERE `user_id`=? AND `flag_blocked`=? ORDER BY `time_added` DESC";
 
     @Override
     public List<Disk> readByIdUser(Integer idUser) throws PersonalException {
@@ -200,11 +216,11 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk;
                 while (resultSet.next()) {
                     disk = new Disk();
-                    disk.setIdEntity(resultSet.getInt("id_disk"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    disk.setIdEntity(resultSet.getInt(ConstantColumn.ID_DISK));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                     resultList.add(disk);
                 }
                 return resultList;
@@ -216,7 +232,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String GET_BY_ID = "SELECT `type`,`user_id` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` WHERE  `id_disk`=?";
 
     @Override
     public Optional<Disk> read(Integer identity) throws PersonalException {
@@ -226,8 +241,8 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk = null;
                 if (resultSet.next()) {
                     disk = new Disk();
-                    disk.setType(resultSet.getString("type"));
-                    disk.setIdUser(resultSet.getInt("user_id"));
+                    disk.setType(resultSet.getString(ConstantColumn.TYPE));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -238,7 +253,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String GET_BY_ID_DISK = "SELECT `user_id`,`name`,`price`,`description`,`year`,`image`,`time_added` FROM `disk`  WHERE  `id_disk`=? AND `flag_blocked`=? ";
 
     @Override
     public Optional<Disk> readByIdDisk(Integer idDisk) throws PersonalException {
@@ -249,13 +263,13 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk = null;
                 if (resultSet.next()) {
                     disk = new Disk();
-                    disk.setIdUser(resultSet.getInt("user_id"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setDescription(resultSet.getString("description"));
-                    disk.setYear(resultSet.getInt("year"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setDescription(resultSet.getString(ConstantColumn.DESCRIPTION));
+                    disk.setYear(resultSet.getInt(ConstantColumn.YEAR));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -266,8 +280,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String GET_BY_ID_FILM = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
-    private static final String GET_BY_ID_FILM_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`country`,`running_time` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_films` ON `id_disk` = `disk_id` WHERE  `id_disk`=? ";
 
     @Override
     public Optional<Disk> readFilm(Integer identity, Integer flagBlocked) throws PersonalException {
@@ -286,17 +298,17 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Film disk = null;
                 if (resultSet.next()) {
                     disk = new Film();
-                    disk.setIdUser(resultSet.getInt("user_id"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setType(resultSet.getString("type"));
-                    disk.setGenre(resultSet.getString("genre"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setDescription(resultSet.getString("description"));
-                    disk.setYear(resultSet.getInt("year"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
-                    disk.setCountry(resultSet.getString("country"));
-                    disk.setRunningTime(resultSet.getString("running_time"));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setType(resultSet.getString(ConstantColumn.TYPE));
+                    disk.setGenre(resultSet.getString(ConstantColumn.GENRE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setDescription(resultSet.getString(ConstantColumn.DESCRIPTION));
+                    disk.setYear(resultSet.getInt(ConstantColumn.YEAR));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
+                    disk.setCountry(resultSet.getString(ConstantColumn.COUNTRY));
+                    disk.setRunningTime(resultSet.getString(ConstantColumn.RUNNING_TIME));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -307,8 +319,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String GET_BY_ID_GAME = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
-    private static final String GET_BY_ID_GAME_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`age_limit`,`developer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_game` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
 
     @Override
     public Optional<Disk> readGame(Integer identity, Integer flagBlocked) throws PersonalException {
@@ -327,17 +337,17 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Game disk = null;
                 if (resultSet.next()) {
                     disk = new Game();
-                    disk.setIdUser(resultSet.getInt("user_id"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setType(resultSet.getString("type"));
-                    disk.setGenre(resultSet.getString("genre"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setDescription(resultSet.getString("description"));
-                    disk.setYear(resultSet.getInt("year"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
-                    disk.setAgeLimit(resultSet.getInt("age_limit"));
-                    disk.setDeveloper(resultSet.getString("developer"));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setType(resultSet.getString(ConstantColumn.TYPE));
+                    disk.setGenre(resultSet.getString(ConstantColumn.GENRE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setDescription(resultSet.getString(ConstantColumn.DESCRIPTION));
+                    disk.setYear(resultSet.getInt(ConstantColumn.YEAR));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
+                    disk.setAgeLimit(resultSet.getInt(ConstantColumn.AGE_LIMIT));
+                    disk.setDeveloper(resultSet.getString(ConstantColumn.DEVELOPER));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -348,8 +358,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String GET_BY_ID_MUSIC = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=? AND `flag_blocked`=?";
-    private static final String GET_BY_ID_MUSIC_FOR_ADMIN = "SELECT `user_id`,`name`,`type`,`genre`,`price`,`description`,`year`,`image`,`time_added`,`albom`,`singer` FROM `disk` INNER JOIN `genre` ON `genre_id` = `id_genre` INNER JOIN `type` ON `type_id` = `id_type` INNER JOIN `disk_info_music` ON `id_disk` = `disk_id` WHERE  `id_disk`=?";
 
     @Override
     public Optional<Disk> readMusic(Integer identity, Integer flagBlocked) throws PersonalException {
@@ -368,17 +376,17 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Music disk = null;
                 if (resultSet.next()) {
                     disk = new Music();
-                    disk.setIdUser(resultSet.getInt("user_id"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setType(resultSet.getString("type"));
-                    disk.setGenre(resultSet.getString("genre"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setDescription(resultSet.getString("description"));
-                    disk.setYear(resultSet.getInt("year"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
-                    disk.setAlbom(resultSet.getString("albom"));
-                    disk.setSinger(resultSet.getString("singer"));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setType(resultSet.getString(ConstantColumn.TYPE));
+                    disk.setGenre(resultSet.getString(ConstantColumn.GENRE));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setDescription(resultSet.getString(ConstantColumn.DESCRIPTION));
+                    disk.setYear(resultSet.getInt(ConstantColumn.YEAR));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
+                    disk.setAlbom(resultSet.getString(ConstantColumn.ALBOM));
+                    disk.setSinger(resultSet.getString(ConstantColumn.SINGER));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {
@@ -389,7 +397,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String UPDATE_FILM = "UPDATE `disk` INNER JOIN `disk_info_films`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`country`=?,`running_time`=? where `id_disk`=?";
 
     @Override
     public void updateFilm(Disk disk) throws PersonalException {
@@ -408,7 +415,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String UPDATE_GAME = "UPDATE `disk` INNER JOIN `disk_info_game`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`age_limit`=?,`developer`=? where `id_disk`=?";
 
     @Override
     public void updateGame(Disk disk) throws PersonalException {
@@ -427,7 +433,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String UPDATE_MUSIC = "UPDATE `disk` INNER JOIN `disk_info_music`  ON `id_disk` = `disk_id` SET  `name`=?,`price`=?,`description`=?,`year`=?,`image`=?,`albom`=?,`singer`=? where `id_disk`=?";
 
     @Override
     public void updateMusic(Disk disk) throws PersonalException {
@@ -446,7 +451,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String BLOCKED_DISK = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? AND `user_id`=? ";
 
     @Override
     public void delete(Integer idEntity, Integer idUser) throws PersonalException {
@@ -460,7 +464,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String BLOCKED_DISK_FOR_ADMIN = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? ";
 
     @Override
     public void blocked(Integer idEntity) throws PersonalException {
@@ -473,7 +476,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private static final String UNLOCK_DISK_FOR_ADMIN = "UPDATE `disk`  SET  `flag_blocked`= ? where `id_disk`=? ";
 
     @Override
     public void unLock(Integer idEntity) throws PersonalException {
@@ -487,7 +489,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
 
-    private static final String GET_FOR_ADMIN = "SELECT `user_id`,`name`,`price`,`description`,`year`,`image`,`time_added`,`flag_blocked` FROM `disk`  WHERE  `id_disk`=? ";
 
     @Override
     public Optional<Disk> readForAdmin(Integer idDisk) throws PersonalException {
@@ -497,14 +498,14 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
                 Disk disk = null;
                 if (resultSet.next()) {
                     disk = new Disk();
-                    disk.setIdUser(resultSet.getInt("user_id"));
-                    disk.setNameDisk(resultSet.getString("name"));
-                    disk.setPrice(resultSet.getDouble("price"));
-                    disk.setDescription(resultSet.getString("description"));
-                    disk.setYear(resultSet.getInt("year"));
-                    disk.setImage(resultSet.getString("image"));
-                    disk.setTimeAdded(resultSet.getTimestamp("time_added"));
-                    disk.setFlagBlocked(resultSet.getInt("flag_blocked"));
+                    disk.setIdUser(resultSet.getInt(ConstantColumn.USER_ID));
+                    disk.setNameDisk(resultSet.getString(ConstantColumn.NAME));
+                    disk.setPrice(resultSet.getDouble(ConstantColumn.PRICE));
+                    disk.setDescription(resultSet.getString(ConstantColumn.DESCRIPTION));
+                    disk.setYear(resultSet.getInt(ConstantColumn.YEAR));
+                    disk.setImage(resultSet.getString(ConstantColumn.IMAGE));
+                    disk.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
+                    disk.setFlagBlocked(resultSet.getInt(ConstantColumn.FLAG_BLOCKED));
                 }
                 return Optional.ofNullable(disk);
             } catch (SQLException e) {

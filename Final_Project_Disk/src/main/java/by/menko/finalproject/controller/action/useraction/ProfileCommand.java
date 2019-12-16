@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -18,7 +19,7 @@ public class ProfileCommand extends UserAction {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("authorizedUser");
         userInfo = service.getUser(userInfo.getIdEntity());
         request.setAttribute("userInfo", userInfo);
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.PROFILE_PAGE).forward(request, response);
 
     }
 }

@@ -75,17 +75,20 @@
                         <td>${item.value.textComplaint}</td>
                         <td><fmt:formatDate value="${item.value.timeAdded}"
                                             type="date" pattern="dd-MM-yyyy HH:mm"/></td>
+
+                        <form method="post">
+                            <input type="hidden" name="complaint" value="${item.value.idEntity}">
+                            <input type="hidden" name="disk" value="${item.value.idDisk}">
                         <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.value.idDisk}"
                                class="nav-link">Show announcement</a>
-                            <a href="${pageContext.request.contextPath}/deleteComplaint.html?complaint=${item.value.idEntity}"
-                               class="nav-link">Delete complaint</a>
+                            <button type="submit" class="btn btn-link" formaction="${pageContext.request.contextPath}/deleteComplaint.html">Delete complaint</button><br>
                             <c:if test="${listDisk[ind].flagBlocked == 'false'}">
-                                <a href="${pageContext.request.contextPath}/block.html?disk=${item.value.idDisk}"
-                                   class="nav-link">Block</a></c:if>
+                                <button type="submit" class="btn btn-link" formaction="${pageContext.request.contextPath}/block.html">Block</button></c:if>
                             <c:if test="${listDisk[ind].flagBlocked == 'true'}">
-                                <a href="${pageContext.request.contextPath}/unlock.html?disk=${item.value.idDisk}"
-                                   class="nav-link" style="color: #b30300">Unlock</a></c:if>
+                                <button type="submit" class="btn btn-link" style="color:#b30300;" formaction="${pageContext.request.contextPath}/unlock.html">Unlock</button></c:if>
+
                         </td>
+                        </form>
                     </tr>
                     <c:set var="ind" value="${ind+1}"/>
                 </c:forEach>

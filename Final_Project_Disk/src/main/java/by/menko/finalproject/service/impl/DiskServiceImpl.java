@@ -11,7 +11,6 @@ import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +50,7 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
         }
         boolean flag = typeDisk == 0 && genreDisk == 0 && priceFromDisk == 0 && priceToDisk == 0 && yearIn == 0 && yearTo == 0;
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
-        List<Disk> findDisk = new ArrayList<>();
+        List<Disk> findDisk;
         try {
             if (flag) {
                 findDisk = dao.read();

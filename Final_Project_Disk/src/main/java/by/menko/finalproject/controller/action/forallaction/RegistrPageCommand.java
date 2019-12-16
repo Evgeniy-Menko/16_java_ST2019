@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.exception.PersonalException;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,6 @@ import java.io.IOException;
 public class RegistrPageCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
-        request.getRequestDispatcher("/registration.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.REGISTR_PAGE).forward(request, response);
     }
 }

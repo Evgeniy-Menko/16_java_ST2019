@@ -6,7 +6,7 @@ import by.menko.finalproject.exception.PersonalException;
 public interface Transaction {
     <T extends Dao<?>> T createDao(TypeServiceAndDao key) throws PersonalException;
 
-    void commit();
+    void commit() throws PersonalException;
 
-    void rollback();
+    void rollback() throws PersonalException;
 }

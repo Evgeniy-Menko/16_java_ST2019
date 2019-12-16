@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
@@ -21,7 +22,7 @@ public class UpdateAnnouncementCommand extends UserAction {
         Disk disk = service.getDisk(idDisk, user);
         if (user.getIdEntity().equals(disk.getIdUser())) {
             request.setAttribute("disk", disk);
-            request.getRequestDispatcher("/editAnnouncement.jsp").forward(request, response);
+            request.getRequestDispatcher(ConstantsPath.EDIT_ANNOUNCEMENT_PAGE).forward(request, response);
         } else {
             throw new PersonalException();
         }

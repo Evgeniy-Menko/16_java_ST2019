@@ -1,6 +1,7 @@
 package by.menko.finalproject.dao.impl;
 
 import by.menko.finalproject.dao.CommentDao;
+import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Comment;
 
 import by.menko.finalproject.exception.PersonalException;
@@ -63,10 +64,10 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     comment = new Comment();
-                    comment.setIdEntity(resultSet.getInt("id_comment"));
-                    comment.setIdUserCommented(resultSet.getInt("user_id_commented"));
-                    comment.setCommentText(resultSet.getString("comment_text"));
-                    comment.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    comment.setIdEntity(resultSet.getInt(ConstantColumn.ID_COMMENT));
+                    comment.setIdUserCommented(resultSet.getInt(ConstantColumn.USER_ID_COMMENTED));
+                    comment.setCommentText(resultSet.getString(ConstantColumn.COMMENT_TEXT));
+                    comment.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                     result.add(comment);
                 }
                 return result;

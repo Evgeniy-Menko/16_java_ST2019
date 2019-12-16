@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Catalog;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -19,7 +20,7 @@ public class HomeCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.INDEX_PAGE).forward(request, response);
 
     }
 }

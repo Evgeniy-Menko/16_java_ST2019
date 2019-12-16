@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Comment;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.ShoppingCart;
@@ -34,6 +35,6 @@ public class ShowDiskCommand extends ForAllAction {
         }
         request.setAttribute("disk", disk);
         request.setAttribute("mapComment", mapComment);
-        request.getRequestDispatcher("/disk.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.SHOW_DISK).forward(request, response);
     }
 }

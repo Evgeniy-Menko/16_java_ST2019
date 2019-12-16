@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.ShoppingCart;
 import by.menko.finalproject.entity.UserInfo;
@@ -22,6 +23,6 @@ public class ShoppingCartCommand extends UserAction {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         Map<ShoppingCart, Disk> mapDisk = service.getShoppingCart(user.getIdEntity());
         request.setAttribute("mapDisk", mapDisk);
-        request.getRequestDispatcher("/shoppingCart.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.SHOPPING_CART_PAGE).forward(request, response);
     }
 }

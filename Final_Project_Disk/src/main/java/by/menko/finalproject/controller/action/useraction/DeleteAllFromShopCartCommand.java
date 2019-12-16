@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -17,6 +18,6 @@ public class DeleteAllFromShopCartCommand extends UserAction {
         ShoppingCartService service = factory.createService(TypeServiceAndDao.SHOPPING_CART);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         service.deleteAll(user.getIdEntity());
-        response.sendRedirect("/Panda-Disk/shoppingCart.html");
+        response.sendRedirect(request.getContextPath() + ConstantsPath.SHOP_CART);
     }
 }

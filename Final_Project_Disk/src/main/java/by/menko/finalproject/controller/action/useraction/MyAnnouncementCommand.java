@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
@@ -20,6 +21,6 @@ public class MyAnnouncementCommand extends UserAction {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         List<Disk> resultList = service.getAllDiskByIdUser(user.getIdEntity());
         request.setAttribute("listDisk", resultList);
-        request.getRequestDispatcher("/myAnnouncements.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.MY_ANNOUNCEMENT_PAGE).forward(request, response);
     }
 }

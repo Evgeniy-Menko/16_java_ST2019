@@ -8,6 +8,7 @@ import by.menko.finalproject.controller.action.adminaction.ShowComplaintsCommand
 import by.menko.finalproject.controller.action.adminaction.UnlockAnnouncementCommand;
 import by.menko.finalproject.controller.action.forallaction.*;
 import by.menko.finalproject.controller.action.useraction.*;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -103,7 +104,7 @@ public class CommandFromUriFilter implements Filter {
             chain.doFilter(request, response);
 
         } else {
-            request.getRequestDispatcher("/Error.jsp").forward(request, response);
+            request.getRequestDispatcher(ConstantsPath.ERROR_PAGE).forward(request, response);
         }
     }
 

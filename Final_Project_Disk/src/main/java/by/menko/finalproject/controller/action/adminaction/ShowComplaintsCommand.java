@@ -1,5 +1,6 @@
 package by.menko.finalproject.controller.action.adminaction;
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Complaint;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
@@ -23,6 +24,6 @@ public class ShowComplaintsCommand extends AdminAction {
         List<Disk> diskWithComplaint = service.getDiskWithComplaint(mapComplaint);
         request.setAttribute("listDisk", diskWithComplaint);
         request.setAttribute("mapComplaint", mapComplaint);
-        request.getRequestDispatcher("/admin.jsp").forward(request, response);
+        request.getRequestDispatcher(ConstantsPath.ADMIN_PAGE).forward(request, response);
     }
 }

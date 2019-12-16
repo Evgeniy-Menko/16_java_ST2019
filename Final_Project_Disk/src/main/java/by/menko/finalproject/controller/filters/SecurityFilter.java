@@ -5,6 +5,7 @@ import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.adminaction.*;
 import by.menko.finalproject.controller.action.forallaction.*;
 import by.menko.finalproject.controller.action.useraction.*;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.Role;
 
@@ -42,7 +43,7 @@ public class SecurityFilter implements Filter {
         UserInfo user = (UserInfo) httpRequest.getSession().getAttribute("authorizedUser");
         boolean flagClass = false;
         if (user != null && user.getRole() == Role.USER) {
-            if (command instanceof ForAllAction || command instanceof UserAction) {
+            if (userAction.containsKey(command.getClass())) {
                 flagClass = true;
             }
         } else if (user != null && user.getRole() == Role.ADMINISTRATOR) {
@@ -50,14 +51,14 @@ public class SecurityFilter implements Filter {
                 flagClass = true;
             }
         } else {
-            if (command instanceof ForAllAction) {
+            if (forAllAction.containsKey(command.getClass())) {
                 flagClass = true;
             }
         }
         if (flagClass) {
             chain.doFilter(request, response);
         } else {
-            httpRequest.getRequestDispatcher("/Error.jsp").forward(request, response);
+            httpRequest.getRequestDispatcher(ConstantsPath.ERROR_PAGE).forward(request, response);
         }
     }
 

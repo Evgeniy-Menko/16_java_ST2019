@@ -14,7 +14,6 @@
 <fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
     <html lang="${language}">
-
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -31,8 +30,8 @@
     </head>
     <body>
     <%@ include file="menu.jsp" %>
-    <div class="text-center" style="margin-top:30px;margin-right: 20px">
-        <h1 class="display-4">My announcements</h1>
+    <div class="text-center" style="margin-top:30px;margin-left: 50px">
+        <h1 class="display-4"> Shopping Cart</h1>
         <br>
     </div>
     <div class="row col-md-12">
@@ -42,11 +41,12 @@
                 <thead>
                 <tr>
                     <c:choose>
+
                         <c:when test="${error!=null}">
                             <th colspan="5" style="color: #b30300;text-align: center"><fmt:message key="${error}"/></th>
                         </c:when>
-                        <c:when test="${fn:length(listDisk) == 0}">
-                            <th colspan="5" style="text-align: center">Not found</th>
+                        <c:when test="${fn:length(mapDisk) == 0}">
+                            <th colspan="5" style="text-align: center">Shopping cart is empty</th>
                         </c:when>
                     </c:choose>
 
@@ -57,29 +57,36 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Time added</th>
-                    <th></th>
+                    <form method="post">
+                        <th><c:if test="${fn:length(mapDisk) != 0}">
+
+                            <button type="submit" formaction="${pageContext.request.contextPath}/deleteAll.html"
+                                    class="btn btn-link"><strong>Delete All</strong>
+                            </button>
+                        </c:if></th>
+                    </form>
                 </tr>
                 </thead>
                 <tbody>
 
 
-                <c:forEach var="item" items="${listDisk}">
+                <c:forEach var="item" items="${mapDisk}">
                     <tr>
-                        <td><img src="${item.image}" alt=" " height="100" width="100"></td>
-                        <td>${item.nameDisk}</td>
-                        <td>${item.price}</td>
-
-
-                        <td><fmt:formatDate value="${item.timeAdded}"
+                        <td><img src="${item.value.image}" alt="no image" height="100" width="100"></td>
+                        <td>${item.value.nameDisk}</td>
+                        <td>${item.value.price}</td>
+                        <td><fmt:formatDate value="${item.key.timeAdded}"
                                             type="date" pattern="dd-MM-yyyy HH:mm"/></td>
-                            <form method="post">
-                                <input type="hidden" name="disk" value="${item.idEntity}">
+
                         <td>
-                            <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/showDisk.html">More</button>
-                            <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/updateAnnouncement.html">Edit</button>
-                            <button type="submit" class="btn btn-danger"  formaction="${pageContext.request.contextPath}/deleteDisk.html">Delete</button>
+                            <form method="post">
+                                <input type="hidden" name="disk" value="${item.value.idEntity}">
+
+                                <a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.value.idEntity}" class="nav-link">More</a>
+
+                                <button class="btn btn-link" type="submit" formaction="${pageContext.request.contextPath}/deleteFromShopCart.html">Delete</button>
+                            </form>
                         </td>
-                        </form>
                     </tr>
                 </c:forEach>
 

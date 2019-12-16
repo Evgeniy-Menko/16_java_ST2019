@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.adminaction;
 
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.ComplaintService;
@@ -16,6 +17,6 @@ public class UnlockAnnouncementCommand extends AdminAction {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);
         String idDisk = request.getParameter("disk");
         service.unlockAnnouncement(idDisk);
-        response.sendRedirect("/Panda-Disk/complaints.html");
+        response.sendRedirect(request.getContextPath()+ ConstantsPath.COMPLAINTS);
     }
 }

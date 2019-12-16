@@ -1,6 +1,7 @@
 package by.menko.finalproject.dao.impl;
 
 import by.menko.finalproject.dao.ComplaintDao;
+import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Complaint;
 import by.menko.finalproject.exception.PersonalException;
 
@@ -44,35 +45,28 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
 
     @Override
     public Optional<Complaint> read(Integer id) throws PersonalException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try{
-            statement = connection.prepareStatement(GET_COMPLAINT);
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_COMPLAINT)) {
             statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            Complaint complaint = null;
-            if (resultSet.next()) {
-                complaint = new Complaint();
-                complaint.setIdEntity(resultSet.getInt("id_complaint"));
-                complaint.setUserIdComplained(resultSet.getInt("user_id_complained"));
-                complaint.setIdDisk(resultSet.getInt("disk_id"));
-                complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
-                complaint.setTextComplaint(resultSet.getString("complaint_text"));
-                complaint.setTimeAdded(resultSet.getTimestamp("time_added"));
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                Complaint complaint = null;
+                if (resultSet.next()) {
+                    complaint = new Complaint();
+                    complaint.setIdEntity(resultSet.getInt(ConstantColumn.ID_COMPLAINT));
+                    complaint.setUserIdComplained(resultSet.getInt(ConstantColumn.USER_ID_COMPLAINED));
+                    complaint.setIdDisk(resultSet.getInt(ConstantColumn.DISK_ID));
+                    complaint.setUserWasComplained(resultSet.getInt(ConstantColumn.USER_WAS_COMPLAINED));
+                    complaint.setTextComplaint(resultSet.getString(ConstantColumn.COMPLAINT_TEXT));
+                    complaint.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
+                }
+                return Optional.ofNullable(
+                        complaint);
+            } catch (SQLException e) {
+                throw new PersonalException(e);
             }
-            return Optional.of(
-                    complaint);
         } catch (SQLException e) {
             throw new PersonalException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-            }
         }
     }
 
@@ -92,15 +86,15 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
 
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
             try (ResultSet resultSet = statement.executeQuery()) {
-                Complaint complaint = null;
+                Complaint complaint;
                 while (resultSet.next()) {
                     complaint = new Complaint();
-                    complaint.setIdEntity(resultSet.getInt("id_complaint"));
-                    complaint.setUserIdComplained(resultSet.getInt("user_id_complained"));
-                    complaint.setIdDisk(resultSet.getInt("disk_id"));
-                    complaint.setUserWasComplained(resultSet.getInt("user_was_complained"));
-                    complaint.setTextComplaint(resultSet.getString("complaint_text"));
-                    complaint.setTimeAdded(resultSet.getTimestamp("time_added"));
+                    complaint.setIdEntity(resultSet.getInt(ConstantColumn.ID_COMPLAINT));
+                    complaint.setUserIdComplained(resultSet.getInt(ConstantColumn.USER_ID_COMPLAINED));
+                    complaint.setIdDisk(resultSet.getInt(ConstantColumn.DISK_ID));
+                    complaint.setUserWasComplained(resultSet.getInt(ConstantColumn.USER_WAS_COMPLAINED));
+                    complaint.setTextComplaint(resultSet.getString(ConstantColumn.COMPLAINT_TEXT));
+                    complaint.setTimeAdded(resultSet.getTimestamp(ConstantColumn.TIME_ADDED));
                     result.add(complaint);
                 }
                 return result;

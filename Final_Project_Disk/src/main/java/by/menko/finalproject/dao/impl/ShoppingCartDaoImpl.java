@@ -1,6 +1,7 @@
 package by.menko.finalproject.dao.impl;
 
 import by.menko.finalproject.dao.ShoppingCartDao;
+import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.ShoppingCart;
 
 import by.menko.finalproject.exception.PersonalException;
@@ -50,12 +51,12 @@ public class ShoppingCartDaoImpl extends BaseDao implements ShoppingCartDao {
 
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_USER)) {
             statement.setInt(1, id);
-            ShoppingCart shoppingCart = null;
+            ShoppingCart shoppingCart ;
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     shoppingCart = new ShoppingCart();
-                    shoppingCart.setDiskId(resultSet.getInt("disk_id"));
-                    shoppingCart.setTimeAdded(resultSet.getDate("time_added"));
+                    shoppingCart.setDiskId(resultSet.getInt(ConstantColumn.DISK_ID));
+                    shoppingCart.setTimeAdded(resultSet.getDate(ConstantColumn.TIME_ADDED));
                     list.add(shoppingCart);
                 }
                 return list;

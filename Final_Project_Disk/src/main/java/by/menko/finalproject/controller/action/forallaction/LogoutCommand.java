@@ -2,6 +2,7 @@ package by.menko.finalproject.controller.action.forallaction;
 
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.exception.PersonalException;
 
 
@@ -18,6 +19,6 @@ public class LogoutCommand extends ForAllAction {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
         request.getSession(false).invalidate();
-        response.sendRedirect("/Panda-Disk/home.html");
+        response.sendRedirect(request.getContextPath()+ ConstantsPath.HOME);
     }
 }

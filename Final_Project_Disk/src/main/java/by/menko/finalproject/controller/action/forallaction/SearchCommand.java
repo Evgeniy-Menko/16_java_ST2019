@@ -2,6 +2,7 @@ package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.controller.action.Command;
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -28,10 +29,10 @@ public class SearchCommand extends ForAllAction {
         try {
             List<Disk> resultList = service.getDisk(type, genre, priceFrom, priceTo, dateIn, dateTo);
             request.setAttribute("listDisk", resultList);
-            request.getRequestDispatcher("/search.jsp").forward(request, response);
+            request.getRequestDispatcher(ConstantsPath.SEARCH_PAGE).forward(request, response);
         } catch (ServicePersonalException e) {
             request.setAttribute("error","errorSearch");
-            request.getRequestDispatcher("/search.jsp").forward(request,response);
+            request.getRequestDispatcher(ConstantsPath.SEARCH_PAGE).forward(request,response);
         }
     }
 }

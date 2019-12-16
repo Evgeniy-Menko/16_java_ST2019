@@ -170,7 +170,7 @@
                         <div class="card cl-md-6" style="width:350px; height:203px">
 
                             <img id="blah" class="card-img-top"
-                                 src="images/no.png"
+                                 src="../../images/no.png"
                                  alt="your image" style="width:100%;height:100%">
 
                         </div>

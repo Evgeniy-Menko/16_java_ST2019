@@ -20,8 +20,8 @@ public class TransactionImpl implements Transaction {
     }
 
 
-    private BaseDao getDao(TypeServiceAndDao key) {
-        BaseDao dao = null;
+    private BaseDao getDao(TypeServiceAndDao key) throws PersonalException {
+        BaseDao dao ;
         switch (key) {
             case USER:
                 dao = new UserDaoImpl();
@@ -42,7 +42,7 @@ public class TransactionImpl implements Transaction {
                 dao = new CatalogDaoImpl();
                 break;
             default:
-                // return null;
+                throw new PersonalException();
         }
         return dao;
     }
@@ -50,33 +50,29 @@ public class TransactionImpl implements Transaction {
     @Override
     public <T extends Dao<?>> T createDao(TypeServiceAndDao key) throws PersonalException {
         BaseDao dao = getDao(key);
-        if (dao != null) {
-            dao.setConnection(connection);
-            return (T) dao;
-        } else {
-            String message = "";
-            throw new PersonalException(message);
-        }
+        dao.setConnection(connection);
+        return (T) dao;
+
     }
 
 
     @Override
-    public void commit() {
+    public void commit() throws PersonalException {
         try {
             connection.commit();
         } catch (SQLException e) {
             //logger.error("It is impossible to commit transaction", e);
-            //throw new PersistentException(e);
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public void rollback() {
+    public void rollback() throws PersonalException {
         try {
             connection.rollback();
         } catch (SQLException e) {
             //	logger.error("It is impossible to rollback transaction", e);
-            // throw new PersistentException(e);
+             throw new PersonalException(e);
         }
     }
 }

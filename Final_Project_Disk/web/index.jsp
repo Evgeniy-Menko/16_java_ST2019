@@ -27,8 +27,7 @@
 
     </head>
     <body>
-    <%@ include file="menu.jsp" %>
-
+    <%@ include file="/WEB-INF/jsp/menu.jsp" %>
     <div class="text-center" style="margin-top:30px;margin-right: 20px">
         <h1 class="display-3"><fmt:message key="welcome" /></h1>
         <h5 class="display-5"><fmt:message key="title"/> </h5 >

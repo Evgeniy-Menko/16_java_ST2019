@@ -5,6 +5,7 @@ import by.menko.finalproject.controller.action.Command;
 import by.menko.finalproject.controller.action.CommandManager;
 import by.menko.finalproject.controller.action.CommandManagerFactory;
 import by.menko.finalproject.controller.action.forallaction.MenuCommand;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.dao.impl.TransactionFactoryImpl;
 import by.menko.finalproject.dao.pool.ConnectionPool;
 import by.menko.finalproject.exception.PersonalException;
@@ -51,7 +52,7 @@ public class DispatcherServlet extends HttpServlet {
             commandManager.close();
         } catch (PersonalException e) {
 
-            request.getRequestDispatcher("/Error.jsp").forward(request, response);
+            request.getRequestDispatcher(ConstantsPath.ERROR_PAGE).forward(request, response);
         }
     }
 

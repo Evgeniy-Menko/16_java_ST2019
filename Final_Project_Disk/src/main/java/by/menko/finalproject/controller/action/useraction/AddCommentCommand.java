@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -20,6 +21,6 @@ public class AddCommentCommand extends UserAction {
         String idDisk = request.getParameter("idDisk");
         String commentText = request.getParameter("comment");
         service.addComment(idDisk,commentText, user.getIdEntity());
-        response.sendRedirect(request.getContextPath()+"/showDisk.html?disk=" + idDisk + "#com");
+        response.sendRedirect(request.getContextPath()+ ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk + "#com");
     }
 }

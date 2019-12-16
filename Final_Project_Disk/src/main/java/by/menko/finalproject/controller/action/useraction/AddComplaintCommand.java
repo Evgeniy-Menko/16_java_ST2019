@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -20,6 +21,6 @@ public class AddComplaintCommand extends UserAction {
         String complaint = request.getParameter("complaint");
         String idDisk = request.getParameter("idDisk");
         service.addComplaint(idDisk, idUser, complaint, user.getIdEntity());
-        response.sendRedirect("/Panda-Disk/showDisk.html?disk=" + idDisk);
+        response.sendRedirect(request.getContextPath()+ ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk);
     }
 }

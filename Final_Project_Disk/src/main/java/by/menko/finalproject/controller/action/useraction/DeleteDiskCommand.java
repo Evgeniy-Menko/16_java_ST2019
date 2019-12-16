@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 import by.menko.finalproject.controller.action.Command;
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
@@ -18,6 +19,6 @@ public class DeleteDiskCommand extends UserAction {
         String idDisk = request.getParameter("disk");
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         service.deleteDisk(idDisk, user.getIdEntity());
-        response.sendRedirect("/Panda-Disk/myAnnouncements.html");
+        response.sendRedirect(request.getContextPath()+ ConstantsPath.MY_ANNOUNCEMENT);
     }
 }
