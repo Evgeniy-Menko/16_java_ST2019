@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             if (!flag) {
                 throw new ServicePersonalException("errorLoginNick");
             }
-            String salt = PasswordUtils.getSalt(30);
+            String salt = PasswordUtils.getSalt();
             String hashPassword = PasswordUtils.generateSecurePassword(user.getPassword(), salt);
             user.setSalt(salt);
             user.setPassword(hashPassword);

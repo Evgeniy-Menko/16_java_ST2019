@@ -156,9 +156,10 @@
                 <tbody>
 
 
+
                 <c:forEach var="item" items="${listDisk}">
                     <tr>
-                        <td><img src="${item.image}" height="100" width="100"></td>
+                        <td><img src="${item.image}" alt="no image" height="100" width="100"></td>
                         <td>${item.nameDisk}</td>
                         <td>${item.price}</td>
                         <td><fmt:formatDate value="${item.timeAdded}"

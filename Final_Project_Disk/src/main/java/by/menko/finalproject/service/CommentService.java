@@ -5,7 +5,7 @@ import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.exception.PersonalException;
 
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.Map;
 
 public interface CommentService extends Service {

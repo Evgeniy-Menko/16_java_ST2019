@@ -343,8 +343,8 @@
                         <label for="repeat_password"><fmt:message key="repeatPass"/> *</label>
                         <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
                                placeholder="<fmt:message key="please"/> <fmt:message key="password"/> *" required="required"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
-                               minlength="4" maxlength="20">
+                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
+                               minlength="6" maxlength="20">
                         <div class="help-block with-errors error "></div>
                     </div>
                 </div>

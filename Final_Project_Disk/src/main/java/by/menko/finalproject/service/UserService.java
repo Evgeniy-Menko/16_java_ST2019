@@ -6,7 +6,7 @@ import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 
 
-import javax.servlet.http.Part;
+
 import java.io.IOException;
 
 public interface UserService extends Service {

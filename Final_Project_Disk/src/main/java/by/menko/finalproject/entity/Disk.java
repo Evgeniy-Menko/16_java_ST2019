@@ -2,7 +2,7 @@ package by.menko.finalproject.entity;
 
 
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 public class Disk extends Entity {
     private Integer idUser;
@@ -105,5 +105,41 @@ public class Disk extends Entity {
         } else if (id == 1) {
             this.flagBlocked = true;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Disk disk = (Disk) o;
+
+        if (year != disk.year) return false;
+        if (!idUser.equals(disk.idUser)) return false;
+        if (!nameDisk.equals(disk.nameDisk)) return false;
+        if (!genre.equals(disk.genre)) return false;
+        if (!price.equals(disk.price)) return false;
+        if (!type.equals(disk.type)) return false;
+        if (!image.equals(disk.image)) return false;
+        if (!description.equals(disk.description)) return false;
+        if (!timeAdded.equals(disk.timeAdded)) return false;
+        return flagBlocked.equals(disk.flagBlocked);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + idUser.hashCode();
+        result = 31 * result + nameDisk.hashCode();
+        result = 31 * result + genre.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + image.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + year;
+        result = 31 * result + timeAdded.hashCode();
+        result = 31 * result + flagBlocked.hashCode();
+        return result;
     }
 }

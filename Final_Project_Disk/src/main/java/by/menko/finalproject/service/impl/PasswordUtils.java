@@ -9,22 +9,25 @@ import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class PasswordUtils {
+class PasswordUtils {
 
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
 
-    public static String getSalt(int length) {
-        StringBuilder returnValue = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
+    private PasswordUtils() {
+    }
+
+    static String getSalt() {
+        StringBuilder returnValue = new StringBuilder(30);
+        for (int i = 0; i < 30; i++) {
             returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
         }
         return new String(returnValue);
     }
 
-    public static byte[] hash(char[] password, byte[] salt) {
+    private static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
         try {
@@ -37,7 +40,7 @@ public class PasswordUtils {
         }
     }
 
-    public static String generateSecurePassword(String password, String salt) {
+    static String generateSecurePassword(String password, String salt) {
         String returnValue = null;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
 
@@ -46,8 +49,8 @@ public class PasswordUtils {
         return returnValue;
     }
 
-    public static boolean verifyUserPassword(String providedPassword,
-                                             String securedPassword, String salt) {
+    static boolean verifyUserPassword(String providedPassword,
+                                      String securedPassword, String salt) {
         boolean returnValue = false;
 
         // Generate New secure password with the same salt

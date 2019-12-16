@@ -78,36 +78,32 @@ public class UserInfo extends Entity {
         return firstName;
     }
 
-    public UserInfo setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public UserInfo setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public UserInfo setNickname(String nickname) {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
-        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public UserInfo setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
-        return this;
     }
 
     public Timestamp getDateRegistration() {
@@ -116,6 +112,43 @@ public class UserInfo extends Entity {
 
     public void setDateRegistration(Timestamp dateRegistration) {
         this.dateRegistration = dateRegistration;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UserInfo userInfo = (UserInfo) o;
+
+        if (!firstName.equals(userInfo.firstName)) return false;
+        if (!lastName.equals(userInfo.lastName)) return false;
+        if (!nickname.equals(userInfo.nickname)) return false;
+        if (!phone.equals(userInfo.phone)) return false;
+        if (!dateRegistration.equals(userInfo.dateRegistration)) return false;
+        if (!email.equals(userInfo.email)) return false;
+        if (!image.equals(userInfo.image)) return false;
+        if (!password.equals(userInfo.password)) return false;
+        if (role != userInfo.role) return false;
+        if (!flagBlocked.equals(userInfo.flagBlocked)) return false;
+        return salt.equals(userInfo.salt);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + nickname.hashCode();
+        result = 31 * result + phone.hashCode();
+        result = 31 * result + dateRegistration.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + image.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + role.hashCode();
+        result = 31 * result + flagBlocked.hashCode();
+        result = 31 * result + salt.hashCode();
+        return result;
     }
 }

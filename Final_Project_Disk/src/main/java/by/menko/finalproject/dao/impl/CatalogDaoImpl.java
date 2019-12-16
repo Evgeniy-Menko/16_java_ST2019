@@ -4,7 +4,7 @@ import by.menko.finalproject.dao.CatalogDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Catalog;
 
-import by.menko.finalproject.entity.UserInfo;
+
 import by.menko.finalproject.exception.PersonalException;
 
 import java.sql.PreparedStatement;

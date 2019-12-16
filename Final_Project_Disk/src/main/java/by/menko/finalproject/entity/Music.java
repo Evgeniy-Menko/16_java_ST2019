@@ -8,17 +8,36 @@ public class Music extends Disk {
         return singer;
     }
 
-    public Music setSinger(String singer) {
+    public void setSinger(String singer) {
         this.singer = singer;
-        return this;
     }
 
     public String getAlbom() {
         return albom;
     }
 
-    public Music setAlbom(String albom) {
+    public void setAlbom(String albom) {
         this.albom = albom;
-        return this;
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Music music = (Music) o;
+
+        if (!singer.equals(music.singer)) return false;
+        return albom.equals(music.albom);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + singer.hashCode();
+        result = 31 * result + albom.hashCode();
+        return result;
     }
 }

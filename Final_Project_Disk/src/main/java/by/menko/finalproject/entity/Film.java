@@ -8,17 +8,35 @@ public class Film extends Disk {
         return country;
     }
 
-    public Film setCountry(String country) {
+    public void setCountry(String country) {
         this.country = country;
-        return this;
     }
 
     public String getRunningTime() {
         return runningTime;
     }
 
-    public Film setRunningTime(String runningTime) {
+    public void setRunningTime(String runningTime) {
         this.runningTime = runningTime;
-        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Film film = (Film) o;
+
+        if (!country.equals(film.country)) return false;
+        return runningTime.equals(film.runningTime);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + country.hashCode();
+        result = 31 * result + runningTime.hashCode();
+        return result;
     }
 }

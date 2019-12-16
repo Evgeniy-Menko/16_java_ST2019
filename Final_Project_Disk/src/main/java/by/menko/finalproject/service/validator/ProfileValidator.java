@@ -11,7 +11,6 @@ import java.io.IOException;
 public class ProfileValidator {
     private final static String REGEX = "[A-zА-яЁё]*";
     private final static String REGEX_NUMBER_PHONE = "^((8|\\+3|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private final static String REGEX_PASSWORD = "[\\S]*";
 
     public UserInfo validate(HttpServletRequest request) throws IOException, ServletException, ServicePersonalException {

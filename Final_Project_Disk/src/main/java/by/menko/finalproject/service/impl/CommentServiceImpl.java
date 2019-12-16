@@ -8,7 +8,7 @@ import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.service.CommentService;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

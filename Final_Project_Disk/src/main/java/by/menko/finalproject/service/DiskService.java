@@ -6,7 +6,7 @@ import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.exception.PersonalException;
 import by.menko.finalproject.exception.ServicePersonalException;
 
-import javax.servlet.http.Part;
+
 import java.util.List;
 
 public interface DiskService extends Service {

@@ -1,6 +1,6 @@
 package by.menko.finalproject.controller.action.useraction;
 
-import by.menko.finalproject.controller.action.Command;
+
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

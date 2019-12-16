@@ -19,8 +19,27 @@ public class ShoppingCart extends Entity {
             return timeAdded;
       }
 
-      public ShoppingCart setTimeAdded(Date timeAdded) {
+      public void setTimeAdded(Date timeAdded) {
             this.timeAdded = timeAdded;
-            return this;
       }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        ShoppingCart that = (ShoppingCart) o;
+
+        if (!diskId.equals(that.diskId)) return false;
+        return timeAdded.equals(that.timeAdded);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + diskId.hashCode();
+        result = 31 * result + timeAdded.hashCode();
+        return result;
+    }
 }

@@ -12,6 +12,8 @@
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
 <fmt:setLocale value="${language}" />
 <fmt:bundle basename="text">
+    <jsp:useBean id="userInfo" scope="request" type="by.menko.finalproject.entity.UserInfo"/>
+
     <html lang="${language}">
 
     <head>
@@ -36,7 +38,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-3">
             <br>
-            <img src="${userInfo.image}" class="rounded-circle " width="304" height="236">
+            <img src="${userInfo.image}" alt="no image" class="rounded-circle " width="304" height="236">
         </div>
         <div class="col-md-6">
             <br>

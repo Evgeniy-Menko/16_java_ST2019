@@ -1,7 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 
-import by.menko.finalproject.controller.action.Command;
+
 import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.exception.PersonalException;
 

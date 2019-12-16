@@ -1,6 +1,7 @@
 package by.menko.finalproject.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 public class Comment extends Entity {
@@ -22,26 +23,50 @@ public class Comment extends Entity {
         return idUserCommented;
     }
 
-    public Comment setIdUserCommented(Integer idUserCommented) {
+    public void setIdUserCommented(Integer idUserCommented) {
         this.idUserCommented = idUserCommented;
-        return this;
+
     }
 
     public String getCommentText() {
         return commentText;
     }
 
-    public Comment setCommentText(String commentText) {
+    public void setCommentText(String commentText) {
         this.commentText = commentText;
-        return this;
+
     }
 
     public Date getTimeAdded() {
         return timeAdded;
     }
 
-    public Comment setTimeAdded(Date timeAdded) {
+    public void setTimeAdded(Date timeAdded) {
         this.timeAdded = timeAdded;
-        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Comment comment = (Comment) o;
+
+        if (!Objects.equals(idUserCommented, comment.idUserCommented))
+            return false;
+        if (!Objects.equals(commentText, comment.commentText)) return false;
+        if (!Objects.equals(idDisk, comment.idDisk)) return false;
+        return Objects.equals(timeAdded, comment.timeAdded);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (idUserCommented != null ? idUserCommented.hashCode() : 0);
+        result = 31 * result + (commentText != null ? commentText.hashCode() : 0);
+        result = 31 * result + (idDisk != null ? idDisk.hashCode() : 0);
+        result = 31 * result + (timeAdded != null ? timeAdded.hashCode() : 0);
+        return result;
     }
 }
