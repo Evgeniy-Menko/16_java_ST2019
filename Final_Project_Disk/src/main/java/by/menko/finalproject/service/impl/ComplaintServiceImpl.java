@@ -11,8 +11,7 @@ import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.ComplaintService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.util.*;
 
