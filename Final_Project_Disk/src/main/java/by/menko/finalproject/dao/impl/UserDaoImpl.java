@@ -4,7 +4,9 @@ import by.menko.finalproject.dao.UserDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.Role;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 
 public class UserDaoImpl extends BaseDao implements UserDao {
-
+    private static Logger logger = LogManager.getLogger();
     private static final String CREATE_USER_WITH_PHONE = "INSERT INTO `users` (`mail`, `password`,`salt`,`role`,`first_name`,`last_name`,`nickname`,`phone`,`image`) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
     private static final String GET_USER_INFO = "SELECT `id_user` FROM `users` WHERE `mail` = ? OR `nickname`=?";
     private static final String GET_SALT_PASSWORD = "SELECT `id_user`, `role`,`salt`,`password` FROM `users` WHERE `mail` = ?";
@@ -25,8 +27,9 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     private static final String UPDATE_USER_INFO = "UPDATE `users` SET `first_name` = ?, `last_name` = ?, `nickname` = ?, `password`=? ,`image`=?,`phone`=? WHERE `id_user` = ?";
 
     @Override
-    public Integer createUser(UserInfo user) throws PersonalException {
-        try (PreparedStatement statement = connection.prepareStatement(CREATE_USER_WITH_PHONE, Statement.RETURN_GENERATED_KEYS)) {
+    public Integer createUser(final UserInfo user) throws PersonalException {
+        try (PreparedStatement statement = connection.prepareStatement(CREATE_USER_WITH_PHONE,
+                Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getSalt());
@@ -41,7 +44,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
                 } else {
-                    //		logger.error("There is no autoincremented index after trying to add record into table `users`");
+                    logger.error("There is no autoincremented index after trying to add record into table `users`");
                     throw new PersonalException();
                 }
             } catch (SQLException e) {
@@ -53,8 +56,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
 
-
-    public Boolean readByEmailAndNickname(UserInfo user) throws PersonalException {
+    public Boolean readByEmailAndNickname(final UserInfo user) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_INFO)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getNickname());
@@ -70,7 +72,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
 
-    public Optional<UserInfo> getSaltAndPassword(String email) throws PersonalException {
+    public Optional<UserInfo> getSaltAndPassword(final String email) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_SALT_PASSWORD)) {
             statement.setString(1, email);
 
@@ -95,7 +97,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     @Override
-    public Optional<UserInfo> read(Integer identity) throws PersonalException {
+    public Optional<UserInfo> read(final Integer identity) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID)) {
             statement.setInt(1, identity);
 
@@ -121,7 +123,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     @Override
-    public Optional<UserInfo> readAllInfo(Integer identity) throws PersonalException {
+    public Optional<UserInfo> readAllInfo(final Integer identity) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_INFO_BY_ID)) {
             statement.setInt(1, identity);
 
@@ -148,7 +150,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     @Override
-    public void update(UserInfo user) throws PersonalException {
+    public void update(final UserInfo user) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_USER_INFO)) {
 
             statement.setString(1, user.getFirstName());

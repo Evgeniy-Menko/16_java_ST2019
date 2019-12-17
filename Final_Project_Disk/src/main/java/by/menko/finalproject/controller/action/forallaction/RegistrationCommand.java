@@ -3,13 +3,15 @@ package by.menko.finalproject.controller.action.forallaction;
 
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.exception.ServicePersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
+import by.menko.finalproject.service.exception.ServicePersonalException;
 
 import by.menko.finalproject.service.FileService;
 import by.menko.finalproject.service.UserService;
 import by.menko.finalproject.service.validator.RegistrValidator;
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -21,8 +23,10 @@ import java.util.Map;
 
 @MultipartConfig
 public class RegistrationCommand extends ForAllAction {
+    private static Logger logger = LogManager.getLogger();
+
     @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
+    public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         RegistrValidator validator = new RegistrValidator();
         UserService service = factory.createService(TypeServiceAndDao.USER);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
@@ -36,6 +40,7 @@ public class RegistrationCommand extends ForAllAction {
             user.setImage(pathImage);
             user = service.registrUser(user);
             request.getSession().setAttribute("authorizedUser", user);
+            logger.info(String.format("user \"%d\" is registered in from %s (%s:%s)", user.getIdEntity(), request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
         } catch (ServicePersonalException | IOException e) {
             Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());

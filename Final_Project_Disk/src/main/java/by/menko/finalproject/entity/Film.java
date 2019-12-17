@@ -1,14 +1,14 @@
 package by.menko.finalproject.entity;
 
 public class Film extends Disk {
-     private  String  country;
-     private String runningTime;
+    private String country;
+    private String runningTime;
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -16,12 +16,12 @@ public class Film extends Disk {
         return runningTime;
     }
 
-    public void setRunningTime(String runningTime) {
+    public void setRunningTime(final String runningTime) {
         this.runningTime = runningTime;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
@@ -35,8 +35,8 @@ public class Film extends Disk {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + country.hashCode();
-        result = 31 * result + runningTime.hashCode();
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (runningTime != null ? runningTime.hashCode() : 0);
         return result;
     }
 }

@@ -20,7 +20,7 @@ public class Disk extends Entity {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -28,7 +28,7 @@ public class Disk extends Entity {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setIdUser(final Integer idUser) {
         this.idUser = idUser;
 
     }
@@ -37,7 +37,7 @@ public class Disk extends Entity {
         return nameDisk;
     }
 
-    public void setNameDisk(String nameDisk) {
+    public void setNameDisk(final String nameDisk) {
         this.nameDisk = nameDisk;
 
     }
@@ -46,7 +46,7 @@ public class Disk extends Entity {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(final String genre) {
         this.genre = genre;
 
     }
@@ -55,7 +55,7 @@ public class Disk extends Entity {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(final Double price) {
         this.price = price;
 
     }
@@ -64,7 +64,7 @@ public class Disk extends Entity {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
@@ -72,7 +72,7 @@ public class Disk extends Entity {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(final int year) {
         this.year = year;
     }
 
@@ -80,7 +80,7 @@ public class Disk extends Entity {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
 
     }
@@ -90,7 +90,7 @@ public class Disk extends Entity {
         return timeAdded;
     }
 
-    public void setTimeAdded(Timestamp timeAdded) {
+    public void setTimeAdded(final Timestamp timeAdded) {
         this.timeAdded = timeAdded;
 
     }
@@ -130,16 +130,16 @@ public class Disk extends Entity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + idUser.hashCode();
-        result = 31 * result + nameDisk.hashCode();
-        result = 31 * result + genre.hashCode();
-        result = 31 * result + price.hashCode();
-        result = 31 * result + type.hashCode();
-        result = 31 * result + image.hashCode();
-        result = 31 * result + description.hashCode();
+        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
+        result = 31 * result + (nameDisk != null ? nameDisk.hashCode() : 0);
+        result = 31 * result + (genre != null ? genre.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + year;
-        result = 31 * result + timeAdded.hashCode();
-        result = 31 * result + flagBlocked.hashCode();
+        result = 31 * result + (timeAdded != null ? timeAdded.hashCode() : 0);
+        result = 31 * result + (flagBlocked != null ? flagBlocked.hashCode() : 0);
         return result;
     }
 }

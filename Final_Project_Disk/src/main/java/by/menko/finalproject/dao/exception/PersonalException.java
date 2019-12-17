@@ -1,4 +1,4 @@
-package by.menko.finalproject.exception;
+package by.menko.finalproject.dao.exception;
 
 public class PersonalException extends Exception {
     public PersonalException() {}

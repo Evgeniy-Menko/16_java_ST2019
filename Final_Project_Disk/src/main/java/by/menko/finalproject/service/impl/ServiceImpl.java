@@ -6,7 +6,7 @@ import by.menko.finalproject.service.Service;
 abstract public class ServiceImpl implements Service {
     protected Transaction transaction = null;
 
-    public void setTransaction(Transaction transaction) {
+    public void setTransaction(final Transaction transaction) {
         this.transaction = transaction;
     }
 }

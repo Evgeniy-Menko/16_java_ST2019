@@ -7,8 +7,8 @@ import by.menko.finalproject.entity.*;
 import by.menko.finalproject.entity.enumtype.Role;
 import by.menko.finalproject.entity.enumtype.TypeDisk;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.exception.ServicePersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
+import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
 
 import java.util.List;
@@ -19,7 +19,10 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
 
 
     @Override
-    public List<Disk> getDisk(String type, String genre, String priceFrom, String priceTo, String dateIn, String dateTo) throws ServicePersonalException, PersonalException {
+    public List<Disk> getDisk(final String type, final String genre,
+                              final String priceFrom, final String priceTo,
+                              final String dateIn, String dateTo)
+            throws ServicePersonalException, PersonalException {
         int typeDisk = 0;
         int genreDisk = 0;
         double priceFromDisk = 0;
@@ -54,7 +57,6 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
         try {
             if (flag) {
                 findDisk = dao.read();
-
             } else if (validPriceAndYear(priceFromDisk, priceToDisk, yearIn, yearTo)) {
                 findDisk = dao.readDiskByParameter(typeDisk, genreDisk, priceFromDisk, priceToDisk, yearIn, yearTo);
             } else {
@@ -64,13 +66,13 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
             return findDisk;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
 
     @Override
-    public void writeDisk(Disk disk, Integer idUser) throws PersonalException {
+    public void writeDisk(final Disk disk, final Integer idUser) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         CatalogDao catalog = transaction.createDao(TypeServiceAndDao.CATALOG);
         try {
@@ -92,18 +94,25 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
             transaction.commit();
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public List<Disk> getAllDiskByIdUser(Integer idUser) throws PersonalException {
+    public List<Disk> getAllDiskByIdUser(final Integer idUser) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
-        return dao.readByIdUser(idUser);
+        try {
+            List<Disk> listAllDisk = dao.readByIdUser(idUser);
+            transaction.commit();
+            return listAllDisk;
+        } catch (PersonalException e) {
+            transaction.rollback();
+            throw new PersonalException(e);
+        }
     }
 
     @Override
-    public Disk getDisk(String diskId, UserInfo user) throws PersonalException {
+    public Disk getDisk(final String diskId, final UserInfo user) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         Integer id;
         int flagBlocked;
@@ -130,21 +139,21 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
                 if (disk.isPresent()) {
                     disk.get().setIdEntity(id);
                 } else {
-                    throw new PersonalException();
+                    throw new PersonalException("Disk is null");
                 }
             } else {
-                throw new PersonalException();
+                throw new PersonalException("Disk is null");
             }
             transaction.commit();
             return disk.get();
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public void updateDisk(Disk disk, UserInfo user) throws PersonalException {
+    public void updateDisk(final Disk disk, final UserInfo user) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         try {
             Disk diskOld = getDisk(String.valueOf(disk.getIdEntity()), user);
@@ -161,12 +170,12 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
             transaction.commit();
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public void deleteDisk(String idDisk, Integer idUser) throws PersonalException {
+    public void deleteDisk(final String idDisk, final Integer idUser) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         try {
             Integer diskId = Integer.parseInt(idDisk);
@@ -174,11 +183,12 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
-    private boolean validPriceAndYear(Double priceFrom, Double priceTo, Integer yearIn, Integer yearTo) {
+    private boolean validPriceAndYear(final Double priceFrom, final Double priceTo,
+                                      final Integer yearIn, final Integer yearTo) {
         boolean flag = true;
         if (priceTo != 0 && priceFrom > priceTo) {
             flag = false;

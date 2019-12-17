@@ -11,7 +11,7 @@ public class Game extends Disk {
         return ageLimit;
     }
 
-    public void setAgeLimit(int ageLimit) {
+    public void setAgeLimit(final int ageLimit) {
         this.ageLimit = ageLimit;
 
     }
@@ -20,13 +20,13 @@ public class Game extends Disk {
         return developer;
     }
 
-    public void setDeveloper(String developer) {
+    public void setDeveloper(final String developer) {
         this.developer = developer;
 
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
@@ -41,7 +41,7 @@ public class Game extends Disk {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + ageLimit;
-        result = 31 * result + developer.hashCode();
+        result = 31 * result + (developer != null ? developer.hashCode() : 0);
         return result;
     }
 }

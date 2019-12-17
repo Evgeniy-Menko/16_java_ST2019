@@ -4,7 +4,7 @@ import by.menko.finalproject.dao.DiskDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.*;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Integer create(Disk disk, Integer idGenre) throws PersonalException {
+    public Integer create(final Disk disk, final Integer idGenre) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_DISK, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, disk.getIdUser());
             statement.setString(2, disk.getNameDisk());
@@ -62,7 +62,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     @Override
-    public void createDisk(Music disk) throws PersonalException {
+    public void createDisk(final Music disk) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_MUSIC)) {
             statement.setInt(1, disk.getIdEntity());
             statement.setString(2, disk.getSinger());
@@ -74,7 +74,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     @Override
-    public void createDisk(Film disk) throws PersonalException {
+    public void createDisk(final Film disk) throws PersonalException {
 
 
         try (PreparedStatement statement = connection.prepareStatement(CREATE_FILM)) {
@@ -90,7 +90,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
     }
 
     @Override
-    public void createDisk(Game disk) throws PersonalException {
+    public void createDisk(final Game disk) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_GAME)) {
             statement.setInt(1, disk.getIdEntity());
             statement.setInt(2, disk.getAgeLimit());
@@ -104,7 +104,9 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public List<Disk> readDiskByParameter(Integer type, Integer genre, Double priceFrom, Double priceTo, Integer dateIn, Integer dateTo) throws PersonalException {
+    public List<Disk> readDiskByParameter(final Integer type, final Integer genre,
+                                          final Double priceFrom, final Double priceTo,
+                                          final Integer dateIn, final Integer dateTo) throws PersonalException {
         String sql = createSql(type, genre, priceFrom, priceTo, dateIn, dateTo);
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, 0);
@@ -153,7 +155,9 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
         }
     }
 
-    private String createSql(Integer type, Integer genre, Double priceFrom, Double priceTo, Integer dateIn, Integer dateTo) {
+    private String createSql(final Integer type, final Integer genre,
+                             final Double priceFrom, final Double priceTo,
+                             final Integer dateIn, final Integer dateTo) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(GET_DISK_BY_PARAMETER);
 
@@ -207,7 +211,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public List<Disk> readByIdUser(Integer idUser) throws PersonalException {
+    public List<Disk> readByIdUser(final Integer idUser) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_USER)) {
             statement.setInt(1, idUser);
             statement.setInt(2, 0);
@@ -234,7 +238,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Optional<Disk> read(Integer identity) throws PersonalException {
+    public Optional<Disk> read(final Integer identity) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
             statement.setInt(1, identity);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -255,7 +259,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Optional<Disk> readByIdDisk(Integer idDisk) throws PersonalException {
+    public Optional<Disk> readByIdDisk(final Integer idDisk) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID_DISK)) {
             statement.setInt(1, idDisk);
             statement.setInt(2, 0);
@@ -282,7 +286,8 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Optional<Disk> readFilm(Integer identity, Integer flagBlocked) throws PersonalException {
+    public Optional<Disk> readFilm(final Integer identity,
+                                   final Integer flagBlocked) throws PersonalException {
         String sql;
         if (flagBlocked == 1) {
             sql = GET_BY_ID_FILM_FOR_ADMIN;
@@ -321,7 +326,8 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Optional<Disk> readGame(Integer identity, Integer flagBlocked) throws PersonalException {
+    public Optional<Disk> readGame(final Integer identity,
+                                   final Integer flagBlocked) throws PersonalException {
         String sql;
         if (flagBlocked == 1) {
             sql = GET_BY_ID_GAME_FOR_ADMIN;
@@ -360,7 +366,8 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public Optional<Disk> readMusic(Integer identity, Integer flagBlocked) throws PersonalException {
+    public Optional<Disk> readMusic(final Integer identity,
+                                    final Integer flagBlocked) throws PersonalException {
         String sql;
         if (flagBlocked == 1) {
             sql = GET_BY_ID_MUSIC_FOR_ADMIN;
@@ -399,7 +406,7 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
 
 
     @Override
-    public void updateFilm(Disk disk) throws PersonalException {
+    public void updateFilm(final Disk disk) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_FILM)) {
             statement.setString(1, disk.getNameDisk());
             statement.setDouble(2, disk.getPrice());
@@ -487,7 +494,6 @@ public class DiskDaoImpl extends BaseDao implements DiskDao {
             throw new PersonalException(e);
         }
     }
-
 
 
     @Override

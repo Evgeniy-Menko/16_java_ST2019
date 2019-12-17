@@ -4,7 +4,7 @@ import by.menko.finalproject.dao.CommentDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Comment;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
     private static final String GET_COMMENTS = "SELECT `id_comment`, `user_id_commented`,`comment_text`,`time_added` FROM `comments` WHERE `disk_id` = ? ORDER BY `time_added` DESC";
 
     @Override
-    public void delete(Integer id, Integer idUser) throws PersonalException {
+    public void delete(final Integer id, final Integer idUser) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(DELETE_COMMENT)) {
             statement.setInt(1, id);
@@ -32,7 +32,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
     }
 
     @Override
-    public Integer create(Comment entity) throws PersonalException {
+    public Integer create(final Comment entity) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(CREATE_COMMENT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, entity.getIdUserCommented());
@@ -55,7 +55,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
     }
 
     @Override
-    public List<Comment> readByIdDisk(Integer idDisk) throws PersonalException {
+    public List<Comment> readByIdDisk(final Integer idDisk) throws PersonalException {
         List<Comment> result = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(GET_COMMENTS)) {

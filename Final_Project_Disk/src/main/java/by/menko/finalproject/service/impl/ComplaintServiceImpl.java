@@ -9,16 +9,21 @@ import by.menko.finalproject.entity.Complaint;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.ComplaintService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class ComplaintServiceImpl extends ServiceImpl implements ComplaintService {
-    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9\\S_\\t\\n\\r ]*$";
+
+    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
     @Override
-    public void addComplaint(String idDisk, String idUser, String complaintText, Integer idUserWasComplaint) throws PersonalException {
+    public void addComplaint(final String idDisk, final String idUser,
+                             final String complaintText, final Integer idUserWasComplaint)
+            throws PersonalException {
         ComplaintDao dao = transaction.createDao(TypeServiceAndDao.COMPLAINT);
         Complaint complaint = new Complaint();
         try {
@@ -32,12 +37,11 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
                 dao.create(complaint);
                 transaction.commit();
             } else {
-                transaction.rollback();
-                throw new PersonalException();
+                throw new PersonalException("Incorrect complaint text");
             }
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -57,11 +61,11 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             return mapUserAndComplaint;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
-    public void deleteComplaint(String idComplaint) throws PersonalException {
+    public void deleteComplaint(final String idComplaint) throws PersonalException {
         ComplaintDao dao = transaction.createDao(TypeServiceAndDao.COMPLAINT);
         try {
             Integer id = Integer.parseInt(idComplaint);
@@ -69,12 +73,12 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public List<Disk> getDiskWithComplaint(Map<UserInfo, Complaint> complaintMap) throws PersonalException {
+    public List<Disk> getDiskWithComplaint(final Map<UserInfo, Complaint> complaintMap) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         try {
             List<Disk> diskList = new ArrayList<>();
@@ -87,12 +91,12 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             return diskList;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public void blockAnnouncement(String idDisk) throws PersonalException {
+    public void blockAnnouncement(final String idDisk) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         try {
             Integer diskId = Integer.parseInt(idDisk);
@@ -100,12 +104,12 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
     @Override
-    public void unlockAnnouncement(String idDisk) throws PersonalException {
+    public void unlockAnnouncement(final String idDisk) throws PersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         try {
             Integer diskId = Integer.parseInt(idDisk);
@@ -113,7 +117,7 @@ public class ComplaintServiceImpl extends ServiceImpl implements ComplaintServic
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 }

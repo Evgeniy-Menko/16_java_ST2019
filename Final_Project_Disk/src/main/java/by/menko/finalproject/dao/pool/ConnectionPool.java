@@ -1,12 +1,15 @@
 package by.menko.finalproject.dao.pool;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.FatalError;
+import by.menko.finalproject.dao.exception.PersonalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -23,17 +26,17 @@ final public class ConnectionPool {
     private static ReentrantLock lock = new ReentrantLock();
     private static AtomicBoolean create = new AtomicBoolean(false);
 
-    private ConnectionPool() throws PersonalException {
+    private ConnectionPool() {
         resources = new MySqlResources();
         try {
             Class.forName(resources.getDriverClass());
         } catch (ClassNotFoundException e) {
-            throw new PersonalException(e);
+            throw new FatalError(e);
         }
         init();
     }
 
-    public void init() {
+    private void init() {
         try {
 
             availableConnections = new LinkedBlockingDeque<>(resources.getMaxSize());
@@ -51,7 +54,7 @@ final public class ConnectionPool {
         return new ProxyConnection(DriverManager.getConnection(resources.getUrl(), resources.getUser(), resources.getPassword()));
     }
 
-    public static ConnectionPool getInstance() throws PersonalException {
+    public static ConnectionPool getInstance() {
         if (!create.get()) {
             try {
                 lock.lock();
@@ -66,7 +69,7 @@ final public class ConnectionPool {
         return instance;
     }
 
-    public Connection takeConnection() {
+    public Connection takeConnection() throws PersonalException {
         ProxyConnection connection = null;
 
         while (connection == null) {
@@ -74,34 +77,30 @@ final public class ConnectionPool {
                 if (!availableConnections.isEmpty()) {
                     connection = availableConnections.take();
                     if (!connection.isValid(resources.getCheckConnectionTimeout())) {
-                        try {
-                            connection.getConnection().close();
-                        } catch (SQLException e) {
-                            connection = null;
-                        }
+                        connection.getConnection().close();
                         connection = null;
                     }
                 } else if (usedConnections.size() < resources.getMaxSize()) {
                     connection = createConnection();
                 } else {
                     logger.error("The limit of number of database connections is exceeded");
-                    // throw new PersistentException();
+                    throw new PersonalException();
                 }
             } catch (InterruptedException | SQLException e) {
                 logger.error("It is impossible to connect to a database", e);
-                // throw new PersistentException(e);
+                throw new PersonalException(e);
             }
         }
         try {
             usedConnections.put(connection);
         } catch (InterruptedException e) {
-            //log
+            logger.debug(String.format("Connection was received from pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), availableConnections.size()));
             Thread.currentThread().interrupt();
         }
         return connection;
     }
 
-    public void releaseConnection(ProxyConnection connection) {
+    void releaseConnection(ProxyConnection connection) {
         try {
             if (connection.isValid(resources.getCheckConnectionTimeout())) {
                 connection.clearWarnings();
@@ -122,20 +121,29 @@ final public class ConnectionPool {
 
 
     public void closePool() {
-        ProxyConnection connection = null;
+        ProxyConnection connection;
         for (int i = 0; i < resources.getMaxSize(); i++) {
             try {
                 connection = availableConnections.take();
                 connection.realClose();
             } catch (InterruptedException | SQLException e) {
-                logger.debug("Error closing connection.");
-
+                logger.debug("Error closed connection.");
+                Thread.currentThread().interrupt();
             }
         }
+        availableConnections.clear();
+        deregisterDrivers();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        closePool();
+    private void deregisterDrivers() {
+        Enumeration<Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            Driver driver = drivers.nextElement();
+            try {
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException e) {
+                logger.error("Cant deregister SQL drivers");
+            }
+        }
     }
 }

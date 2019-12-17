@@ -14,7 +14,7 @@ public class Comment extends Entity {
         return idDisk;
     }
 
-    public void setIdDisk(Integer idDisk) {
+    public void setIdDisk(final Integer idDisk) {
         this.idDisk = idDisk;
 
     }
@@ -23,7 +23,7 @@ public class Comment extends Entity {
         return idUserCommented;
     }
 
-    public void setIdUserCommented(Integer idUserCommented) {
+    public void setIdUserCommented(final Integer idUserCommented) {
         this.idUserCommented = idUserCommented;
 
     }
@@ -32,7 +32,7 @@ public class Comment extends Entity {
         return commentText;
     }
 
-    public void setCommentText(String commentText) {
+    public void setCommentText(final String commentText) {
         this.commentText = commentText;
 
     }
@@ -41,12 +41,12 @@ public class Comment extends Entity {
         return timeAdded;
     }
 
-    public void setTimeAdded(Date timeAdded) {
+    public void setTimeAdded(final Date timeAdded) {
         this.timeAdded = timeAdded;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

@@ -1,10 +1,10 @@
 package by.menko.finalproject.dao;
 
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 public interface Transaction {
-    <T extends Dao<?>> T createDao(TypeServiceAndDao key) throws PersonalException;
+    <T extends Dao<?>> T createDao(final TypeServiceAndDao key) throws PersonalException;
 
     void commit() throws PersonalException;
 

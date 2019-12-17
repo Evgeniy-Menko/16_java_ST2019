@@ -4,12 +4,14 @@ package by.menko.finalproject.controller.action.useraction;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.exception.ServicePersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
+import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
 import by.menko.finalproject.service.FileService;
 import by.menko.finalproject.service.validator.DiskValidator;
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResultAddAnnouncementCommand extends UserAction {
+    private static Logger logger = LogManager.getLogger();
+
     @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
+    public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
         DiskValidator validator = new DiskValidator();
@@ -35,6 +39,7 @@ public class ResultAddAnnouncementCommand extends UserAction {
             Disk disk = validator.validate(request);
             disk.setImage(pathImage);
             service.writeDisk(disk, user.getIdEntity());
+            logger.info(String.format("User %d added announcement", user.getIdEntity()));
         } catch (ServicePersonalException e) {
             Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());

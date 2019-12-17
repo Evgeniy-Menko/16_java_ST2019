@@ -7,13 +7,13 @@ abstract public class Entity {
         return idEntity;
     }
 
-    public Entity setIdEntity(Integer idEntity) {
+    public Entity setIdEntity(final Integer idEntity) {
         this.idEntity = idEntity;
         return this;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (object != null) {
             if (object != this) {
                 if (object.getClass() == getClass() && idEntity != null) {

@@ -1,6 +1,6 @@
 package by.menko.finalproject.dao.pool;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.*;
 import java.util.Map;
@@ -251,11 +251,8 @@ public class ProxyConnection implements Connection {
      */
     @Override
     public void close() throws SQLException {
-        try {
-            ConnectionPool.getInstance().releaseConnection(this);
-        } catch (PersonalException e) {
-            e.printStackTrace();
-        }
+        ConnectionPool.getInstance().releaseConnection(this);
+
     }
 
     /**

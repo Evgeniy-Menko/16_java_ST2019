@@ -5,7 +5,7 @@ import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.DiskService;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MyAnnouncementCommand extends UserAction {
     @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
+    public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         List<Disk> resultList = service.getAllDiskByIdUser(user.getIdEntity());

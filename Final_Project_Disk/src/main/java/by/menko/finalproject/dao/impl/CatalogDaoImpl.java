@@ -5,7 +5,7 @@ import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Catalog;
 
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +44,7 @@ public class CatalogDaoImpl extends BaseDao implements CatalogDao {
 
 
     @Override
-    public Optional<Integer> read(String genre, String type) throws PersonalException {
+    public Optional<Integer> read(final String genre,final String type) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(GET_ID_GENRE)) {
             statement.setString(1, genre);
             statement.setString(2, type);

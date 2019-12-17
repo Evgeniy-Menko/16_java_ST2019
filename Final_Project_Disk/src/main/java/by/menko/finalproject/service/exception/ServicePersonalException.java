@@ -1,4 +1,4 @@
-package by.menko.finalproject.exception;
+package by.menko.finalproject.service.exception;
 
 public class ServicePersonalException extends Exception {
     public ServicePersonalException() {}

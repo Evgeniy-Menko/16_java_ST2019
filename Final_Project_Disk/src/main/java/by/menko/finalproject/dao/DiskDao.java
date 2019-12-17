@@ -5,44 +5,47 @@ import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.Film;
 import by.menko.finalproject.entity.Game;
 import by.menko.finalproject.entity.Music;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface DiskDao extends Dao<Disk> {
-    void createDisk(Film disk) throws PersonalException;
+    void createDisk(final Film disk) throws PersonalException;
 
-    Integer create(Disk disk, Integer idGenre) throws PersonalException;
+    Integer create(final Disk disk, final Integer idGenre) throws PersonalException;
 
-    void createDisk(Game disk) throws PersonalException;
+    void createDisk(final Game disk) throws PersonalException;
 
-    void createDisk(Music disk) throws PersonalException;
+    void createDisk(final Music disk) throws PersonalException;
 
-    List<Disk> readDiskByParameter(Integer type, Integer genre, Double priceFrom, Double priceTo, Integer dateIn, Integer dateTo) throws PersonalException;
+    List<Disk> readDiskByParameter(final Integer type, final Integer genre,
+                                   final Double priceFrom, final Double priceTo,
+                                   final Integer dateIn, final Integer dateTo)
+            throws PersonalException;
 
     List<Disk> read() throws PersonalException;
 
-    List<Disk> readByIdUser(Integer idUser) throws PersonalException;
+    List<Disk> readByIdUser(final Integer idUser) throws PersonalException;
 
-    Optional<Disk> readFilm(Integer identity,Integer flagBlocked) throws PersonalException;
+    Optional<Disk> readFilm(final Integer identity, final Integer flagBlocked) throws PersonalException;
 
-    Optional<Disk> readGame(Integer identity,Integer flagBlocked) throws PersonalException;
+    Optional<Disk> readGame(final Integer identity, final Integer flagBlocked) throws PersonalException;
 
-    Optional<Disk> readMusic(Integer identity,Integer flagBlocked) throws PersonalException;
+    Optional<Disk> readMusic(final Integer identity, final Integer flagBlocked) throws PersonalException;
 
-    void updateFilm(Disk disk) throws PersonalException;
+    void updateFilm(final Disk disk) throws PersonalException;
 
-    void updateGame(Disk disk) throws PersonalException;
+    void updateGame(final Disk disk) throws PersonalException;
 
-    void updateMusic(Disk disk) throws PersonalException;
+    void updateMusic(final Disk disk) throws PersonalException;
 
-    Optional<Disk> readByIdDisk(Integer idDisk) throws PersonalException;
+    Optional<Disk> readByIdDisk(final Integer idDisk) throws PersonalException;
 
-    void blocked(Integer idEntity) throws PersonalException;
+    void blocked(final Integer idEntity) throws PersonalException;
 
-    void unLock(Integer idEntity) throws PersonalException;
+    void unLock(final Integer idEntity) throws PersonalException;
 
-    Optional<Disk> readForAdmin(Integer idDisk) throws PersonalException;
+    Optional<Disk> readForAdmin(final Integer idDisk) throws PersonalException;
 
 }

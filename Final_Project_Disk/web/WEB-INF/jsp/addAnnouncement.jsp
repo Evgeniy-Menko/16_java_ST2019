@@ -133,7 +133,9 @@
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
                             } else if (json['incorrectNumber'] != null) {
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
-                            } else {
+                            }else if (json['incorrectComment'] != null) {
+                                $("#incorrectComment").append('<span><fmt:message key="incorrectComment"/></span>');
+                            }  else {
                                 window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 
@@ -170,7 +172,7 @@
                         <div class="card cl-md-6" style="width:350px; height:203px">
 
                             <img id="blah" class="card-img-top"
-                                 src="../../images/no.png"
+                                 src="${pageContext.request.contextPath}/images/no.png"
                                  alt="your image" style="width:100%;height:100%">
 
                         </div>
@@ -305,6 +307,7 @@
                 <div class="form-group col-md-10">
                     <label for="comment">Description:</label>
                     <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    <div class="help-block with-errors " id="incorrectComment" style="color: #b30300;"></div>
                 </div>
                 <div class=" col-md-1"></div>
                 <div class=" col-md-1"></div>

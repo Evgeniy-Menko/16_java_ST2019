@@ -311,7 +311,7 @@
                         <label for="passwordOld">Old password *</label>
                         <input id="passwordOld" type="password" name="oldPassword" class="form-control password3"
                                placeholder="Please enter your old password *"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
+                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors " id="errorPasswordOld" style="color: #b30300;">
                         </div>
@@ -337,7 +337,7 @@
                         <label for="password"><fmt:message key="password"/> *</label>
                         <input id="password" type="password" name="password" class="form-control password"
                                placeholder="Please enter your password *"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
+                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors error" id="errorPassword" style="color: #b30300;">
                         </div>
@@ -348,7 +348,7 @@
                         <label for="repeat_password"><fmt:message key="repeatPass"/> *</label>
                         <input id="repeat_password" type="password" name="password2" class="form-control cor_password"
                                placeholder="Please repeat your password *"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
+                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors error "></div>
                     </div>

@@ -4,7 +4,7 @@ import by.menko.finalproject.dao.ShoppingCartDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.ShoppingCart;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.PreparedStatement;
 
@@ -21,7 +21,7 @@ public class ShoppingCartDaoImpl extends BaseDao implements ShoppingCartDao {
     private static final String DELETE_DISK = "DELETE FROM `shopping_cart` WHERE `user_id`=? AND `disk_id`=?";
 
     @Override
-    public Integer create(ShoppingCart entity) throws PersonalException {
+    public Integer create(final ShoppingCart entity) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(CREATE_SHOPPING_CART)) {
             statement.setInt(1, entity.getIdEntity());
@@ -33,7 +33,7 @@ public class ShoppingCartDaoImpl extends BaseDao implements ShoppingCartDao {
     }
 
     @Override
-    public void delete(Integer id, Integer idUser) throws PersonalException {
+    public void delete(final Integer id, final Integer idUser) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(DELETE_DISK)) {
             statement.setInt(1, idUser);
@@ -46,12 +46,12 @@ public class ShoppingCartDaoImpl extends BaseDao implements ShoppingCartDao {
 
 
     @Override
-    public List<ShoppingCart> readAll(Integer id) throws PersonalException {
+    public List<ShoppingCart> readAll(final Integer id) throws PersonalException {
         List<ShoppingCart> list = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_USER)) {
             statement.setInt(1, id);
-            ShoppingCart shoppingCart ;
+            ShoppingCart shoppingCart;
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     shoppingCart = new ShoppingCart();
@@ -69,7 +69,7 @@ public class ShoppingCartDaoImpl extends BaseDao implements ShoppingCartDao {
     }
 
     @Override
-    public void deleteAll(Integer idUser) throws PersonalException {
+    public void deleteAll(final Integer idUser) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(DELETE_ALL)) {
             statement.setInt(1, idUser);

@@ -10,7 +10,7 @@ public class Catalog {
         return idGenre;
     }
 
-    public void setIdGenre(int idGenre) {
+    public void setIdGenre(final int idGenre) {
         this.idGenre = idGenre;
     }
 
@@ -18,7 +18,7 @@ public class Catalog {
         return idType;
     }
 
-    public void setIdType(int idType) {
+    public void setIdType(final int idType) {
         this.idType = idType;
     }
 
@@ -26,7 +26,7 @@ public class Catalog {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -34,7 +34,7 @@ public class Catalog {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(final String genre) {
         this.genre = genre;
     }
 }

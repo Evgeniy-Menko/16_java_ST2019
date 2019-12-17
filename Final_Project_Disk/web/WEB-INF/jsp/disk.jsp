@@ -195,7 +195,7 @@
                     <form action="${pageContext.request.contextPath}/addComment.html" method="post">
                         <input type="hidden" name="idDisk" value="${disk.idEntity}">
                         <label for="comment">Write Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="comment" required></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="comment" title="Only leters,number and ,.!@#?:()" required></textarea>
 
                         <div class="row">
                             <div class="col-md-5"></div>
@@ -230,7 +230,7 @@
                             <input type="hidden" name="idDisk" value="${disk.idEntity}">
                             <input type="hidden" name="idUser" value="${disk.idUser}">
 
-                            <textarea class="form-control" rows="5" id="compl" name="complaint" required></textarea>
+                            <textarea class="form-control" rows="5" id="compl" name="complaint" title="Only leters,number and ,.!@#?:()" required></textarea>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>

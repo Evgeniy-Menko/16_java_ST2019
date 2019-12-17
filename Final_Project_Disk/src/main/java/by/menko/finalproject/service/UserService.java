@@ -2,19 +2,20 @@ package by.menko.finalproject.service;
 
 
 import by.menko.finalproject.entity.UserInfo;
-import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.exception.ServicePersonalException;
-
+import by.menko.finalproject.dao.exception.PersonalException;
+import by.menko.finalproject.service.exception.ServicePersonalException;
 
 
 import java.io.IOException;
 
 public interface UserService extends Service {
-    UserInfo finUserByEmail(String email, String password) throws PersonalException, ServicePersonalException;
+    UserInfo finUserByEmail(final String email, final String password)
+            throws PersonalException, ServicePersonalException;
 
-    UserInfo registrUser(UserInfo user) throws PersonalException, IOException, ServicePersonalException;
+    UserInfo registrUser(final UserInfo user) throws PersonalException, IOException, ServicePersonalException;
 
-    UserInfo getUser(Integer identity) throws PersonalException;
+    UserInfo getUser(final Integer identity) throws PersonalException;
 
-    void updateUser(UserInfo newUser, Integer idEntity, String newPassword) throws PersonalException, ServicePersonalException;
+    void updateUser(final UserInfo newUser, final Integer idEntity,
+                    final String newPassword) throws PersonalException, ServicePersonalException;
 }

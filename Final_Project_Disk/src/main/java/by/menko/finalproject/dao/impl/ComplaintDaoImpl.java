@@ -3,7 +3,7 @@ package by.menko.finalproject.dao.impl;
 import by.menko.finalproject.dao.ComplaintDao;
 import by.menko.finalproject.dao.constantcolumn.ConstantColumn;
 import by.menko.finalproject.entity.Complaint;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     private static final String GET_ALL = "SELECT `id_complaint`, `user_id_complained`, `disk_id`,`user_was_complained`,`complaint_text`,`time_added` FROM `complaints` ORDER BY `time_added` DESC ";
 
     @Override
-    public Integer create(Complaint entity) throws PersonalException {
+    public Integer create(final Complaint entity) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_COMPLAINT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, entity.getUserIdComplained());
             statement.setInt(2, entity.getIdDisk());
@@ -44,7 +44,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     }
 
     @Override
-    public Optional<Complaint> read(Integer id) throws PersonalException {
+    public Optional<Complaint> read(final Integer id) throws PersonalException {
 
         try (PreparedStatement statement = connection.prepareStatement(GET_COMPLAINT)) {
             statement.setInt(1, id);
@@ -71,7 +71,7 @@ public class ComplaintDaoImpl extends BaseDao implements ComplaintDao {
     }
 
     @Override
-    public void delete(Integer id) throws PersonalException {
+    public void delete(final Integer id) throws PersonalException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_COMPLAINT)) {
             statement.setInt(1, id);
             statement.executeUpdate();

@@ -4,7 +4,7 @@ package by.menko.finalproject.service.impl;
 import by.menko.finalproject.dao.Transaction;
 import by.menko.finalproject.dao.TransactionFactory;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.Service;
 import by.menko.finalproject.service.ServiceFactory;
 
@@ -13,12 +13,12 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
     private TransactionFactory factory;
 
-    public ServiceFactoryImpl(TransactionFactory factory) throws PersonalException {
+    public ServiceFactoryImpl( final TransactionFactory factory)  {
         this.factory = factory;
     }
 
-    private ServiceImpl getService(TypeServiceAndDao key) {
-        ServiceImpl service = null;
+    private ServiceImpl getService(final TypeServiceAndDao key) throws PersonalException {
+        ServiceImpl service ;
         switch (key) {
             case USER:
                 service = new UserServiceImpl();
@@ -42,21 +42,18 @@ public class ServiceFactoryImpl implements ServiceFactory {
                 service = new FileServiceImpl();
                 break;
             default:
-                // return null;
+                throw new PersonalException(String.format("Incorrect type service %s",key));
         }
         return service;
     }
 
     @Override
-    public <T extends Service> T createService(TypeServiceAndDao key) throws PersonalException {
+    public <T extends Service> T createService(final TypeServiceAndDao key) throws PersonalException {
         ServiceImpl value = getService(key);
-        if (value != null) {
-            Transaction transaction = factory.createTransaction();
-            value.setTransaction(transaction);
-            return (T) value;
-        } else {
-            throw new PersonalException();
-        }
+        Transaction transaction = factory.createTransaction();
+        value.setTransaction(transaction);
+        return (T) value;
+
     }
 
     @Override

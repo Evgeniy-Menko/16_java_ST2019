@@ -1,6 +1,6 @@
 package by.menko.finalproject.service;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 
 import javax.servlet.http.Part;
 

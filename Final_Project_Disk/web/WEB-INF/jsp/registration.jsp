@@ -256,7 +256,7 @@
                         <div class="card cl-md-6" style="width:350px; height:203px">
 
                             <img id="blah" class="card-img-top "
-                                 src="../../images/no.png"
+                                 src="/images/no.png"
                                  alt="your image" style="width:100%;height:100%">
 
                         </div>
@@ -332,7 +332,7 @@
                         <label for="password"><fmt:message key="password"/> *</label>
                         <input id="password" type="password" name="password" class="form-control password"
                                placeholder="<fmt:message key="please"/> <fmt:message key="password"/> *" required="required"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="[\S]*"
+                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
                                minlength="4" maxlength="20">
                         <div class="help-block with-errors error" id="errorPassword" style="color: #b30300;">
                         </div>

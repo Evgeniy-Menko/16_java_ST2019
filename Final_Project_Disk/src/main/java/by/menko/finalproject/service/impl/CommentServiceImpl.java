@@ -5,8 +5,10 @@ import by.menko.finalproject.dao.UserDao;
 import by.menko.finalproject.entity.Comment;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.CommentService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import java.util.HashMap;
@@ -15,10 +17,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class CommentServiceImpl extends ServiceImpl implements CommentService {
-    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9\\S_\\t\\n\\r ]*$";
+    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
     @Override
-    public Map<UserInfo, Comment> getComment(Integer idDisk) throws PersonalException {
+    public Map<UserInfo, Comment> getComment(final Integer idDisk) throws PersonalException {
         try {
             CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
             UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
@@ -33,7 +35,7 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
             return mapCommentAndUser;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -51,12 +53,11 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
                 dao.create(comment);
                 transaction.commit();
             } else {
-                transaction.rollback();
-                throw new PersonalException();
+                throw new PersonalException("Incorrect format comment.");
             }
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
 
     }
@@ -70,7 +71,7 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 }

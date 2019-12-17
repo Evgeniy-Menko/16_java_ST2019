@@ -49,7 +49,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 
     <a class="navbar-brand" href="${pageContext.request.contextPath}/home.html">
-        <img src="images/905.jpg" alt="logo" style="width:200px;">
+        <img src="${pageContext.request.contextPath}/images/905.jpg" alt="logo" style="width:200px;">
     </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"
             aria-expanded="true">

@@ -16,7 +16,7 @@ public class Complaint extends Entity {
         return userIdComplained;
     }
 
-    public void setUserIdComplained(Integer userIdComplained) {
+    public void setUserIdComplained(final Integer userIdComplained) {
         this.userIdComplained = userIdComplained;
     }
 
@@ -24,7 +24,7 @@ public class Complaint extends Entity {
         return idDisk;
     }
 
-    public void setIdDisk(Integer idDisk) {
+    public void setIdDisk(final Integer idDisk) {
         this.idDisk = idDisk;
     }
 
@@ -32,7 +32,7 @@ public class Complaint extends Entity {
         return userWasComplained;
     }
 
-    public void setUserWasComplained(Integer userWasComplained) {
+    public void setUserWasComplained(final Integer userWasComplained) {
         this.userWasComplained = userWasComplained;
     }
 
@@ -40,7 +40,7 @@ public class Complaint extends Entity {
         return textComplaint;
     }
 
-    public void setTextComplaint(String textComplaint) {
+    public void setTextComplaint(final String textComplaint) {
         this.textComplaint = textComplaint;
     }
 
@@ -48,12 +48,12 @@ public class Complaint extends Entity {
         return timeAdded;
     }
 
-    public void setTimeAdded(Timestamp timeAdded) {
+    public void setTimeAdded(final Timestamp timeAdded) {
         this.timeAdded = timeAdded;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

@@ -5,14 +5,14 @@ import by.menko.finalproject.dao.ShoppingCartDao;
 import by.menko.finalproject.entity.Disk;
 import by.menko.finalproject.entity.ShoppingCart;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.ShoppingCartService;
 
 import java.util.*;
 
 public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCartService {
     @Override
-    public void addShoppingCart(String idDisk, Integer idUser) throws PersonalException {
+    public void addShoppingCart(final String idDisk, final Integer idUser) throws PersonalException {
         ShoppingCartDao dao = transaction.createDao(TypeServiceAndDao.SHOPPING_CART);
         DiskDao diskDao = transaction.createDao(TypeServiceAndDao.DISK);
         ShoppingCart cart = new ShoppingCart();
@@ -25,12 +25,11 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
                 dao.create(cart);
                 transaction.commit();
             } else {
-                transaction.rollback();
-                throw new PersonalException();
+                throw new PersonalException("Disk is null");
             }
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -38,13 +37,12 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
     public List<ShoppingCart> getAllDiskFromShopCart(Integer idUser) throws PersonalException {
         ShoppingCartDao dao = transaction.createDao(TypeServiceAndDao.SHOPPING_CART);
         try {
-            List<ShoppingCart> listCart = new ArrayList<>();
-            listCart = dao.readAll(idUser);
+            List<ShoppingCart> listCart = dao.readAll(idUser);
             transaction.commit();
             return listCart;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
 
     }
@@ -68,7 +66,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
             return map;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -80,7 +78,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
             transaction.commit();
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -93,7 +91,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl implements ShoppingCart
             transaction.commit();
         } catch (NumberFormatException | PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 }

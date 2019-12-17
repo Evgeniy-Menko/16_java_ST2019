@@ -5,8 +5,8 @@ import by.menko.finalproject.dao.UserDao;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.Role;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
-import by.menko.finalproject.exception.PersonalException;
-import by.menko.finalproject.exception.ServicePersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
+import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.UserService;
 
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
 
-    public UserInfo finUserByEmail(String email, String password) throws PersonalException, ServicePersonalException {
+    public UserInfo finUserByEmail(final String email, final String password) throws PersonalException, ServicePersonalException {
         UserDao dao = transaction.createDao(TypeServiceAndDao.USER);
         try {
             Optional<UserInfo> user = dao.getSaltAndPassword(email);
@@ -33,7 +33,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             }
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             return resultUser;
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
 
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             }
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 
@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                         throw new ServicePersonalException("unknowPassword");
                     }
                 } else {
-                    throw new PersonalException();
+                    throw new PersonalException("Old value's user not found");
                 }
             } else if (oldUser.isPresent()) {
                 newUser.setPassword(oldUser.get().getPassword());
@@ -116,7 +116,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             transaction.commit();
         } catch (PersonalException e) {
             transaction.rollback();
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 }

@@ -4,8 +4,7 @@ package by.menko.finalproject.controller.action.forallaction;
 import by.menko.finalproject.controller.constantspath.ConstantsPath;
 
 
-import by.menko.finalproject.exception.PersonalException;
-
+import by.menko.finalproject.dao.exception.PersonalException;
 
 
 import javax.servlet.ServletException;
@@ -18,7 +17,7 @@ public class HomeCommand extends ForAllAction {
 
 
     @Override
-    public void exec(HttpServletRequest request, HttpServletResponse response) throws PersonalException, ServletException, IOException {
+    public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
 
         request.getRequestDispatcher(ConstantsPath.INDEX_PAGE).forward(request, response);
 

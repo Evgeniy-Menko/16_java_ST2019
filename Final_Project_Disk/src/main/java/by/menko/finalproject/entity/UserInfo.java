@@ -22,11 +22,11 @@ public class UserInfo extends Entity {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(final String image) {
         this.image = image;
     }
 
-    public void setFlagBlocked(Boolean flagBlocked) {
+    public void setFlagBlocked(final Boolean flagBlocked) {
         this.flagBlocked = flagBlocked;
     }
 
@@ -34,7 +34,7 @@ public class UserInfo extends Entity {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public void setSalt(final String salt) {
         this.salt = salt;
     }
 
@@ -42,7 +42,7 @@ public class UserInfo extends Entity {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -50,7 +50,7 @@ public class UserInfo extends Entity {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -58,7 +58,7 @@ public class UserInfo extends Entity {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(final Role role) {
         this.role = role;
     }
 
@@ -66,7 +66,7 @@ public class UserInfo extends Entity {
         return flagBlocked;
     }
 
-    public void setFlagBlocked(Integer id) {
+    public void setFlagBlocked(final Integer id) {
         if (id == 0) {
             this.flagBlocked = false;
         } else if (id == 1) {
@@ -78,7 +78,7 @@ public class UserInfo extends Entity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -86,7 +86,7 @@ public class UserInfo extends Entity {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
@@ -94,7 +94,7 @@ public class UserInfo extends Entity {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(final String nickname) {
         this.nickname = nickname;
     }
 
@@ -102,7 +102,7 @@ public class UserInfo extends Entity {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(final String phone) {
         this.phone = phone;
     }
 
@@ -110,12 +110,12 @@ public class UserInfo extends Entity {
         return dateRegistration;
     }
 
-    public void setDateRegistration(Timestamp dateRegistration) {
+    public void setDateRegistration(final Timestamp dateRegistration) {
         this.dateRegistration = dateRegistration;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
@@ -138,17 +138,17 @@ public class UserInfo extends Entity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + nickname.hashCode();
-        result = 31 * result + phone.hashCode();
-        result = 31 * result + dateRegistration.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + image.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
-        result = 31 * result + flagBlocked.hashCode();
-        result = 31 * result + salt.hashCode();
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (dateRegistration != null ? dateRegistration.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (flagBlocked != null ? flagBlocked.hashCode() : 0);
+        result = 31 * result + (salt != null ? salt.hashCode() : 0);
         return result;
     }
 }

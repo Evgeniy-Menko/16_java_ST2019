@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class ShoppingCart extends Entity {
 
-     private Integer diskId;
-     private Date timeAdded;
+    private Integer diskId;
+    private Date timeAdded;
 
     public Integer getDiskId() {
         return diskId;
     }
 
-    public void setDiskId(Integer diskId) {
+    public void setDiskId(final Integer diskId) {
         this.diskId = diskId;
     }
 
     public Date getTimeAdded() {
-            return timeAdded;
-      }
+        return timeAdded;
+    }
 
-      public void setTimeAdded(Date timeAdded) {
-            this.timeAdded = timeAdded;
-      }
+    public void setTimeAdded(final Date timeAdded) {
+        this.timeAdded = timeAdded;
+    }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
@@ -38,8 +38,8 @@ public class ShoppingCart extends Entity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + diskId.hashCode();
-        result = 31 * result + timeAdded.hashCode();
+        result = 31 * result + (diskId != null ? diskId.hashCode() : 0);
+        result = 31 * result + (timeAdded != null ? timeAdded.hashCode() : 0);
         return result;
     }
 }

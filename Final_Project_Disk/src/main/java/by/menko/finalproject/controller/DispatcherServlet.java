@@ -8,9 +8,11 @@ import by.menko.finalproject.controller.action.forallaction.MenuCommand;
 import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.dao.impl.TransactionFactoryImpl;
 import by.menko.finalproject.dao.pool.ConnectionPool;
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.ServiceFactory;
 import by.menko.finalproject.service.impl.ServiceFactoryImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -21,13 +23,12 @@ import java.io.IOException;
 
 @MultipartConfig
 public class DispatcherServlet extends HttpServlet {
-    public void init() {
-        try {
-            ConnectionPool.getInstance();
+    private static Logger logger = LogManager.getLogger();
 
-        } catch (PersonalException e) {
-            destroy();
-        }
+    public void init() {
+
+        ConnectionPool.getInstance();
+
     }
 
     public ServiceFactory getFactory() throws PersonalException {
@@ -51,13 +52,13 @@ public class DispatcherServlet extends HttpServlet {
             commandManager.execute(command, request, response);
             commandManager.close();
         } catch (PersonalException e) {
-
+            logger.error(String.format("It is impossible to process request %s %s", e.getMessage(), e));
             request.getRequestDispatcher(ConstantsPath.ERROR_PAGE).forward(request, response);
         }
     }
 
     @Override
     public void destroy() {
-
+        ConnectionPool.getInstance().closePool();
     }
 }

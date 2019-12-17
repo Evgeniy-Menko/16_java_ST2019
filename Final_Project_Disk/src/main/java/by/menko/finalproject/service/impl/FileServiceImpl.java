@@ -1,6 +1,6 @@
 package by.menko.finalproject.service.impl;
 
-import by.menko.finalproject.exception.PersonalException;
+import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.FileService;
 
 import javax.imageio.ImageIO;
@@ -14,7 +14,7 @@ public class FileServiceImpl extends ServiceImpl implements FileService {
     private final static String PATH = "images/";
 
     @Override
-    public String createDirAndWriteToFile(String pathTemp, Part filePart) throws PersonalException {
+    public String createDirAndWriteToFile(final String pathTemp, final Part filePart) throws PersonalException {
         String fileName = filePart.getSubmittedFileName();
         if (fileName.isEmpty()) {
             return NO_IMAGE;
@@ -33,7 +33,7 @@ public class FileServiceImpl extends ServiceImpl implements FileService {
             ImageIO.write(image, format, f);
             return PATH + fileName;
         } catch (IOException e) {
-            throw new PersonalException();
+            throw new PersonalException(e);
         }
     }
 }
