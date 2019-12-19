@@ -137,7 +137,7 @@
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
                             } else if (json['incorrectComment'] != null) {
                                 $("#incorrectComment").append('<span><fmt:message key="incorrectComment"/></span>');
-                            }  {
+                            } else {
                                 window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 

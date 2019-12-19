@@ -122,18 +122,23 @@
                                 $("#errorTime").append('<span><fmt:message key="errorTime"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
+                            } else if (json['errorYear'] != null) {
+                                $("#errorYear").append('<span><fmt:message key="errorYear"/></span>');
                             } else if (json['errorAge'] != null) {
                                 $("#errorAge").append('<span><fmt:message key="errorAge"/></span>');
                             } else if (json['errorNameDisk'] != null) {
                                 $("#errorNameDisk").append('<span><fmt:message key="errorNameDisk"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
+                            } else if (json['errorFormatImage'] != null) {
+                                $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
                             } else if (json['errorRequired'] != null) {
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
                             } else if (json['incorrectNumber'] != null) {
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
+                            } else if (json['incorrectComment'] != null) {
+                                $("#incorrectComment").append('<span><fmt:message key="incorrectComment"/></span>');
                             } else {
-
                                 window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 
@@ -298,7 +303,7 @@
                         <div class="form-group">
                             <label for="developer">Developer</label>
                             <input id="developer" type="text" name="developer" class="form-control"
-                                   placeholder="Please enter developer's name " value="${disk.developer}"
+                                   placeholder="Please enter developer's name " value="${disk.developer}" pattern="[A-zА-яЁё]*"
                                    data-error="">
                             <div class="help-block with-errors" id="errorDeveloper" style="color: #b30300;"></div>
                         </div>
@@ -310,7 +315,7 @@
                         <div class="form-group">
                             <label for="singer">Singer </label>
                             <input id="singer" type="text" name="singer" class="form-control singer"
-                                   placeholder="Please enter singer " value="${disk.singer}"
+                                   placeholder="Please enter singer " value="${disk.singer}" pattern="[A-zА-яЁё]*"
                                    data-error=""
                             >
                             <div class="help-block with-errors " id="errorSinger" style="color: #b30300;"></div>
@@ -319,7 +324,7 @@
                         <div class="form-group">
                             <label for="albom">Albom</label>
                             <input id="albom" type="text" name="albom" class="form-control albom"
-                                   placeholder="Please enter albom's name " value="${disk.albom}"
+                                   placeholder="Please enter albom's name " value="${disk.albom}" pattern="[A-zА-яЁё]*"
                                    data-error="">
                             <div class="help-block with-errors" id="errorAlbom" style="color: #b30300;"></div>
                         </div>

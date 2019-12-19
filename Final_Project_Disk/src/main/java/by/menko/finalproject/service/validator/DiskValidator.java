@@ -68,7 +68,7 @@ public class DiskValidator {
         if (disk.getPrice() < MIN_NUMBER) {
             throw new ServicePersonalException("errorPrice");
         }
-        if (disk.getYear() != MIN_NUMBER && disk.getYear() <= MIN_YEAR || disk.getYear() >= MAX_YEAR) {
+        if (disk.getYear() != MIN_NUMBER && disk.getYear() < MIN_YEAR || disk.getYear() > MAX_YEAR) {
             throw new ServicePersonalException("errorYear");
         }
         if (disk.getDescription() != null && !disk.getDescription().isEmpty()
