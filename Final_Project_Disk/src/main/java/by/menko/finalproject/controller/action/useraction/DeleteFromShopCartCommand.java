@@ -22,7 +22,8 @@ public class DeleteFromShopCartCommand extends UserAction {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("disk");
         service.deleteDisk(idDisk, user.getIdEntity());
-        logger.info(String.format("User %d deleted form shopping cart announcement %s", user.getIdEntity(), idDisk));
+        String message = String.format("User %d deleted form shopping cart announcement %s", user.getIdEntity(), idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.SHOP_CART);
     }
 }

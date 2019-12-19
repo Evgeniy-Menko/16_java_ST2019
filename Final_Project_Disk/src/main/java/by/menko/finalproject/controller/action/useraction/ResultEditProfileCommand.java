@@ -14,30 +14,32 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResultEditCommand extends UserAction {
+public class ResultEditProfileCommand extends UserAction {
     private static Logger logger = LogManager.getLogger();
 
     @Override
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
-        ProfileValidator validator = new ProfileValidator();
-        String password = request.getParameter("oldPassword");
+        String oldPassword = request.getParameter("oldPassword");
+        String repeatPassword = request.getParameter("password2");
         try {
-            UserInfo newUser = validator.validate(request);
+            UserInfo newUser = getUser(request);
             UserInfo oldUser = (UserInfo) request.getSession().getAttribute("authorizedUser");
             String path = request.getServletContext().getResource("")
                     .getPath();
             String pathTemp = path + request.getServletContext()
                     .getInitParameter("images.dir") + "/";
-            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"));
+            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"),true);
             newUser.setImage(pathImage);
-            service.updateUser(newUser, oldUser.getIdEntity(), password);
-            logger.info(String.format("user %d  update profile", oldUser.getIdEntity()));
+            service.updateUser(newUser, oldUser.getIdEntity(), oldPassword,repeatPassword);
+            String message = String.format("user %d  update profile", oldUser.getIdEntity());
+            logger.info(message);
         } catch (ServicePersonalException e) {
             Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());
@@ -46,6 +48,33 @@ public class ResultEditCommand extends UserAction {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
+    }
 
+    /**
+     * Gets user data from request parameters.
+     *
+     * @param request the provided request
+     *
+     * @return the user entity.
+     */
+    private UserInfo getUser(final HttpServletRequest request) throws IOException, ServletException {
+        Part image = request.getPart("image");
+        String imageName = image.getSubmittedFileName();
+        String firstName = request.getParameter("name");
+        String lastName = request.getParameter("surname");
+        String phone = request.getParameter("phone");
+        String nickname = request.getParameter("nickname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        UserInfo user = new UserInfo();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setImage(imageName);
+        user.setPhone(phone);
+        user.setNickname(nickname);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
     }
 }

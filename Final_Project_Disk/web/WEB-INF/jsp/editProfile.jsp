@@ -311,8 +311,7 @@
                         <label for="passwordOld">Old password *</label>
                         <input id="passwordOld" type="password" name="oldPassword" class="form-control password3"
                                placeholder="Please enter your old password *"
-                               data-error="<fmt:message key="errorPassword"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$"
-                               minlength="4" maxlength="20">
+                               data-error="<fmt:message key="errorPassword"/>"   minlength="4" maxlength="20">
                         <div class="help-block with-errors " id="errorPasswordOld" style="color: #b30300;">
                         </div>
                     </div>

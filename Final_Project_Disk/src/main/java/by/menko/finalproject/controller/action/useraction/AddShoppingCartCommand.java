@@ -22,7 +22,8 @@ public class AddShoppingCartCommand extends UserAction {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("disk");
         service.addShoppingCart(idDisk, user.getIdEntity());
-        logger.info(String.format("User %d added announcement %s in shopping cart",user.getIdEntity(),idDisk));
+        String message = String.format("User %d added announcement %s in shopping cart", user.getIdEntity(), idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath()+ ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk);
     }
 }

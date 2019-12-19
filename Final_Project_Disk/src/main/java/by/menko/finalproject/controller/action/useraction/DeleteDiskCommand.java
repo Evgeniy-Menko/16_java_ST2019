@@ -23,7 +23,8 @@ public class DeleteDiskCommand extends UserAction {
         String idDisk = request.getParameter("disk");
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         service.deleteDisk(idDisk, user.getIdEntity());
-        logger.info(String.format("User %d deleted announcement %s", user.getIdEntity(), idDisk));
+        String message = String.format("User %d deleted announcement %s", user.getIdEntity(), idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.MY_ANNOUNCEMENT);
     }
 }

@@ -9,14 +9,13 @@ import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.CommentService;
 
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class CommentServiceImpl extends ServiceImpl implements CommentService {
-    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
+    private static final String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
     @Override
     public Map<UserInfo, Comment> getComment(final Integer idDisk) throws PersonalException {
@@ -39,7 +38,8 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
     }
 
     @Override
-    public void addComment(String idDisk, String commentText, Integer idUser) throws PersonalException {
+    public void addComment(final String idDisk, final String commentText, final Integer idUser)
+            throws PersonalException {
         CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
         Comment comment = new Comment();
         try {
@@ -62,7 +62,7 @@ public class CommentServiceImpl extends ServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteComment(String idComment, Integer idUser) throws PersonalException {
+    public void deleteComment(final String idComment, final Integer idUser) throws PersonalException {
         CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
         try {
             Integer idCom = Integer.parseInt(idComment);

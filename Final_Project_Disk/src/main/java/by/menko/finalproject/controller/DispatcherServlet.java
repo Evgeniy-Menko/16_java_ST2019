@@ -25,6 +25,7 @@ import java.io.IOException;
 public class DispatcherServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
 
+    @Override
     public void init() {
 
         ConnectionPool.getInstance();
@@ -35,10 +36,12 @@ public class DispatcherServlet extends HttpServlet {
         return new ServiceFactoryImpl(new TransactionFactoryImpl());
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         process(request, response);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         process(request, response);
     }

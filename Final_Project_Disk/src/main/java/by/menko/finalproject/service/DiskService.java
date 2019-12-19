@@ -20,7 +20,7 @@ public interface DiskService extends Service {
 
     Disk getDisk(final String diskId, final UserInfo user) throws PersonalException;
 
-    void updateDisk(final Disk disk, final UserInfo user) throws PersonalException;
+    void updateDisk(final Disk disk, final UserInfo user) throws PersonalException, ServicePersonalException;
 
     void deleteDisk(final String idDisk, final Integer idUser) throws PersonalException;
 

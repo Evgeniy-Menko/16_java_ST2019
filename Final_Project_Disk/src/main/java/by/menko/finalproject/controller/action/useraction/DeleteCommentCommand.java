@@ -24,7 +24,8 @@ public class DeleteCommentCommand extends UserAction {
         String idDisk = request.getParameter("disk");
         String idComment = request.getParameter("com");
         service.deleteComment(idComment, user.getIdEntity());
-        logger.info(String.format("User %d deleted comment %s on announcement %s", user.getIdEntity(), idComment, idDisk));
+        String message = String.format("User %d deleted comment %s on announcement %s", user.getIdEntity(), idComment, idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk + "#com");
     }
 }

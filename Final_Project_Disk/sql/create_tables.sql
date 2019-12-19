@@ -53,7 +53,7 @@ CREATE TABLE `disk`
     `genre_id`     INTEGER      NOT NULL,
     `price`        DOUBLE       NOT NULL,
     `description`  TEXT,
-    `year`         SMALLINT,
+    `year`         smallint,
     `image`        VARCHAR(255),
     `time_added`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `flag_blocked` TINYINT(1)   NOT NULL DEFAULT false,

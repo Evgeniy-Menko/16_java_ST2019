@@ -3,8 +3,13 @@ package by.menko.finalproject.entity;
 import java.util.Date;
 
 public class ShoppingCart extends Entity {
-
+    /**
+     * disk id.
+     */
     private Integer diskId;
+    /**
+     * time added to shopping cart.
+     */
     private Date timeAdded;
 
     public Integer getDiskId() {

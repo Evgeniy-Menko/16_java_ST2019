@@ -12,10 +12,11 @@ public interface UserService extends Service {
     UserInfo finUserByEmail(final String email, final String password)
             throws PersonalException, ServicePersonalException;
 
-    UserInfo registrUser(final UserInfo user) throws PersonalException, IOException, ServicePersonalException;
+    UserInfo registrUser(final UserInfo user,String repeatPassword)
+            throws PersonalException, IOException, ServicePersonalException;
 
     UserInfo getUser(final Integer identity) throws PersonalException;
 
     void updateUser(final UserInfo newUser, final Integer idEntity,
-                    final String newPassword) throws PersonalException, ServicePersonalException;
+                    final String newPassword,final String repeatPassword) throws PersonalException, ServicePersonalException;
 }

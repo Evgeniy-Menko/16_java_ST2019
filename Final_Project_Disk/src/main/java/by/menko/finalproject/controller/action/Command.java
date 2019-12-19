@@ -11,7 +11,7 @@ import by.menko.finalproject.service.ServiceFactory;
 import java.io.IOException;
 
 
-abstract public class Command {
+public abstract class Command {
 
 
     protected ServiceFactory factory;
@@ -21,7 +21,7 @@ abstract public class Command {
         this.factory = factory;
     }
 
-    abstract public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException;
+    public abstract void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException;
 
 
 }

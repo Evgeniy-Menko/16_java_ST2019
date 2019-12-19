@@ -5,42 +5,86 @@ import java.util.Objects;
 
 
 public class Comment extends Entity {
+    /**
+     * id user commented.
+     */
     private Integer idUserCommented;
+    /**
+     * Comment text.
+     */
     private String commentText;
+    /**
+     * id disk.
+     */
     private Integer idDisk;
+    /**
+     * Time added.
+     */
     private Date timeAdded;
 
+    /**
+     * Geter for id disk.
+     * @return id disk.
+     */
     public Integer getIdDisk() {
         return idDisk;
     }
 
+    /**
+     * seter for id disk.
+     * @param idDisk .
+     */
     public void setIdDisk(final Integer idDisk) {
         this.idDisk = idDisk;
 
     }
 
+    /**
+     * getter for id user was commented.
+     * @return integer.
+     */
     public Integer getIdUserCommented() {
         return idUserCommented;
     }
 
+    /**
+     * setter for id user.
+     * @param idUserCommented .
+     */
     public void setIdUserCommented(final Integer idUserCommented) {
         this.idUserCommented = idUserCommented;
 
     }
 
+    /**
+     * getter for comment text.
+     * @return .
+     */
     public String getCommentText() {
         return commentText;
     }
 
+    /**
+     * setter for comment text.
+     * @param commentText .
+     */
     public void setCommentText(final String commentText) {
         this.commentText = commentText;
 
     }
 
+    /**
+     * getter for time added.
+     * @return .
+     */
     public Date getTimeAdded() {
         return timeAdded;
     }
 
+    /**
+     * setter for time added.
+     * @param timeAdded .
+     */
     public void setTimeAdded(final Date timeAdded) {
         this.timeAdded = timeAdded;
     }

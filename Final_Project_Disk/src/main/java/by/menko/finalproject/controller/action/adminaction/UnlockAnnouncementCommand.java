@@ -21,7 +21,8 @@ public class UnlockAnnouncementCommand extends AdminAction {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);
         String idDisk = request.getParameter("disk");
         service.unlockAnnouncement(idDisk);
-        logger.info(String.format("Admin unlock announcement with id %s", idDisk));
+        String message = String.format("Admin unlock announcement with id %s", idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.COMPLAINTS);
     }
 }

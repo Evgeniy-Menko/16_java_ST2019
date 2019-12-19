@@ -22,7 +22,8 @@ public class DeleteAllFromShopCartCommand extends UserAction {
         ShoppingCartService service = factory.createService(TypeServiceAndDao.SHOPPING_CART);
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         service.deleteAll(user.getIdEntity());
-        logger.info(String.format("user %d clear all shopping cart", user.getIdEntity()));
+        String message = String.format("user %d clear all shopping cart", user.getIdEntity());
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.SHOP_CART);
     }
 }

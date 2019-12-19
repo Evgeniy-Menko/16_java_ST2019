@@ -5,15 +5,45 @@ import java.sql.Timestamp;
 
 
 public class Disk extends Entity {
+    /**
+     * id user.
+     */
     private Integer idUser;
+    /**
+     * name disk.
+     */
     private String nameDisk;
+    /**
+     * genre disk.
+     */
     private String genre;
+    /**
+     * price.
+     */
     private Double price;
+    /**
+     * type disk.
+     */
     private String type;
+    /**
+     * path image.
+     */
     private String image;
+    /**
+     * Description disk.
+     */
     private String description;
+    /**
+     * year.
+     */
     private int year;
+    /**
+     * time added announcement.
+     */
     private Timestamp timeAdded;
+    /**
+     * flag blocked disk.
+     */
     private Boolean flagBlocked;
 
     public String getType() {

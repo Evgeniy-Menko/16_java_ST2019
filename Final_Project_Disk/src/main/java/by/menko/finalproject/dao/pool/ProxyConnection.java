@@ -1,6 +1,5 @@
 package by.menko.finalproject.dao.pool;
 
-import by.menko.finalproject.dao.exception.PersonalException;
 
 import java.sql.*;
 import java.util.Map;

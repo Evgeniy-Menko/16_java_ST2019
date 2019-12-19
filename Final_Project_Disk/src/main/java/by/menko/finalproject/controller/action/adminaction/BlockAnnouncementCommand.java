@@ -19,7 +19,8 @@ public class BlockAnnouncementCommand extends AdminAction {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);
         String idDisk = request.getParameter("disk");
         service.blockAnnouncement(idDisk);
-        logger.info(String.format("Admin blocked announcement with id %s",idDisk));
+        String message = String.format("Admin blocked announcement with id %s", idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.COMPLAINTS);
     }
 }

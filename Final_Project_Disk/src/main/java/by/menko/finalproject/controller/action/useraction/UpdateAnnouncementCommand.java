@@ -26,7 +26,8 @@ public class UpdateAnnouncementCommand extends UserAction {
         Disk disk = service.getDisk(idDisk, user);
         if (user.getIdEntity().equals(disk.getIdUser())) {
             request.setAttribute("disk", disk);
-            logger.info(String.format("User %d updated announcement %s", user.getIdEntity(), idDisk));
+            String message = String.format("User %d updated announcement %s", user.getIdEntity(), idDisk);
+            logger.info(message);
             request.getRequestDispatcher(ConstantsPath.EDIT_ANNOUNCEMENT_PAGE).forward(request, response);
         } else {
             throw new PersonalException();

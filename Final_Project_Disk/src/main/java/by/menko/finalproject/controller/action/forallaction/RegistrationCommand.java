@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,20 +28,21 @@ public class RegistrationCommand extends ForAllAction {
 
     @Override
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
-        RegistrValidator validator = new RegistrValidator();
         UserService service = factory.createService(TypeServiceAndDao.USER);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
         try {
-            UserInfo user = validator.validate(request);
+            UserInfo user = getUser(request);
+            String repeatPassword = request.getParameter("password2");
             String path = request.getServletContext().getResource("")
                     .getPath();
             String pathTemp = path + request.getServletContext()
                     .getInitParameter("images.dir") + "/";
-            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"));
+            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"),false);
             user.setImage(pathImage);
-            user = service.registrUser(user);
+            user = service.registrUser(user,repeatPassword);
             request.getSession().setAttribute("authorizedUser", user);
-            logger.info(String.format("user \"%d\" is registered in from %s (%s:%s)", user.getIdEntity(), request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
+            String message = String.format("user \"%d\" is registered in from %s (%s:%s)", user.getIdEntity(), request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort());
+            logger.info(message);
         } catch (ServicePersonalException | IOException e) {
             Map<String, String> message = new HashMap<>();
             message.put(e.getMessage(), e.getMessage());
@@ -49,5 +51,33 @@ public class RegistrationCommand extends ForAllAction {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         }
+    }
+
+    /**
+     * Gets user data from request parameters.
+     *
+     * @param request the provided request
+     *
+     * @return the user entity.
+     */
+    private UserInfo getUser(final HttpServletRequest request) throws IOException, ServletException {
+        Part image = request.getPart("image");
+        String imageName = image.getSubmittedFileName();
+        String firstName = request.getParameter("name");
+        String lastName = request.getParameter("surname");
+        String phone = request.getParameter("phone");
+        String nickname = request.getParameter("nickname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        UserInfo user = new UserInfo();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setImage(imageName);
+        user.setPhone(phone);
+        user.setNickname(nickname);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
     }
 }

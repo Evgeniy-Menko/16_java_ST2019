@@ -10,115 +10,72 @@ import by.menko.finalproject.service.exception.ServicePersonalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
-import java.io.IOException;
+import java.util.Calendar;
 
 public class DiskValidator {
     private static Logger logger = LogManager.getLogger();
-    private final static String REGEX = "[A-zА-яЁё]*";
-    private final static String REGEX_SENTENCE = "^(?!\\s*$)[A-zА-яЁё0-9,.!@#?:()_ ]*$";
-    private final static String REGEX_TIME_RUNNING = "[0-9:0-9]{3,5}";
-    private final static String REGEX_COMMENT = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
+    private static final int MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+    private static final int MIN_YEAR = 1970;
+    private static final int MIN_NUMBER = 0;
+    private static final int MAX_AGE = 18;
+    private static final String REGEX_NAME = "[A-zА-яЁё]*";
+    private static final String REGEX_SENTENCE = "^(?!\\s*$)[A-zА-яЁё0-9,.!@#?:()_ ]*$";
+    private static final String REGEX_TIME_RUNNING = "[0-9:0-9]{3,5}";
+    private static final String REGEX_COMMENT = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
-    public Disk validate(final HttpServletRequest request) throws IOException, ServletException, ServicePersonalException {
-        Disk disk ;
-        Part image = request.getPart("image");
-        String imageName = image.getSubmittedFileName();
-        String name = request.getParameter("name");
-        String type = request.getParameter("type");
-        String genre = request.getParameter("genre");
-        String price = request.getParameter("price");
-        String year = request.getParameter("year");
-        String comment = request.getParameter("comment");
-        String country = request.getParameter("country");
-        String time = request.getParameter("time");
-        String age = request.getParameter("age");
-        String developer = request.getParameter("developer");
-        String singer = request.getParameter("singer");
-        String albom = request.getParameter("albom");
-        String formatImage = imageName.substring(imageName.lastIndexOf('.') + 1);
-
-        if (type.equals(TypeDisk.FILM.getName())) {
-
-            disk = new Film();
-            if (country != null && !country.isEmpty() && country.matches(REGEX)) {
-                ((Film) disk).setCountry(country);
-            } else if (country != null && !country.isEmpty()) {
-                logger.debug(String.format("Incorrect country %s", country));
+    public void validate(final Disk disk) throws ServicePersonalException {
+        if (disk.getType().equals(TypeDisk.FILM.getName())) {
+            if (((Film) disk).getCountry() != null && !((Film) disk).getCountry().isEmpty()
+                    && !((Film) disk).getCountry().matches(REGEX_NAME)) {
+                String message = String.format("Incorrect country %s", ((Film) disk).getCountry());
+                logger.debug(message);
                 throw new ServicePersonalException("errorCountry");
             }
-            if (time != null && !time.isEmpty() && time.matches(REGEX_TIME_RUNNING)) {
-                ((Film) disk).setRunningTime(time);
-            } else if (time != null && !time.isEmpty()) {
-                logger.debug(String.format("Incorrect running time %s", time));
+            if (((Film) disk).getRunningTime() != null && !((Film) disk).getRunningTime().isEmpty()
+                    && !((Film) disk).getRunningTime().matches(REGEX_TIME_RUNNING)) {
+                String message = String.format("Incorrect running time %s", ((Film) disk).getRunningTime());
+                logger.debug(message);
                 throw new ServicePersonalException("errorTime");
             }
-        } else if (type.equals(TypeDisk.GAME.getName())) {
-            disk = new Game();
-            try {
-                if (age != null && !age.isEmpty()) {
-                    ((Game) disk).setAgeLimit(Integer.parseInt(age));
-                }
-            } catch (NumberFormatException e) {
-                logger.debug(String.format("Incorrect age %s", age));
+        } else if (disk.getType().equals(TypeDisk.GAME.getName())) {
+            if (((Game) disk).getAgeLimit() < MIN_NUMBER && ((Game) disk).getAgeLimit() > MAX_AGE) {
+                logger.debug(String.format("Incorrect age %s", ((Game) disk).getAgeLimit()));
                 throw new ServicePersonalException("errorAge");
             }
-            if (developer != null && !developer.isEmpty()) {
-                ((Game) disk).setDeveloper(developer);
+            if (((Game) disk).getDeveloper() != null && !((Game) disk).getDeveloper().isEmpty()
+                    && !((Game) disk).getDeveloper().matches(REGEX_SENTENCE)) {
+                logger.debug(String.format("Incorrect developer %s", ((Game) disk).getDeveloper()));
+                throw new ServicePersonalException("errorDeveloper");
             }
         } else {
-            disk = new Music();
-            if (singer != null && !singer.isEmpty()) {
-                ((Music) disk).setSinger(singer);
+            if (((Music) disk).getSinger() != null && !((Music) disk).getSinger().isEmpty()
+                    && !((Music) disk).getSinger().matches(REGEX_NAME)) {
+                logger.debug(String.format("Incorrect singer %s", ((Music) disk).getSinger()));
+                throw new ServicePersonalException("errorSinger");
             }
-            if (albom != null && !albom.isEmpty()) {
-                ((Music) disk).setAlbom(albom);
+            if (((Music) disk).getAlbom() != null && !((Music) disk).getAlbom().isEmpty()
+                    && !((Music) disk).getAlbom().matches(REGEX_NAME)) {
+                logger.debug(String.format("Incorrect albom %s", ((Music) disk).getSinger()));
+                throw new ServicePersonalException("errorAlbom");
             }
         }
-        disk.setType(type);
-
-        boolean flag = "jpg".equals(formatImage) || "png".equals(formatImage)
-                || "jpeg".equals(formatImage) || "gif".equals(formatImage);
-
-        if (!imageName.isEmpty() && flag) {
-            disk.setImage(imageName);
-        } else if (!imageName.isEmpty()) {
-            logger.debug(String.format("Incorrect format image %s", imageName));
-            throw new ServicePersonalException("errorFormatImage");
-        }
-
-        if (name != null && !name.isEmpty() && name.matches(REGEX_SENTENCE)) {
-            disk.setNameDisk(name);
-        } else {
-            logger.debug(String.format("Incorrect name disk %s", name));
+        if (disk.getNameDisk() == null || disk.getNameDisk().isEmpty()
+                || !disk.getNameDisk().matches(REGEX_SENTENCE)) {
+            String message = String.format("Incorrect name disk %s", disk.getNameDisk());
+            logger.debug(message);
             throw new ServicePersonalException("errorNameDisk");
         }
-        try {
-            if (price != null && !price.isEmpty()) {
-                disk.setPrice(Double.parseDouble(price));
-            } else {
-                throw new ServicePersonalException("errorRequired");
-            }
-            if (year != null && !year.isEmpty()) {
-                disk.setYear(Integer.parseInt(year));
-            }
-
-        } catch (NumberFormatException e) {
-            logger.debug("Incorrect number format ");
-            throw new ServicePersonalException("incorrectNumber");
+        if (disk.getPrice() < MIN_NUMBER) {
+            throw new ServicePersonalException("errorPrice");
         }
-        if (comment != null && !comment.isEmpty() && comment.matches(REGEX_COMMENT)) {
-            disk.setDescription(comment);
-        }else {
-            logger.debug(String.format("Incorrect comment %s", comment));
+        if (disk.getYear() != MIN_NUMBER && disk.getYear() <= MIN_YEAR || disk.getYear() >= MAX_YEAR) {
+            throw new ServicePersonalException("errorYear");
+        }
+        if (disk.getDescription() != null && !disk.getDescription().isEmpty()
+                && !disk.getDescription().matches(REGEX_COMMENT)) {
+            String message = String.format("Incorrect comment %s", disk.getDescription());
+            logger.debug(message);
             throw new ServicePersonalException("incorrectComment");
         }
-
-        disk.setGenre(genre);
-
-        return disk;
     }
 }

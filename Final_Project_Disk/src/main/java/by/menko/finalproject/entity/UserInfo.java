@@ -6,16 +6,49 @@ import java.sql.Timestamp;
 
 
 public class UserInfo extends Entity {
+    /**
+     * first name.
+     */
     private String firstName;
+    /**
+     * last name.
+     */
     private String lastName;
+    /**
+     * nickname.
+     */
     private String nickname;
+    /**
+     * phone.
+     */
     private String phone;
+    /**
+     * date registration.
+     */
     private Timestamp dateRegistration;
+    /**
+     * email.
+     */
     private String email;
+    /**
+     * path image.
+     */
     private String image;
+    /**
+     * password.
+     */
     private String password;
+    /**
+     * Role.
+     */
     private Role role;
+    /**
+     * flag blocked.
+     */
     private Boolean flagBlocked;
+    /**
+     * salt for password.
+     */
     private String salt;
 
     public String getImage() {

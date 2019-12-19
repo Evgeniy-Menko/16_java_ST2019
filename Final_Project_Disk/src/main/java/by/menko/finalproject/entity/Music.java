@@ -1,7 +1,13 @@
 package by.menko.finalproject.entity;
 
 public class Music extends Disk {
+    /**
+     * singer.
+     */
     private String singer;
+    /**
+     * albom.
+     */
     private String albom;
 
     public String getSinger() {

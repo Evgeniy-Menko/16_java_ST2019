@@ -10,7 +10,9 @@ import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
+import by.menko.finalproject.service.validator.DiskValidator;
 
+import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,14 +53,16 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
         } catch (NumberFormatException e) {
             throw new ServicePersonalException(e);
         }
-        boolean flag = typeDisk == 0 && genreDisk == 0 && priceFromDisk == 0 && priceToDisk == 0 && yearIn == 0 && yearTo == 0;
+        boolean flag = typeDisk == 0 && genreDisk == 0 && priceFromDisk == 0
+                && priceToDisk == 0 && yearIn == 0 && yearTo == 0;
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         List<Disk> findDisk;
         try {
             if (flag) {
                 findDisk = dao.read();
             } else if (validPriceAndYear(priceFromDisk, priceToDisk, yearIn, yearTo)) {
-                findDisk = dao.readDiskByParameter(typeDisk, genreDisk, priceFromDisk, priceToDisk, yearIn, yearTo);
+                findDisk = dao.readDiskByParameter(typeDisk, genreDisk,
+                        priceFromDisk, priceToDisk, yearIn, yearTo);
             } else {
                 throw new ServicePersonalException("Incorrect value.");
             }
@@ -72,9 +76,11 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
 
 
     @Override
-    public void writeDisk(final Disk disk, final Integer idUser) throws PersonalException {
+    public void writeDisk(final Disk disk, final Integer idUser) throws PersonalException, ServicePersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
         CatalogDao catalog = transaction.createDao(TypeServiceAndDao.CATALOG);
+        DiskValidator validator = new DiskValidator();
+        validator.validate(disk);
         try {
             disk.setIdUser(idUser);
             Optional<Integer> idGenre = catalog.read(disk.getGenre(), disk.getType());
@@ -153,11 +159,14 @@ public class DiskServiceImpl extends ServiceImpl implements DiskService {
     }
 
     @Override
-    public void updateDisk(final Disk disk, final UserInfo user) throws PersonalException {
+    public void updateDisk(final Disk disk, final UserInfo user) throws PersonalException,
+            ServicePersonalException {
         DiskDao dao = transaction.createDao(TypeServiceAndDao.DISK);
+        DiskValidator validator = new DiskValidator();
+        validator.validate(disk);
         try {
             Disk diskOld = getDisk(String.valueOf(disk.getIdEntity()), user);
-            if (diskOld.getImage().equals(disk.getImage())) {
+            if (disk.getImage().isEmpty()) {
                 disk.setImage(diskOld.getImage());
             }
             if (disk.getType().equals(TypeDisk.FILM.getName())) {

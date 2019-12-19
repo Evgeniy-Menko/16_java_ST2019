@@ -30,7 +30,8 @@ public class LoginCommand extends ForAllAction {
                 UserService service = factory.createService(TypeServiceAndDao.USER);
                 UserInfo user = service.finUserByEmail(login, password);
                 request.getSession().setAttribute("authorizedUser", user);
-                logger.info(String.format("user \"%s\" is logged in from %s (%s:%s)", login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort()));
+                String messageLog = String.format("user \"%s\" is logged in from %s (%s:%s)", login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort());
+                logger.info(messageLog);
                 String referrer = request.getHeader("referer");
                 message.put("url", referrer);
                 String json = new Gson().toJson(message);

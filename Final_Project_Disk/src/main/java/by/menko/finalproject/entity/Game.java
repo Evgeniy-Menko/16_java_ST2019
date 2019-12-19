@@ -2,8 +2,13 @@ package by.menko.finalproject.entity;
 
 
 public class Game extends Disk {
-
+    /**
+     * age limit.
+     */
     private int ageLimit;
+    /**
+     * developer.
+     */
     private String developer;
 
 

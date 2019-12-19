@@ -21,10 +21,6 @@ public class CommandFromUriFilter implements Filter {
     private static Logger logger = LogManager.getLogger();
 
 
-    @Override
-    public void init(final FilterConfig filterConfig) {
-    }
-
     /**
      * The <code>doFilter</code> method of the Filter is called by the
      * container each time a request/response pair is passed through the
@@ -48,7 +44,8 @@ public class CommandFromUriFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             String contextPath = httpRequest.getContextPath();
             String uri = httpRequest.getRequestURI();
-            logger.debug(String.format("Starting of processing of request for URI \"%s\"", uri));
+            String message = String.format("Starting of processing of request for URI \"%s\"", uri);
+            logger.debug(message);
             int beginAction = contextPath.length();
             int endAction = uri.lastIndexOf('.');
             String actionName;
@@ -67,9 +64,6 @@ public class CommandFromUriFilter implements Filter {
         }
     }
 
-    @Override
-    public void destroy() {
-    }
 
     private Command getCommand(String action) {
         switch (action) {
@@ -92,9 +86,9 @@ public class CommandFromUriFilter implements Filter {
             case "/editProfile":
                 return new EditProfileCommand();
             case "/editProfileResult":
-                return new ResultEditCommand();
+                return new ResultEditProfileCommand();
             case "/addAnnouncement":
-                return new AddAnnouncementCommand();
+                return new AddAnnouncementPageCommand();
             case "/announcementResult":
                 return new ResultAddAnnouncementCommand();
             case "/myAnnouncements":

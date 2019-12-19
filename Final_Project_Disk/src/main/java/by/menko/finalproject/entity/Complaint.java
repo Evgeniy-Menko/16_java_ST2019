@@ -5,11 +5,25 @@ import java.util.Objects;
 
 
 public class Complaint extends Entity {
-
+    /**
+     * id user complained.
+     */
     private Integer userIdComplained;
+    /**
+     * Id user was complained.
+     */
     private Integer userWasComplained;
+    /**
+     * id disk.
+     */
     private Integer idDisk;
+    /**
+     * text complaint.
+     */
     private String textComplaint;
+    /**
+     * time added complaint.
+     */
     private Timestamp timeAdded;
 
     public Integer getUserIdComplained() {

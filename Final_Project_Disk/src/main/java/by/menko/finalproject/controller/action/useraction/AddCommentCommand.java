@@ -24,7 +24,8 @@ public class AddCommentCommand extends UserAction {
         String idDisk = request.getParameter("idDisk");
         String commentText = request.getParameter("comment");
         service.addComment(idDisk, commentText, user.getIdEntity());
-        logger.info(String.format("User %d added comment", user.getIdEntity()));
+        String message =String.format("User %d added comment", user.getIdEntity());
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk + "#com");
     }
 }

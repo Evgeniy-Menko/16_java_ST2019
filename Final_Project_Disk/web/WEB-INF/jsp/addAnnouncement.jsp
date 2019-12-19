@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language"
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
-<fmt:setLocale value="${language}" />
+<fmt:setLocale value="${language}"/>
 <fmt:bundle basename="text">
     <html lang="${language}">
 
@@ -121,6 +121,8 @@
                                 $("#errorTime").append('<span><fmt:message key="errorTime"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
+                            } else if (json['errorYear'] != null) {
+                                $("#errorYear").append('<span><fmt:message key="errorYear"/></span>');
                             } else if (json['errorAge'] != null) {
                                 $("#errorAge").append('<span><fmt:message key="errorAge"/></span>');
                             } else if (json['errorNameDisk'] != null) {
@@ -133,9 +135,9 @@
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
                             } else if (json['incorrectNumber'] != null) {
                                 $("#errorValue").append('<span><fmt:message key="incorrectNumber"/></span>');
-                            }else if (json['incorrectComment'] != null) {
+                            } else if (json['incorrectComment'] != null) {
                                 $("#incorrectComment").append('<span><fmt:message key="incorrectComment"/></span>');
-                            }  else {
+                            }  {
                                 window.location.href = "/Panda-Disk/myAnnouncements.html"
                             }
 
@@ -306,7 +308,8 @@
                 <div class=" col-md-1"></div>
                 <div class="form-group col-md-10">
                     <label for="comment">Description:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    <textarea class="form-control" rows="5" id="comment" title="Only leters,number and ,.!@#?:()"
+                              name="comment"></textarea>
                     <div class="help-block with-errors " id="incorrectComment" style="color: #b30300;"></div>
                 </div>
                 <div class=" col-md-1"></div>
@@ -325,7 +328,7 @@
                     <div class="form-group">
                         <label for="time">Running time</label>
                         <input id="time" type="text" name="time" class="form-control"
-                               placeholder="Please enter running time(hh:mm) *" pattern="[0-9:0-9]{3,5}"
+                               placeholder="Please enter running time(hh:mm) *" pattern="[0-9:0-9]{4,5}"
                                data-error="<fmt:message key="errorTime"/>">
                         <div class="help-block with-errors" id="errorTime" style="color: #b30300;"></div>
                     </div>
@@ -345,7 +348,7 @@
                     <div class="form-group">
                         <label for="developer">Developer</label>
                         <input id="developer" type="text" name="developer" class="form-control"
-                               placeholder="Please enter developer's name "
+                               placeholder="Please enter developer's name " pattern="[A-zА-яЁё]*"
                                data-error="">
                         <div class="help-block with-errors" id="errorDeveloper" style="color: #b30300;"></div>
                     </div>
@@ -356,7 +359,7 @@
                     <div class="form-group">
                         <label for="singer">Singer </label>
                         <input id="singer" type="text" name="singer" class="form-control singer"
-                               placeholder="Please enter singer "
+                               placeholder="Please enter singer " pattern="[A-zА-яЁё]*"
                                data-error=""
                         >
                         <div class="help-block with-errors " id="errorSinger" style="color: #b30300;"></div>
@@ -365,7 +368,7 @@
                     <div class="form-group">
                         <label for="albom">Albom</label>
                         <input id="albom" type="text" name="albom" class="form-control albom"
-                               placeholder="Please enter albom's name "
+                               placeholder="Please enter albom's name " pattern="[A-zА-яЁё]*"
                                data-error="">
                         <div class="help-block with-errors" id="errorAlbom" style="color: #b30300;"></div>
                     </div>

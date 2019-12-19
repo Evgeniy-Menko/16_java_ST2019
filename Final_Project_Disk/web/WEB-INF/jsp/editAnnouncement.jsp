@@ -10,8 +10,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language"
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
-<fmt:setLocale value="${language}" />
+<fmt:setLocale value="${language}"/>
 <fmt:bundle basename="text">
+
     <html lang="${language}">
 
     <head>
@@ -121,11 +122,11 @@
                                 $("#errorTime").append('<span><fmt:message key="errorTime"/></span>');
                             } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
-                            }else if (json['errorAge'] != null) {
+                            } else if (json['errorAge'] != null) {
                                 $("#errorAge").append('<span><fmt:message key="errorAge"/></span>');
                             } else if (json['errorNameDisk'] != null) {
                                 $("#errorNameDisk").append('<span><fmt:message key="errorNameDisk"/></span>');
-                            }else if (json['errorFormatImage'] != null) {
+                            } else if (json['errorFormatImage'] != null) {
                                 $("#errorImage").append('<span><fmt:message key="errorFormatImage"/></span>');
                             } else if (json['errorRequired'] != null) {
                                 $("#errorPrice").append('<span><fmt:message key="errorRequired"/></span>');
@@ -251,7 +252,8 @@
                 <div class=" col-md-1"></div>
                 <div class="form-group col-md-10">
                     <label for="comment">Description:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment"
+                    <textarea class="form-control" rows="5" id="comment" title="Only leters,number and ,.!@#?:()"
+                              name="comment"
                               value="${disk.description}"></textarea>
                 </div>
                 <div class=" col-md-1"></div>

@@ -20,7 +20,8 @@ public class LogoutCommand extends ForAllAction {
     @Override
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
-        logger.info(String.format("user \"%s\" is logged out", user.getEmail()));
+        String message = String.format("user \"%s\" is logged out", user.getIdEntity());
+        logger.info(message);
         request.getSession(false).invalidate();
         response.sendRedirect(request.getContextPath() + ConstantsPath.HOME);
     }

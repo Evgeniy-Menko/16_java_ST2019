@@ -1,7 +1,13 @@
 package by.menko.finalproject.entity;
 
 public class Film extends Disk {
+    /**
+     * Country.
+     */
     private String country;
+    /**
+     * running time.
+     */
     private String runningTime;
 
     public String getCountry() {

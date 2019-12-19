@@ -17,7 +17,7 @@ import java.util.*;
 
 public class ComplaintServiceImpl extends ServiceImpl implements ComplaintService {
 
-    private final static String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
+    private static final String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
     @Override
     public void addComplaint(final String idDisk, final String idUser,

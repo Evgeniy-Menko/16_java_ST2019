@@ -25,7 +25,8 @@ public class AddComplaintCommand extends UserAction {
         String complaint = request.getParameter("complaint");
         String idDisk = request.getParameter("idDisk");
         service.addComplaint(idDisk, idUser, complaint, user.getIdEntity());
-        logger.info(String.format("User %d wrote a complaint about the advertisement %s", user.getIdEntity(), idDisk));
+        String message = String.format("User %d wrote a complaint about the advertisement %s", user.getIdEntity(), idDisk);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.SHOW_DISK_WITH_PARAMETER + idDisk);
     }
 }

@@ -1,6 +1,9 @@
 package by.menko.finalproject.entity;
 
-abstract public class Entity {
+public abstract class Entity {
+    /**
+     * id entity.
+     */
     private Integer idEntity;
 
     public Integer getIdEntity() {

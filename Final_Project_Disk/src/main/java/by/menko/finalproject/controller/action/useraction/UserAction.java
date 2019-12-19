@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public abstract class UserAction extends Command {
-    abstract public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException;
+   public abstract  void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException;
 }
 
 

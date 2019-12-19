@@ -42,7 +42,8 @@ public class TransactionImpl implements Transaction {
                 dao = new CatalogDaoImpl();
                 break;
             default:
-                logger.error(String.format("Incorrect type dao %s", key));
+                String message = String.format("Incorrect type dao %s", key);
+                logger.error(message);
                 throw new PersonalException();
         }
         return dao;

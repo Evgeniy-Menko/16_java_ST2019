@@ -19,7 +19,8 @@ public class DeleteComplaintCommand extends AdminAction {
         ComplaintService service = factory.createService(TypeServiceAndDao.COMPLAINT);
         String idComplaint = request.getParameter("complaint");
         service.deleteComplaint(idComplaint);
-        logger.info(String.format("Admin delete complaint with id %s",idComplaint));
+        String message = String.format("Admin delete complaint with id %s", idComplaint);
+        logger.info(message);
         response.sendRedirect(request.getContextPath() + ConstantsPath.COMPLAINTS);
     }
 }

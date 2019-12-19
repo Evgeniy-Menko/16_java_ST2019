@@ -85,7 +85,7 @@ public class SecurityFilter implements Filter {
         adminAction.put(SearchCommand.class, "");
         adminAction.put(ShowDiskCommand.class, "");
         //userAction
-        userAction.put(AddAnnouncementCommand.class, "");
+        userAction.put(AddAnnouncementPageCommand.class, "");
         userAction.put(AddCommentCommand.class, "");
         userAction.put(AddComplaintCommand.class, "");
         userAction.put(AddShoppingCartCommand.class, "");
@@ -98,7 +98,7 @@ public class SecurityFilter implements Filter {
         userAction.put(MyAnnouncementCommand.class, "");
         userAction.put(ProfileCommand.class, "");
         userAction.put(ResultAddAnnouncementCommand.class, "");
-        userAction.put(ResultEditCommand.class, "");
+        userAction.put(ResultEditProfileCommand.class, "");
         userAction.put(ShoppingCartCommand.class, "");
         userAction.put(UpdateAnnouncementCommand.class, "");
         userAction.put(HomeCommand.class, "");

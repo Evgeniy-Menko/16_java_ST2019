@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
-final public class ConnectionPool {
+public final class ConnectionPool {
 
     private static Logger logger = LogManager.getLogger();
 
@@ -45,7 +45,8 @@ final public class ConnectionPool {
                 availableConnections.put(createConnection());
             }
         } catch (InterruptedException | SQLException e) {
-            logger.debug("Error created  connection.");
+            logger.debug("Error created  pool.");
+            Thread.currentThread().interrupt();
         }
 
     }
@@ -88,6 +89,7 @@ final public class ConnectionPool {
                 }
             } catch (InterruptedException | SQLException e) {
                 logger.error("It is impossible to connect to a database", e);
+                Thread.currentThread().interrupt();
                 throw new PersonalException(e);
             }
         }
@@ -108,13 +110,15 @@ final public class ConnectionPool {
                 usedConnections.remove(connection);
                 availableConnections.offer(connection);
 
-                logger.debug(String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), availableConnections.size()));
+                String message = String.format("Connection was returned into pool. Current pool size: %d used connections; %d free connection", usedConnections.size(), availableConnections.size());
+                logger.debug(message);
             }
         } catch (SQLException e1) {
             logger.warn("It is impossible to return database connection into pool", e1);
             try {
                 connection.getConnection().close();
-            } catch (SQLException ignored) {
+            } catch (SQLException e) {
+                logger.warn("error closed connection.");
             }
         }
     }
@@ -122,7 +126,7 @@ final public class ConnectionPool {
 
     public void closePool() {
         ProxyConnection connection;
-        for (int i = 0; i < resources.getMaxSize(); i++) {
+        for (int i = 0; i < availableConnections.size(); i++) {
             try {
                 connection = availableConnections.take();
                 connection.realClose();
@@ -142,7 +146,7 @@ final public class ConnectionPool {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                logger.error("Cant deregister SQL drivers");
+                logger.error("Cant deregister SQL driver");
             }
         }
     }
