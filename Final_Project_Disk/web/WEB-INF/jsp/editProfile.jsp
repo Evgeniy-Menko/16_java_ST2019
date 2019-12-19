@@ -222,7 +222,7 @@
                                 $("#errorPasswordOld").append('<span><fmt:message key="unknowPassword"/></span>');
                             } else {
 
-                                window.location.href ="/Panda-Disk/profile.html"
+                                window.location.href ="${pageContext.request.contextPath}/profile.html"
                             }
 
                         },

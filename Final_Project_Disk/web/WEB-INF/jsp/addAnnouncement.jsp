@@ -138,7 +138,7 @@
                             } else if (json['incorrectComment'] != null) {
                                 $("#incorrectComment").append('<span><fmt:message key="incorrectComment"/></span>');
                             } else {
-                                window.location.href = "/Panda-Disk/myAnnouncements.html"
+                                window.location.href = "${pageContext.request.contextPath}/myAnnouncements.html"
                             }
 
 
