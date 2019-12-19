@@ -27,42 +27,32 @@ public class DiskValidator {
         if (disk.getType().equals(TypeDisk.FILM.getName())) {
             if (((Film) disk).getCountry() != null && !((Film) disk).getCountry().isEmpty()
                     && !((Film) disk).getCountry().matches(REGEX_NAME)) {
-                String message = String.format("Incorrect country %s", ((Film) disk).getCountry());
-                logger.debug(message);
                 throw new ServicePersonalException("errorCountry");
             }
             if (((Film) disk).getRunningTime() != null && !((Film) disk).getRunningTime().isEmpty()
                     && !((Film) disk).getRunningTime().matches(REGEX_TIME_RUNNING)) {
-                String message = String.format("Incorrect running time %s", ((Film) disk).getRunningTime());
-                logger.debug(message);
                 throw new ServicePersonalException("errorTime");
             }
         } else if (disk.getType().equals(TypeDisk.GAME.getName())) {
             if (((Game) disk).getAgeLimit() < MIN_NUMBER && ((Game) disk).getAgeLimit() > MAX_AGE) {
-                logger.debug(String.format("Incorrect age %s", ((Game) disk).getAgeLimit()));
                 throw new ServicePersonalException("errorAge");
             }
             if (((Game) disk).getDeveloper() != null && !((Game) disk).getDeveloper().isEmpty()
                     && !((Game) disk).getDeveloper().matches(REGEX_SENTENCE)) {
-                logger.debug(String.format("Incorrect developer %s", ((Game) disk).getDeveloper()));
                 throw new ServicePersonalException("errorDeveloper");
             }
         } else {
             if (((Music) disk).getSinger() != null && !((Music) disk).getSinger().isEmpty()
                     && !((Music) disk).getSinger().matches(REGEX_NAME)) {
-                logger.debug(String.format("Incorrect singer %s", ((Music) disk).getSinger()));
                 throw new ServicePersonalException("errorSinger");
             }
             if (((Music) disk).getAlbom() != null && !((Music) disk).getAlbom().isEmpty()
                     && !((Music) disk).getAlbom().matches(REGEX_NAME)) {
-                logger.debug(String.format("Incorrect albom %s", ((Music) disk).getSinger()));
                 throw new ServicePersonalException("errorAlbom");
             }
         }
         if (disk.getNameDisk() == null || disk.getNameDisk().isEmpty()
                 || !disk.getNameDisk().matches(REGEX_SENTENCE)) {
-            String message = String.format("Incorrect name disk %s", disk.getNameDisk());
-            logger.debug(message);
             throw new ServicePersonalException("errorNameDisk");
         }
         if (disk.getPrice() < MIN_NUMBER) {
@@ -73,8 +63,6 @@ public class DiskValidator {
         }
         if (disk.getDescription() != null && !disk.getDescription().isEmpty()
                 && !disk.getDescription().matches(REGEX_COMMENT)) {
-            String message = String.format("Incorrect comment %s", disk.getDescription());
-            logger.debug(message);
             throw new ServicePersonalException("incorrectComment");
         }
     }

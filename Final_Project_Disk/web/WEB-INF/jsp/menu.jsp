@@ -196,7 +196,7 @@
                     <div class="form-group">
                         <label for="pwd"><fmt:message key="password"/>: </label>
                         <input type="password" class="form-control" id="pwd" placeholder="<fmt:message key="enterPass"/>"
-                               name="password"
+                               name="password" 
                                required>
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="submit"/></button>
