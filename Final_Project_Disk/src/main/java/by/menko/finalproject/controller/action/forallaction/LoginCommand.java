@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.dao.exception.PersonalException;
@@ -32,8 +33,7 @@ public class LoginCommand extends ForAllAction {
                 request.getSession().setAttribute("authorizedUser", user);
                 String messageLog = String.format("user \"%s\" is logged in from %s (%s:%s)", login, request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort());
                 logger.info(messageLog);
-                String referrer = request.getHeader("referer");
-                message.put("url", referrer);
+                message.put("url", request.getContextPath() + ConstantsPath.HOME);
                 String json = new Gson().toJson(message);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
