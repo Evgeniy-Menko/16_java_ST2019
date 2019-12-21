@@ -1,4 +1,4 @@
-USE `panda_disk`;
+USE `panda_disk_test`;
 
 CREATE TABLE `users`
 (

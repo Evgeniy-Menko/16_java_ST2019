@@ -349,7 +349,7 @@
                         <label for="developer">Developer</label>
                         <input id="developer" type="text" name="developer" class="form-control"
                                placeholder="Please enter developer's name " pattern="[A-zА-яЁё]*"
-                               data-error="">
+                               data-error="<fmt:message key="errorCountry"/>">
                         <div class="help-block with-errors" id="errorDeveloper" style="color: #b30300;"></div>
                     </div>
 
@@ -360,7 +360,7 @@
                         <label for="singer">Singer </label>
                         <input id="singer" type="text" name="singer" class="form-control singer"
                                placeholder="Please enter singer " pattern="[A-zА-яЁё]*"
-                               data-error=""
+                               data-error="<fmt:message key="errorCountry"/>"
                         >
                         <div class="help-block with-errors " id="errorSinger" style="color: #b30300;"></div>
                     </div>
@@ -369,7 +369,7 @@
                         <label for="albom">Albom</label>
                         <input id="albom" type="text" name="albom" class="form-control albom"
                                placeholder="Please enter albom's name " pattern="[A-zА-яЁё]*"
-                               data-error="">
+                               data-error="<fmt:message key="errorCountry"/>">
                         <div class="help-block with-errors" id="errorAlbom" style="color: #b30300;"></div>
                     </div>
                 </div>

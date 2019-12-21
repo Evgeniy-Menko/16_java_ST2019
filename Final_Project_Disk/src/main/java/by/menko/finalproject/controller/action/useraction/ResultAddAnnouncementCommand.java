@@ -30,13 +30,13 @@ public class ResultAddAnnouncementCommand extends UserAction {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
         try {
+            Disk disk = getDisk(request);
             UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
             String path = request.getServletContext().getResource("")
                     .getPath();
             String pathTemp = path + request.getServletContext()
                     .getInitParameter("images.dir") + "/";
             String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"), false);
-            Disk disk = getDisk(request);
             disk.setImage(pathImage);
             service.writeDisk(disk, user.getIdEntity());
             String message = String.format("User %d added announcement", user.getIdEntity());

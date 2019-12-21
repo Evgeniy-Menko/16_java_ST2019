@@ -29,6 +29,7 @@ public class AnnouncementEditResultCommand extends UserAction {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
         try {
+            Disk disk = getDisk(request);
             UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
             String idDisk = request.getParameter("id");
             String path = request.getServletContext().getResource("")
@@ -36,7 +37,6 @@ public class AnnouncementEditResultCommand extends UserAction {
             String pathTemp = path + request.getServletContext()
                     .getInitParameter("images.dir") + "/";
             String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"), true);
-            Disk disk = getDisk(request);
             disk.setIdEntity(Integer.parseInt(idDisk));
             disk.setImage(pathImage);
             service.updateDisk(disk, user);

@@ -50,6 +50,12 @@
         <filter-name>LocaleFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://menko.by/diskTableTag</taglib-uri>
+            <taglib-location>/WEB-INF/tld/DiskTable.tld</taglib-location>
+        </taglib>
+    </jsp-config>
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/Error.jsp</location>

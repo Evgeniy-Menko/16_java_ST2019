@@ -9,9 +9,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="disktable" uri="http://menko.by/diskTableTag" %>
 <c:set var="language"
        value="${not empty param.locale ? param.locale : not empty cookie['lang'].value ? cookie['lang'].value : 'en'}"/>
-<fmt:setLocale value="${language}" />
+<fmt:setLocale value="${language}"/>
 <fmt:bundle basename="text">
     <html lang="${language}">
     <head>
@@ -130,48 +131,25 @@
         </div>
 
 
-        <div class="col-lg-8 ">
-            <table class="table border " style="margin-left: 4%">
-                <thead>
-                <tr>
-                    <c:choose>
-                        <c:when test="${error!=null}">
+        <c:choose>
+            <c:when test="${error!=null}">
+                <div class="col-lg-8 ">
+                    <table class="table border " style="margin-left: 4%">
+                        <thead>
+                        <tr>
                             <th colspan="5" style="color: #b30300;text-align: center"><fmt:message key="${error}"/></th>
-                        </c:when>
-                        <c:when test="${fn:length(listDisk) == 0}">
-                            <th colspan="5" style="text-align: center">Not found</th>
-                        </c:when>
-                    </c:choose>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <disktable:diskTable disks="${requestScope.listDisk}"
+                                     path="${pageContext.request.contextPath}"/>
+            </c:otherwise>
+        </c:choose>
 
 
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Time added</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-
-
-
-                <c:forEach var="item" items="${listDisk}">
-                    <tr>
-                        <td><img src="${item.image}" alt="no image" height="100" width="100"></td>
-                        <td>${item.nameDisk}</td>
-                        <td>${item.price}</td>
-                        <td><fmt:formatDate value="${item.timeAdded}"
-                                            type="date" pattern="dd-MM-yyyy HH:mm"  /></td>
-                        <td><a href="${pageContext.request.contextPath}/showDisk.html?disk=${item.idEntity}" class="nav-link">More</a></td>
-                    </tr>
-                </c:forEach>
-
-
-                </tbody>
-            </table>
-        </div>
     </div>
 
     </body>

@@ -148,24 +148,26 @@ public class UserInfo extends Entity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         UserInfo userInfo = (UserInfo) o;
 
-        if (!firstName.equals(userInfo.firstName)) return false;
-        if (!lastName.equals(userInfo.lastName)) return false;
-        if (!nickname.equals(userInfo.nickname)) return false;
-        if (!phone.equals(userInfo.phone)) return false;
-        if (!dateRegistration.equals(userInfo.dateRegistration)) return false;
-        if (!email.equals(userInfo.email)) return false;
-        if (!image.equals(userInfo.image)) return false;
-        if (!password.equals(userInfo.password)) return false;
+        if (firstName != null ? !firstName.equals(userInfo.firstName) : userInfo.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(userInfo.lastName) : userInfo.lastName != null) return false;
+        if (nickname != null ? !nickname.equals(userInfo.nickname) : userInfo.nickname != null) return false;
+        if (phone != null ? !phone.equals(userInfo.phone) : userInfo.phone != null) return false;
+        if (dateRegistration != null ? !dateRegistration.equals(userInfo.dateRegistration) : userInfo.dateRegistration != null)
+            return false;
+        if (email != null ? !email.equals(userInfo.email) : userInfo.email != null) return false;
+        if (image != null ? !image.equals(userInfo.image) : userInfo.image != null) return false;
+        if (password != null ? !password.equals(userInfo.password) : userInfo.password != null) return false;
         if (role != userInfo.role) return false;
-        if (!flagBlocked.equals(userInfo.flagBlocked)) return false;
-        return salt.equals(userInfo.salt);
+        if (flagBlocked != null ? !flagBlocked.equals(userInfo.flagBlocked) : userInfo.flagBlocked != null)
+            return false;
+        return salt != null ? salt.equals(userInfo.salt) : userInfo.salt == null;
     }
 
     @Override
