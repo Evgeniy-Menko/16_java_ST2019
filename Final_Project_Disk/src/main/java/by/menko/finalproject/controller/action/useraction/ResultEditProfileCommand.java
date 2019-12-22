@@ -1,5 +1,6 @@
 package by.menko.finalproject.controller.action.useraction;
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.dao.exception.PersonalException;
@@ -26,6 +27,7 @@ public class ResultEditProfileCommand extends UserAction {
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
+        Map<String, String> messages = new HashMap<>();
         String oldPassword = request.getParameter("oldPassword");
         String repeatPassword = request.getParameter("password2");
         try {
@@ -40,10 +42,14 @@ public class ResultEditProfileCommand extends UserAction {
             service.updateUser(newUser, oldUser.getIdEntity(), oldPassword,repeatPassword);
             String message = String.format("user %d  update profile", oldUser.getIdEntity());
             logger.info(message);
-        } catch (ServicePersonalException e) {
-            Map<String, String> message = new HashMap<>();
-            message.put(e.getMessage(), e.getMessage());
+            messages.put("url", request.getContextPath() + ConstantsPath.MY_PROFILE);
             String json = new Gson().toJson(message);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        } catch (ServicePersonalException e) {
+            messages.put(e.getMessage(), e.getMessage());
+            String json = new Gson().toJson(messages);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

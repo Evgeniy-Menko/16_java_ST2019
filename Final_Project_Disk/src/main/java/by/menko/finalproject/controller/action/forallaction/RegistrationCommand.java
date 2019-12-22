@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.forallaction;
 
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.UserInfo;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
 import by.menko.finalproject.dao.exception.PersonalException;
@@ -30,6 +31,7 @@ public class RegistrationCommand extends ForAllAction {
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         UserService service = factory.createService(TypeServiceAndDao.USER);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
+        Map<String, String> messages = new HashMap<>();
         try {
             UserInfo user = getUser(request);
             String repeatPassword = request.getParameter("password2");
@@ -37,16 +39,21 @@ public class RegistrationCommand extends ForAllAction {
                     .getPath();
             String pathTemp = path + request.getServletContext()
                     .getInitParameter("images.dir") + "/";
-            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"),false);
+            String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"), false);
             user.setImage(pathImage);
-            user = service.registrUser(user,repeatPassword);
+            user = service.registrUser(user, repeatPassword);
             request.getSession().setAttribute("authorizedUser", user);
             String message = String.format("user \"%d\" is registered in from %s (%s:%s)", user.getIdEntity(), request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort());
             logger.info(message);
-        } catch (ServicePersonalException | IOException e) {
-            Map<String, String> message = new HashMap<>();
-            message.put(e.getMessage(), e.getMessage());
+            String pathUrl = request.getContextPath() + ConstantsPath.MY_PROFILE;
+            messages.put("url", pathUrl);
             String json = new Gson().toJson(message);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        } catch (ServicePersonalException | IOException e) {
+            messages.put(e.getMessage(), e.getMessage());
+            String json = new Gson().toJson(messages);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

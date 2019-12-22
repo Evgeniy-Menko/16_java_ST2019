@@ -1,3 +1,3 @@
 DROP DATABASE `panda_disk`;
 
-drop user IF EXISTS `panda_disk1`;
+drop user IF EXISTS `panda`;

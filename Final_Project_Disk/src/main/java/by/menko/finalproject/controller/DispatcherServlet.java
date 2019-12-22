@@ -27,9 +27,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() {
-
         ConnectionPool.getInstance();
-
     }
 
     public ServiceFactory getFactory() throws PersonalException {

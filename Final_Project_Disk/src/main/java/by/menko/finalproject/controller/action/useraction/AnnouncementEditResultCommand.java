@@ -1,6 +1,7 @@
 package by.menko.finalproject.controller.action.useraction;
 
 
+import by.menko.finalproject.controller.constantspath.ConstantsPath;
 import by.menko.finalproject.entity.*;
 import by.menko.finalproject.entity.enumtype.TypeDisk;
 import by.menko.finalproject.entity.enumtype.TypeServiceAndDao;
@@ -28,6 +29,7 @@ public class AnnouncementEditResultCommand extends UserAction {
     public void exec(final HttpServletRequest request, final HttpServletResponse response) throws PersonalException, ServletException, IOException {
         DiskService service = factory.createService(TypeServiceAndDao.DISK);
         FileService fileService = factory.createService(TypeServiceAndDao.FILE);
+        Map<String, String> messages = new HashMap<>();
         try {
             Disk disk = getDisk(request);
             UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
@@ -42,11 +44,15 @@ public class AnnouncementEditResultCommand extends UserAction {
             service.updateDisk(disk, user);
             String message = String.format("User %d update announcement %s", user.getIdEntity(), idDisk);
             logger.info(message);
+            messages.put("url", request.getContextPath() + ConstantsPath.MY_ANNOUNCEMENT);
+            String json = new Gson().toJson(message);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
         } catch (ServicePersonalException e) {
             logger.info("Incorrect value", e);
-            Map<String, String> message = new HashMap<>();
-            message.put(e.getMessage(), e.getMessage());
-            String json = new Gson().toJson(message);
+            messages.put(e.getMessage(), e.getMessage());
+            String json = new Gson().toJson(messages);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

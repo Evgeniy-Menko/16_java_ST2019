@@ -18,6 +18,7 @@ public final class ConstantsPath {
     public static final String SHOPPING_CART_PAGE = "/WEB-INF/jsp/shoppingCart.jsp";
     public static final String EDIT_ANNOUNCEMENT_PAGE = "/WEB-INF/jsp/editAnnouncement.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/jsp/Error.jsp";
+    public static final String MY_PROFILE = "/profile.html";
 
     private ConstantsPath() {
     }
