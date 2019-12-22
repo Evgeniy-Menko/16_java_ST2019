@@ -45,8 +45,7 @@ public class RegistrationCommand extends ForAllAction {
             request.getSession().setAttribute("authorizedUser", user);
             String message = String.format("user \"%d\" is registered in from %s (%s:%s)", user.getIdEntity(), request.getRemoteAddr(), request.getRemoteHost(), request.getRemotePort());
             logger.info(message);
-            String pathUrl = request.getContextPath() + ConstantsPath.MY_PROFILE;
-            messages.put("url", pathUrl);
+            messages.put("url", request.getContextPath() + ConstantsPath.MY_PROFILE);
             String json = new Gson().toJson(message);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
