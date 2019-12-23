@@ -16,17 +16,13 @@ public abstract class Entity {
     }
 
     @Override
-    public boolean equals(final Object object) {
-        if (object != null) {
-            if (object != this) {
-                if (object.getClass() == getClass() && idEntity != null) {
-                    return idEntity.equals(((Entity) object).idEntity);
-                }
-                return false;
-            }
-            return true;
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Entity entity = (Entity) o;
+
+        return idEntity != null ? idEntity.equals(entity.idEntity) : entity.idEntity == null;
     }
 
     @Override

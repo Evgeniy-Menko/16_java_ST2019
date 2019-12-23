@@ -6,8 +6,6 @@ import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.exception.ServicePersonalException;
 
 
-import java.io.IOException;
-
 public interface UserService extends Service {
     UserInfo finUserByEmail(final String email, final String password)
             throws PersonalException, ServicePersonalException;
@@ -18,5 +16,5 @@ public interface UserService extends Service {
     UserInfo getUser(final Integer identity) throws PersonalException;
 
     void updateUser(final UserInfo newUser, final Integer idEntity,
-                    final String newPassword, final String repeatPassword) throws PersonalException, ServicePersonalException;
+                    final String oldPassword, final String repeatPassword) throws PersonalException, ServicePersonalException;
 }

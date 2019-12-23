@@ -9,7 +9,6 @@ import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
 import by.menko.finalproject.service.FileService;
-import by.menko.finalproject.service.validator.DiskValidator;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

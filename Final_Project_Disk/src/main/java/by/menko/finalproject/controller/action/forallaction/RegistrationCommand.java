@@ -9,7 +9,6 @@ import by.menko.finalproject.service.exception.ServicePersonalException;
 
 import by.menko.finalproject.service.FileService;
 import by.menko.finalproject.service.UserService;
-import by.menko.finalproject.service.validator.RegistrValidator;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

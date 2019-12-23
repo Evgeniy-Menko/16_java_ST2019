@@ -7,7 +7,6 @@ import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.FileService;
 import by.menko.finalproject.service.UserService;
-import by.menko.finalproject.service.validator.ProfileValidator;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +38,7 @@ public class ResultEditProfileCommand extends UserAction {
                     .getInitParameter("images.dir") + "/";
             String pathImage = fileService.createDirAndWriteToFile(pathTemp, request.getPart("image"),true);
             newUser.setImage(pathImage);
-            service.updateUser(newUser, oldUser.getIdEntity(), oldPassword,repeatPassword);
+            service.updateUser(newUser, oldUser.getIdEntity(), oldPassword , repeatPassword);
             String message = String.format("user %d  update profile", oldUser.getIdEntity());
             logger.info(message);
             messages.put("url", request.getContextPath() + ConstantsPath.MY_PROFILE);

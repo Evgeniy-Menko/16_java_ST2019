@@ -12,7 +12,6 @@ import by.menko.finalproject.service.exception.ServicePersonalException;
 import by.menko.finalproject.service.DiskService;
 import by.menko.finalproject.service.validator.DiskValidator;
 
-import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.Optional;
 

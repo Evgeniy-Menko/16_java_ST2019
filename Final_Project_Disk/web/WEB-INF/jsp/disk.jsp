@@ -198,11 +198,11 @@
                         <textarea class="form-control" rows="5" id="comment" name="comment" title="Only leters,number and ,.!@#?:()" required></textarea>
 
                         <div class="row">
-                            <div class="col-md-5"></div>
+                            <div class="col-md-6"></div>
                             <button type="submit" class="btn  btn-primary btn-sm " id="submit1">
                                 Submit
                             </button>
-                            <button type="reset" class="btn  btn-danger btn-sm" id="reset">Reset</button>
+
                         </div>
 
                     </form>
@@ -232,7 +232,6 @@
 
                             <textarea class="form-control" rows="5" id="compl" name="complaint" title="Only leters,number and ,.!@#?:()" required></textarea>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
                     </div>
 

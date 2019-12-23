@@ -56,10 +56,6 @@ public class DiskTable extends SimpleTagSupport {
      */
     private List<Disk> disks;
 
-    /**
-     * Error message.
-     */
-    private String errorMessage;
 
     /**
      * Path to page context.
@@ -75,14 +71,6 @@ public class DiskTable extends SimpleTagSupport {
         disks = disksValue;
     }
 
-    /**
-     * Sets errorMessage.
-     *
-     * @param errorMessageValue value of errorMessage.
-     */
-    public void setErrorMessage(final String errorMessageValue) {
-        errorMessage = errorMessageValue;
-    }
 
     /**
      * Sets path.

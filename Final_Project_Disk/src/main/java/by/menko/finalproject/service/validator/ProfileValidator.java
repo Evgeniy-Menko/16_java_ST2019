@@ -5,10 +5,6 @@ import by.menko.finalproject.service.exception.ServicePersonalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
-import java.io.IOException;
 
 
 public class ProfileValidator {
