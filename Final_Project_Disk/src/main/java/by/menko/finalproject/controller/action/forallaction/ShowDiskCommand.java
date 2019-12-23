@@ -27,7 +27,7 @@ public class ShowDiskCommand extends ForAllAction {
         UserInfo user = (UserInfo) request.getSession().getAttribute("authorizedUser");
         String idDisk = request.getParameter("disk");
         Disk disk = service.getDisk(idDisk, user);
-        Map<UserInfo, Comment> mapComment = serviceComment.getComment(disk.getIdEntity());
+        Map<Comment, UserInfo> mapComment = serviceComment.getComment(disk.getIdEntity());
         if (user != null) {
             List<ShoppingCart> listShopCart = serviceShopCart.getAllDiskFromShopCart(user.getIdEntity());
             request.setAttribute("shopCart", listShopCart);

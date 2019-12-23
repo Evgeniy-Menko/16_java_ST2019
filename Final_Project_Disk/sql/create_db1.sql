@@ -1,5 +1,5 @@
 CREATE DATABASE `panda_disk` DEFAULT CHARACTER SET utf8;
-SET global time_zone = '-3:00';
+SET global time_zone = '+00:00';
 CREATE USER panda IDENTIFIED BY 'Futurama@33';
 
 

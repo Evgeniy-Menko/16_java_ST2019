@@ -154,22 +154,22 @@
 
                     <c:forEach items="${mapComment}" var="item">
                         <div class="media border p-3">
-                            <img src="${item.key.image}" alt="" class="mr-3 mt-3 rounded-circle"
+                            <img src="${item.value.image}" alt="" class="mr-3 mt-3 rounded-circle"
                                  style="width:60px;">
                             <div class="media-body">
-                                <h4>${item.key.nickname} <small><em>Posted
+                                <h4>${item.value.nickname} <small><em>Posted
                                     on
-                                    <fmt:formatDate value="${item.value.timeAdded}"
+                                    <fmt:formatDate value="${item.key.timeAdded}"
                                                     type="date" pattern="dd-MM-yyyy HH:mm"/>
 
                                 </em></small>
                                 </h4>
-                                <p>${item.value.commentText}</p>
+                                <p>${item.key.commentText}</p>
                                 <c:if
-                                        test="${item.value.idUserCommented == authorizedUser.idEntity}">
+                                        test="${item.key.idUserCommented == authorizedUser.idEntity}">
                                     <form method="post">
                                         <input type="hidden" name="disk" value="${disk.idEntity}">
-                                        <input type="hidden" name="com" value="${item.value.idEntity}">
+                                        <input type="hidden" name="com" value="${item.key.idEntity}">
                                         <p style="text-align: right">
                                             <button type="submit" class="btn btn-link"
                                                     formaction="${pageContext.request.contextPath}/deleteComment.html">

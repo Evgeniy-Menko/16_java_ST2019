@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface CatalogService extends Service {
     /**
-     * Get catalog .
+     * Get catalog (type and genre disks).
      * @return list with type and genre.
-     * @throws PersonalException .
+     * @throws PersonalException sql exception.
      */
     List<Catalog> getCatalog() throws PersonalException;
 }

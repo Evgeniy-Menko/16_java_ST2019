@@ -9,25 +9,22 @@ import by.menko.finalproject.dao.exception.PersonalException;
 import by.menko.finalproject.service.CommentService;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class CommentServiceImpl extends ServiceImpl implements CommentService {
     private static final String REGEX_SENTENCE = "^(?!\\s\\t\\n\\r*$)[A-zА-яЁё0-9,.!@#?:()_\\t\\n\\r ]*$";
 
     @Override
-    public Map<UserInfo, Comment> getComment(final Integer idDisk) throws PersonalException {
+    public Map<Comment, UserInfo> getComment(final Integer idDisk) throws PersonalException {
         try {
             CommentDao dao = transaction.createDao(TypeServiceAndDao.COMMENT);
             UserDao userDao = transaction.createDao(TypeServiceAndDao.USER);
             List<Comment> listComment = dao.readByIdDisk(idDisk);
             Optional<UserInfo> user;
-            Map<UserInfo, Comment> mapCommentAndUser = new HashMap<>();
+            Map<Comment, UserInfo> mapCommentAndUser = new LinkedHashMap<>();
             for (Comment comment : listComment) {
                 user = userDao.read(comment.getIdUserCommented());
-                user.ifPresent(userInfo -> mapCommentAndUser.put(userInfo, comment));
+                user.ifPresent(userInfo -> mapCommentAndUser.put(comment, userInfo));
             }
             transaction.commit();
             return mapCommentAndUser;

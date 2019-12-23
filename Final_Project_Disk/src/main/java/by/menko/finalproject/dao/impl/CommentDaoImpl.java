@@ -60,7 +60,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
 
         try (PreparedStatement statement = connection.prepareStatement(GET_COMMENTS)) {
             statement.setInt(1, idDisk);
-            Comment comment = null;
+            Comment comment ;
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     comment = new Comment();
